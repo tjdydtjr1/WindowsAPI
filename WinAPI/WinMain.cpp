@@ -36,6 +36,7 @@ EX)                 WinMain을 통해 시동
 //#include "WinAPI.h"
 #include <Windows.h>
 #include <tchar.h>
+#include <iostream>
 
 // 전역 변수
 /*
@@ -52,6 +53,13 @@ HWND _hWnd;
 // 윈도우 타이틀
 LPTSTR _lpszClass = TEXT("Windows API");
 //TCHAR* pszString = _T("Windows API");
+int danX = 10;
+int danY = 100;
+int Y = 0;
+int dan = 1;
+char test[30];
+
+RECT rect;
 
 /*
 유니코드 : 모든 언어 2Byte 처리
@@ -138,7 +146,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     wndClass.lpszMenuName = NULL;
     // 윈도우 스타일 (다시 그리기 정보)
     wndClass.style = CS_HREDRAW | CS_VREDRAW;
-    
 
     // 1-2. 윈도우 클래스 등록
     RegisterClass(&wndClass);
@@ -187,6 +194,22 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     ㄴ 메세지가 없더라도 반환 되는 함수
     */
     
+    // 기본적인 PeekMessage 방식
+    // 여기에 고성능 타이머를 탑재해야함 c++은 가능
+    while (true)
+    {
+        // PM_REMOVE = 1을 16진수로 바꿔놓음 int형은 너무 크기 때문
+        if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+        {
+            if (message.message == WM_QUIT)
+            {
+                break;
+            }
+            TranslateMessage(&message);
+            DispatchMessage(&message);
+        }
+    } 
+
     // OS와 소통하기 위해 MSG가 있다.
     while (GetMessage(&message, 0, 0, 0))
     {
@@ -209,6 +232,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     return message.wParam;
 }
 // =====================================================================
+// CALLBACK 함수
 // 컴파일러와 별개로 작동 (프로그램 이상 시 보호를 위해)
 // 실수가 있어도 프로그램은 작동할 수 있다. => 1. 오타 2. 문법 에러
 
@@ -236,10 +260,121 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     - 위 내용은 반드시 기억할것
     */
 
+    // 핸들 DC => GDI(그래픽 드라이버 인터페이스)를 항상 떠오르자
+    // GDI(회전x) => GDI+ (GDI 단점보완 -> jpg,png 사용가능 회전은 되지만 프레임잡기 힘듬)
+    // ㄴ BMP (비트맵) -> 윈도우가 가장 선호하는 포맷형식
+    // DW -> Drp
+    
+    // WinAPI 필수
+    HDC hdc;
+    // 페인트 구조체
+    PAINTSTRUCT ps;
+
+    //char str[] = "그래";
+    /*
+    char[] : 수정 가능
+    char*  : 수정 불가능
+    */
 
     switch (iMessage)
     {
     case WM_CREATE:             // 생성자 
+        break;
+
+    case WM_PAINT:              // 출력에 관한 모든것을 담당한다. (문자, 그림, 도형등 화면에 보이는 모든것)
+        
+        /*
+        strcpy(x, y) : y를 x에 복사
+        strcat(x, y) : x 문자열 + y 문자열
+        strlen(x, y) : 문자열 길이
+        strcmp(x, y) : 두 문자열이 같은지 확인
+        ㄴ x, y 동일 => 0 리턴
+        ㄴ x < y     => -1 리턴
+        ㄴ x > y     => 1 리턴
+
+        멀티바이트      유니코드       컴파일러가 알아서
+        strcpy      -> wcscpy   ->    _tcscpy       => 복사
+        strcat      -> wcscat   ->    _tcscat       => 이어붙히기
+        strlen      -> wcslen   ->    _tcslen       => 길이
+        strcmp      -> wcscmp   ->    _tcscmp       => 비교
+        strtok      -> wcstok   ->    _tcstok       => 자르기
+        strchr      -> wcschr   ->    _tcschr       => 문자 찾기
+        strstr      -> wcsstr   ->    _tcsstr       => 문자열 찾기
+        */
+        // 데카르트 좌표(좌하단) != 윈도우 좌표계(좌상단)
+
+        //// TextOut : 문자 출력(hdc, x, y, 문자열, 문자열 길이)
+        //TextOut(hdc, 300, 300, "과제가 너무 재밌다", strlen("과제가 너무 재밌다"));
+        //// ㄴ strlen는 할당받은 메모리에 바인딩 된 문자열에서 NULL값을 제외한 문자열 길이
+        //
+        //// 문자열 글자색 변경
+        //SetTextColor(hdc, RGB(255, 0, 0));
+        //TextOut(hdc, 300, 400, "과제 좀 더 내주세요.", strlen("과제 좀 더 내주세요."));
+
+        hdc = BeginPaint(hWnd, &ps);
+       /* MoveToEx(hdc, 10, 10, NULL);
+        LineTo(hdc, 20, 10);
+
+        MoveToEx(hdc, 400, 400, NULL);
+        LineTo(hdc, 200, 200);
+*/
+        EndPaint(hWnd, &ps);
+        break;
+
+        // 마우스 왼쪽버튼이 눌렸을 때 메세지 발생
+    case WM_LBUTTONDOWN:
+        // WM_PAINT가 아니기에 GetDC를 사용하여 가져온다.
+        hdc = GetDC(hWnd);
+        ++dan;
+        danY = 85;
+        if (dan == 5)
+        {
+            danX = 10;
+            Y = 160;
+        }
+        else if (dan == 8)
+        {
+            danX = 10;
+            Y = 320;
+        }
+        if (0 < dan && dan < 10)
+        {
+            for (int i = 1; i < 10; ++i)
+            {
+                sprintf_s(test, "%d x %d = %d", dan, i, dan * i);
+                TextOut(hdc, danX, danY + Y, test, strlen(test));
+                danY += 15;
+            }
+            danX += 120;
+            // 사용후 DC 해제
+            ReleaseDC(hWnd, hdc);
+        }
+        break;
+
+    case WM_RBUTTONDOWN:
+        if (0 < dan)
+        {
+            dan -= 2;
+        }
+        rect = { danX - 120, danY - 85, danX , danY };
+        InvalidateRect(hWnd, &rect, true);
+        
+        break;
+
+    case WM_KEYDOWN:
+
+        switch (wParam)
+        {
+        case VK_LEFT:
+           
+            break;
+        case VK_RIGHT:
+            break;
+        case VK_ESCAPE:
+            PostMessage(hWnd, WM_DESTROY, 0, 0);
+            break;
+
+        }
         break;
 
     case WM_DESTROY:            // 소멸자
@@ -253,18 +388,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     return (DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
 
-/*
-과제1. 윈도우 창 만들기
 
-- 시간은 10분
-
-- 실패시 깜지 7번
-
-한줄 조사. 노트에 열심히 적는다.
-
-- Callback Function, DC, GetDC / Release DC, <- 얕게 void 포인터, 델리게이트, DC에서는 렌더링 나오면 탈출
-BeginPaint / EndPaint, WM_PAINT , PAINTSTRUCT
-
-
-
-*/
