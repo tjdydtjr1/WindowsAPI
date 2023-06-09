@@ -16,6 +16,15 @@
     <Filter Include="과제">
       <UniqueIdentifier>{ae14a591-aace-49b6-ab01-ba4d24aeef32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="정리">
+      <UniqueIdentifier>{963945b7-c728-45ad-a3a5-6b007f94eb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="과제\23.06.09 과제">
+      <UniqueIdentifier>{788f6511-6d61-4587-9cce-5a3588a876f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="과제\23.06.08 과제">
+      <UniqueIdentifier>{96a31acc-9b10-477f-beaa-4cddd28e507e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -35,8 +44,32 @@
     <ClCompile Include="WinMain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="23.06.08_기본 구.cpp">
+      <Filter>정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.09_충돌 PAINT.cpp">
+      <Filter>정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.09.cpp">
+      <Filter>과제\23.06.09 과제</Filter>
+    </ClCompile>
     <ClCompile Include="과제.cpp">
-      <Filter>과제</Filter>
+      <Filter>과제\23.06.08 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.08_이름 출력.cpp">
+      <Filter>과제\23.06.08 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="오망성.cpp">
+      <Filter>과제\23.06.09 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="애플로고.cpp">
+      <Filter>과제\23.06.09 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="사각형이동.cpp">
+      <Filter>과제\23.06.09 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="사각형2개움직이기.cpp">
+      <Filter>과제\23.06.09 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
