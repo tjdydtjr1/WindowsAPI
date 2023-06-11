@@ -64,10 +64,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-	//과제1.오망성 출력
-	//	- 오망성을 마법진처럼 만들어 온다.
-	//	- 양식은 자유지만 본인이 생각했을 때 가장 효율적인 방법으로
-	//	ㄴ 특히 배열은 무조건 사용해 본다.
+	
 
 	HDC hdc;
 	PAINTSTRUCT ps;
@@ -91,7 +88,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		}
 
 		// =====================================================
-		for (int i = 0; i < 395; ++i)
+	/*	for (int i = 0; i < 395; ++i)
 		{
 			SetPixel(hdc, 106 + i, 249, RGB(255, 0, 0));
 		}
@@ -99,7 +96,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		for (int i = 0; i < 200; ++i)
 		{
 			SetPixel(hdc, first[1].m_x, first[1].m_y, RGB(0,255,0));
-		}
+		}*/
 
 		// 오망성 좌표
 		/*LineTo(hdc, 493, 250);

@@ -75,7 +75,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		{
 			for (int j = 0; j < 500; ++j)
 			{
-				SetPixel(hdc, 100 + j, 100 + i, RGB(0, 255, 0));
+				SetPixel(hdc, 100 + j, 100 + i, RGB(0, 128, 0));
 			}
 		}
 		LineTo(hdc, 600, 200);
@@ -147,12 +147,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 		}
 		////////////////////////////////////////////
-		// ½°Ç¥
-		//Ellipse(hdc, 500, 200, 800, 500);
-
-		//SetPixel(hdc, Ellipse(hdc, 500, 200, 800, 500), Ellipse(hdc, 300, 300, 400, 400), RGB(255, 0, 0));
+	
+		// È£ ±×¸®±â
 		//Arc(hdc, 50, 10, 150, 150, 200, 150, 150, 150);
 		Arc(hdc, 100, 50, 600, 800, 200, 50, 100, 800);
+		
+		// ¿ÞÂÊ »ó´Ü
 		for (int i = 0; i < 100; ++i)
 		{
 			for (int j = 0; j < 120; ++j)
@@ -160,6 +160,64 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				SetPixel(hdc, 100 + j - i, 100 + i, RGB(255, 255, 255));
 			}
 		}
+		for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 50; ++j)
+			{
+				SetPixel(hdc, 100 + j - i, 200 + i, RGB(255, 255, 255));
+			}
+		}
+		// ¿ÞÂÊ ÇÏ´Ü
+		for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 80; ++j)
+			{
+				SetPixel(hdc, 100 + j - i, 700 - i, RGB(255, 255, 255));
+			}
+		}
+		// =========================================
+		for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				SetPixel(hdc, 100 + j, 500 + i, RGB(255, 255, 255));
+			}
+		}
+
+		/*for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				SetPixel(hdc, 100 + j, 520 + i, RGB(255, 255, 255));
+			}
+		}
+		for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				SetPixel(hdc, 100 + j, 530 + i, RGB(255, 255, 255));
+			}
+		}
+		for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				SetPixel(hdc, 100 + j, 540 + i, RGB(255, 255, 255));
+			}
+		}
+		for (int i = 0; i < 100; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				SetPixel(hdc, 100 + j, 550 + i, RGB(255, 255, 255));
+			}
+		}*/
+		//Ellipse(hdc, 100, 100, 400, 400);
+		//Ellipse(hdc, 300, 100, 600, 400);
+
+		
+		// ½°Ç¥
+		//Ellipse(hdc, 500, 200, 800, 500);
 		EndPaint(hWnd, &ps);
 
 		break;
