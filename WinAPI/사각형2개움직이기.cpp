@@ -108,7 +108,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				rc2.bottom = 110;
 				bottom2 = 0;
 			}
-			hdc = GetDC(hWnd);
 			
 			if ((rc.top + top >= rc2.bottom + bottom2	// 상하단
 				|| rc2.bottom + bottom2 >= rc.bottom + bottom)
@@ -123,15 +122,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			bottom -= 5;
 
 			InvalidateRect(hWnd, NULL, true);
-
-			ReleaseDC(hWnd, hdc);
 			break;
 		case VK_DOWN:
 			if (rc.bottom + bottom > 750 || rc2.top + top2 > 750)
 			{
 				break;
 			}
-			hdc = GetDC(hWnd);
 			
 			if ((rc2.top + top2 <= rc.bottom + bottom	// 상하단
 				|| rc2.bottom + bottom2 > rc.top + top)
@@ -146,15 +142,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			bottom += 5;
 			InvalidateRect(hWnd, NULL, true);
 
-			ReleaseDC(hWnd, hdc);
-
 			break;
 		case VK_LEFT:
 			if (rc.left + left < 10 || rc2.left < 10)
 			{
 				break;
 			}
-			hdc = GetDC(hWnd);
 
 			if (rc2.right + right2 == rc.left + left
 				&& rc2.top + top2 < rc.bottom + bottom
@@ -168,14 +161,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			left -= 5;
 			right -= 5;
 			InvalidateRect(hWnd, NULL, true);
-			ReleaseDC(hWnd, hdc);
 			break;
 		case VK_RIGHT:
 			if (rc.right + right > 780 || rc2.right > 780)
 			{
 				break;
 			}
-			hdc = GetDC(hWnd);
 			
 			if (rc.right + right >= rc2.left + left2
 				&& rc.top + top < rc2.bottom + bottom2
@@ -190,8 +181,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			right += 5;
 			InvalidateRect(hWnd, NULL, true);
 			
-
-			ReleaseDC(hWnd, hdc);
 			break;
 
 		case VK_ESCAPE:
