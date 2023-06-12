@@ -96,17 +96,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_UP:
-			if (rc.top + top < 10 && rc.top + top <= rc2.bottom + bottom2)
+			if (rc.top + top < 20)
 			{
-				break;
+				rc.top = 20;
+				top = 0;
+				rc.bottom = rc.top + 100;
+				bottom = 0;
 			}
-			if (rc2.top + top2 <= 10)
+			if (rc2.top + top2 < 20)
 			{
-				rc2.top = 10;
-				top2 = 10;
-
-				rc2.bottom = 110;
-				bottom2 = 0;
+				rc2.top = 20;
+				top = 0;
+				rc2.top = rc2.top + 100;
+				bottom = 0;
 			}
 			
 			if ((rc.top + top >= rc2.bottom + bottom2	// 상하단
@@ -124,9 +126,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			InvalidateRect(hWnd, NULL, true);
 			break;
 		case VK_DOWN:
-			if (rc.bottom + bottom > 750 || rc2.top + top2 > 750)
+			if (rc.bottom + bottom > 750)
 			{
-				break;
+				rc.bottom = 750;
+				bottom = 0;
+				rc.top = rc.bottom - 100;
+				top = 0;
+			}
+			if (rc2.bottom + bottom2 > 750)
+			{
+				rc2.bottom = 750;
+				bottom = 0;
+				rc2.top = rc2.bottom - 100;
+				top = 0;
 			}
 			
 			if ((rc2.top + top2 <= rc.bottom + bottom	// 상하단
@@ -144,9 +156,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 			break;
 		case VK_LEFT:
-			if (rc.left + left < 10 || rc2.left < 10)
+			if (rc.left + left < 20)
 			{
-				break;
+				rc.left = 20;
+				left = 0;
+				rc.right = rc.left + 100;
+				right = 0;
+			}
+			if (rc2.left + left2 < 20)
+			{
+				rc2.left = 20;
+				left2 = 0;
+				rc2.right = rc2.left + 100;
+				right2 = 0;
 			}
 
 			if (rc2.right + right2 == rc.left + left
@@ -163,9 +185,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			InvalidateRect(hWnd, NULL, true);
 			break;
 		case VK_RIGHT:
-			if (rc.right + right > 780 || rc2.right > 780)
+			if (rc.right + right > 780)
 			{
-				break;
+				rc.right = 780;
+				right = 0;
+				rc.left = rc.right - 100;
+				left = 0;
+			}
+			if (rc2.right + right2 > 780)
+			{
+				rc2.right = 780;
+				right2 = 0;
+				rc2.left = rc2.right - 100;
+				left2 = 0;
 			}
 			
 			if (rc.right + right >= rc2.left + left2
@@ -183,6 +215,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			
 			break;
 
+		case VK_SPACE:
+			left = 0;
+			left2 = 0;
+			right = 0;
+			right2 = 0;
+			top = 0;
+			top2 = 0;
+			bottom = 0;
+			bottom2 = 0;
+			InvalidateRect(hWnd, NULL, true);
+			break;
 		case VK_ESCAPE:
 			PostMessage(hWnd, WM_DESTROY, 0, 0);
 		default:

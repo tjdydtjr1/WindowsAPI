@@ -31,12 +31,7 @@ EX)                 WinMain을 통해 시동
 
 // WinAPI.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
-
-//#include "framework.h"
-//#include "WinAPI.h"
-#include <Windows.h>
-#include <tchar.h>
-#include <iostream>
+#include "Stdafx.h"
 
 // 전역 변수
 /*
@@ -46,6 +41,9 @@ EX)                 WinMain을 통해 시동
 - 클래스가 메모리에 실제로 구현된 실체
 ㄴ 실행되고 있는 각각의 프로그램들
 */
+
+RECT rc;
+
 HINSTANCE _hInstance;
 // 윈도우 핸들 (윈도우 창)
 HWND _hWnd;
@@ -106,14 +104,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                        TCHAR*     lpszCmdParam,
                        int       nCmdShow)
 */
-
-// 사각형 중심점에 만들기
-RECT RectMakeCenter(int x, int y, int width, int height)
-{
-    RECT rc = { x - width / 2, y - height / 2, x + width / 2, y + height / 2 };
-
-    return rc;
-}
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -240,29 +230,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     HDC hdc;
     PAINTSTRUCT ps;
 
-    RECT rc = { 100,100,200,200 };
  
     switch (iMessage)
     {
     case WM_CREATE:             // 생성자 
+        rc = RectMakeCenter( 400, 400, 100, 100 );
         break;
 
     case WM_PAINT:              // 출력에 관한 모든것을 담당한다. (문자, 그림, 도형등 화면에 보이는 모든것)
        
         hdc = BeginPaint(hWnd, &ps);
-        SetPixel(hdc, 300, 200, RGB(255, 0, 0));
-
-        for (int i = 0; i < 10000; ++i)
-        {
-            SetPixel(hdc, rand() % 800, rand() % 800, RGB(rand() % 255, rand() % 255, rand() % 255));
-        }
-
-        // 원 그리기
-        Ellipse(hdc, 300, 100, 200, 200);
-        // 사각형 그리기
-        Rectangle(hdc, 100, 100, 200, 200);
-        // 확장성을 위한 변수를 사용하자.
         Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+        //DrawRectMake(hdc, rc);
 
  
         EndPaint(hWnd, &ps);

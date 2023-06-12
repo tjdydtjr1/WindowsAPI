@@ -23,12 +23,11 @@
 
 */
 
-#include <Windows.h>
-#include <tchar.h>
+#include "Stdafx.h"
 
 HINSTANCE _hInstance;
 HWND _hWnd;
-LPTSTR _lpszClass = TEXT("6월 9일 과제");
+LPTSTR _lpszClass = TEXT(" ");
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
