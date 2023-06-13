@@ -1,10 +1,14 @@
 
 #include "Stdafx.h"
 
+
 HINSTANCE _hInstance;
 HWND _hWnd;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+// 시간
+std::chrono::milliseconds timeMilli;
 
 // 사각형 4개
 RECT rcA = { 0 };
@@ -12,6 +16,7 @@ RECT rcB = { 0 };
 RECT rcC = { 0 };
 RECT rcD = { 0 };
 
+// 각 사각형 좌표 저장
 RECT rc_1 = { 0 };
 RECT rc_2 = { 0 };
 RECT rc_3 = { 0 };
@@ -80,6 +85,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_CREATE:
+		// 초기 좌표값
 		rcA = RectMake(100, 300, 100, 100);
 		rcB = RectMake(300, 100, 100, 100);
 		rcC = RectMake(300, 500, 100, 100);
@@ -145,16 +151,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcD.top = rc_4.top + (mousePT.y - movePT.y);
 			rcD.bottom = rc_4.bottom + (mousePT.y - movePT.y);
 		}
-
+		
 		// 충돌 체크
 		// A -> B UP
-		if (rcA.top <= rcB.bottom
+		if (rcA.top < rcB.bottom
 			&& rcA.left < rcB.right
 			&& rcA.right > rcB.left
-			&& rcA.bottom >= rcB.top)
+			&& rcA.bottom > rcB.top)
 		{
-			rcB.top -= 15;
-			rcB.bottom -= 15;
+			rcB.top -= 1;
+			rcB.bottom -= 1;
 		}
 		// A -> B DOWN
 		else if (rcA.top <= rcB.bottom
@@ -162,8 +168,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			&& rcA.right > rcB.left
 			&& rcA.bottom >= rcB.top)
 		{
-			rcB.top += 15;
-			rcB.bottom += 15;
+			rcB.top += 1;
+			rcB.bottom += 1;
 		}
 		// A -> B RIGHT
 		else if (rcB.top < rcA.bottom

@@ -98,11 +98,3 @@ extern POINT			_ptMouse;
 #define WINMYNAME(p)				(LPTSTR)(TEXT(p))
 #define RECTCENTER_X(p)				(p.left + p.right) / 2
 #define RECTCENTER_Y(p)				(p.top + p.bottom) / 2
-
-enum class InputKey
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-};

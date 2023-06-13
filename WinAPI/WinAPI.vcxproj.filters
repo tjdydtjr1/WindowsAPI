@@ -113,6 +113,9 @@
     <ClCompile Include="사각형 4단 밀기.cpp">
       <Filter>과제\23.06.13 과제</Filter>
     </ClCompile>
+    <ClCompile Include="디자인패턴.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">
