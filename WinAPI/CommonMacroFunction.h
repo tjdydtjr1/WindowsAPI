@@ -53,9 +53,27 @@ inline void EllipseMakeCenter(HDC hdc, int x, int y, int width, int height)
 	Ellipse(hdc, x - width / 2, y - height / 2, x + width / 2, y + height / 2);
 }
 
+//inline RECT Colision(RECT rc, InputKey key)
+//{
+//
+//}
+
+
+
+
 //RECT RectInnerCenter(RECT* rcX, RECT* rcY, int width, int height)
 //{
 //	RECT rect = RectMakeCenter(rcX->left + 50, rcY->top + 50, width, height);
 //	return rect;
 //	
+//}
+
+//
+//int RectCenterX(RECT rc)
+//{
+//	return ((rc.left + rc.right) / 2);
+//}
+//int RectCenterY(RECT rc)
+//{
+//	return ((rc.top + rc.bottom) / 2);
 //}

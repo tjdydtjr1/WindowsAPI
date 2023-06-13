@@ -1,11 +1,20 @@
+
 #include "Stdafx.h"
+#include <list>
+
+using std::list;
 
 HINSTANCE _hInstance;
 HWND _hWnd;
-
-LPTSTR _lpszClass = TEXT("6.12 과제 : 사각형 영혼 밀어 넣기 2");
+LPTSTR _lpszClass = TEXT("06.12 과제 : 사각형 리스트 ");
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+// 전역 변수
+
+list<RECT> listRc;
+
+list<RECT>::iterator iterRc = listRc.begin();
 
 RECT rc;
 RECT rcB;
@@ -13,7 +22,7 @@ RECT rcC;
 
 bool rect = true;
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd, int nCmdShow)
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd, int nCmdShow)
 {
 	_hInstance = hInstance;
 
@@ -28,7 +37,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd, 
 	wndClass.lpfnWndProc = (WNDPROC)WndProc;
 	wndClass.lpszClassName = _lpszClass;
 	wndClass.lpszMenuName = NULL;
-	wndClass.style = CS_VREDRAW | CS_HREDRAW;
+	wndClass.style = CS_HREDRAW | CS_VREDRAW;
 
 	RegisterClass(&wndClass);
 
@@ -71,63 +80,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		rc = RectMake(100, 200, 100, 100);
 		rcB = RectMake(400, 200, 100, 100);
 		rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
+		
+		listRc.push_back(rc);
+		listRc.push_back(rcB);
+		listRc.push_back(rcC);
+		break;
 
+	case WM_DESTROY:
+		PostQuitMessage(0);
 		break;
 
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		if (rect)
 		{
-			if (rc.bottom < rcC.bottom)
-			{
-				rcC.top = rc.top + 50;
-				rcC.bottom = rc.bottom;
-
-			}
-			else if (rc.left > rcC.left)
-			{
-				rcC.right = rc.right - 50;
-				rcC.left = rc.left;
-			}
-			else if (rc.right < rcC.right)
-			{
-				rcC.left = rc.left + 50;
-				rcC.right = rc.right;
-			}
-			else if (rc.top > rcC.top)
-			{
-				rcC.bottom = rc.bottom - 50;
-				rcC.top = rc.top;
-			}
+			rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
+			
+			DrawRectMake(hdc, *iterRc);
 		}
 		else if (rect == false)
 		{
-			if (rcB.bottom < rcC.bottom)
-			{
-				rcC.top = rcB.top + 50;
-				rcC.bottom = rcB.bottom;
+			rcC = RectMakeCenter(rcB.left + 50, rcB.top + 50, 50, 50);
+			DrawRectMake(hdc, *(iterRc));
 
-			}
-			else if (rcB.left > rcC.left)
-			{
-				rcC.right = rcB.right - 50;
-				rcC.left = rcB.left;
-			}
-			else if (rcB.right < rcC.right)
-			{
-				rcC.left = rcB.left + 50;
-				rcC.right = rcB.right;
-			}
-			else if (rcB.top > rcC.top)
-			{
-				rcC.bottom = rcB.bottom - 50;
-				rcC.top = rcB.top;
-			}
 		}
-
-		DrawRectMake(hdc, rc);
-		DrawRectMake(hdc, rcB);
-		DrawRectMake(hdc, rcC);
+		
 
 		EndPaint(hWnd, &ps);
 		break;
@@ -136,6 +113,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_UP:
+
 			if (rect)
 			{
 				if (rc.top <= rcB.bottom
@@ -146,7 +124,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = false;
 					rc.top += 15;
 					rc.bottom += 15;
-					rcC = RectMakeCenter(rcB.left + 50, rcB.top + 50, 50, 50);
 				}
 				else
 				{
@@ -164,8 +141,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = true;
 					rcB.top += 15;
 					rcB.bottom += 15;
-					rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -175,9 +150,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 			InvalidateRect(hWnd, NULL, true);
 
-			break;
 
+			break;
 		case VK_DOWN:
+
+
 			if (rect)
 			{
 				if (rc.top <= rcB.bottom
@@ -188,8 +165,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = false;
 					rc.bottom += -15;
 					rc.top += -15;
-					rcC = RectMakeCenter(rcB.left + 50, rcB.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -207,8 +182,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = true;
 					rcB.bottom += -15;
 					rcB.top += -15;
-					rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -219,9 +192,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 
 			InvalidateRect(hWnd, NULL, true);
-			break;
 
+			break;
 		case VK_LEFT:
+
 			if (rect)
 			{
 				if (rcB.top < rc.bottom
@@ -232,8 +206,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = false;
 					rc.left += 15;
 					rc.right += 15;
-					rcC = RectMakeCenter(rcB.left + 50, rcB.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -252,8 +224,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = true;
 					rcB.left += 15;
 					rcB.right += 15;
-					rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -262,11 +232,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				}
 
 			}
+
 			InvalidateRect(hWnd, NULL, true);
 
 			break;
-
 		case VK_RIGHT:
+
 			if (rect)
 			{
 				if (rcB.top < rc.bottom
@@ -277,8 +248,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = false;
 					rc.right += -15;
 					rc.left += -15;
-					rcC = RectMakeCenter(rcB.left + 50, rcB.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -297,8 +266,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 					rect = true;
 					rcB.right += -15;
 					rcB.left += -15;
-					rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
-
 				}
 				else
 				{
@@ -310,25 +277,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			InvalidateRect(hWnd, NULL, true);
 
 			break;
-		case VK_SPACE:
-			rc = RectMake(100, 200, 100, 100);
-			rcB = RectMake(400, 200, 100, 100);
-			rcC = RectMakeCenter(rc.left + 50, rc.top + 50, 50, 50);
-			InvalidateRect(hWnd, NULL, true);
-			break;
+
 		case VK_ESCAPE:
 			PostMessage(hWnd, WM_DESTROY, 0, 0);
 			break;
-
 		default:
 			break;
 		}
 		break;
-
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-
 	default:
 		break;
 	}

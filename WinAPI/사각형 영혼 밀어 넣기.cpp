@@ -10,7 +10,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 // 전역 변수
 
 
-RECT rcA;
+RECT rc;
 RECT rcB;
 RECT rcC;
 
@@ -71,7 +71,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_CREATE:
-		rcA = RectMake(100, 200, 100, 100);
+		rc = RectMake(100, 200, 100, 100);
 		rcB = RectMake(400, 200, 100, 100);
 		//rcC = RectInnerCenter(&rcA, &rcA, 50, 50);
 		break;
@@ -83,13 +83,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		hdc = BeginPaint(hWnd, &ps);
 		if (rect)
 		{
-			rcC = RectMakeCenter(rcA.left + 50 , rcA.top + 50, 50, 50);
+			rcC = RectMakeCenter(rc.left + 50 , rc.top + 50, 50, 50);
 		}
 		else if (rect == false)
 		{
 			rcC = RectMakeCenter(rcB.left + 50, rcB.top + 50, 50, 50);
 		}
-		DrawRectMake(hdc, rcA);
+		DrawRectMake(hdc, rc);
 		DrawRectMake(hdc, rcB);
 		DrawRectMake(hdc, rcC);
 
@@ -103,27 +103,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			
 			if (rect)
 			{
-				if (rcA.top <= rcB.bottom
-					&& rcA.left < rcB.right
-					&& rcA.right > rcB.left
-					&& rcA.bottom >= rcB.top)
+				if (rc.top <= rcB.bottom
+					&& rc.left < rcB.right
+					&& rc.right > rcB.left
+					&& rc.bottom >= rcB.top)
 				{
 					rect = false;
-					rcA.top += 15;
-					rcA.bottom += 15;
+					rc.top += 15;
+					rc.bottom += 15;
 				}
 				else
 				{
-					rcA.top += -5;
-					rcA.bottom += -5;
+					rc.top += -5;
+					rc.bottom += -5;
 				}
 			}
 			else if (rect == false)
 			{
-				if (rcB.top <= rcA.bottom
-					&& rcB.left < rcA.right
-					&& rcB.right > rcA.left
-					&& rcB.bottom >= rcA.top)
+				if (rcB.top <= rc.bottom
+					&& rcB.left < rc.right
+					&& rcB.right > rc.left
+					&& rcB.bottom >= rc.top)
 				{
 					rect = true;
 					rcB.top += 15;
@@ -144,27 +144,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			
 			if (rect)
 			{
-				if (rcA.top <= rcB.bottom
-					&& rcA.left < rcB.right
-					&& rcA.right > rcB.left
-					&& rcA.bottom >= rcB.top)
+				if (rc.top <= rcB.bottom
+					&& rc.left < rcB.right
+					&& rc.right > rcB.left
+					&& rc.bottom >= rcB.top)
 				{
 					rect = false;
-					rcA.bottom += -15;
-					rcA.top += -15;
+					rc.bottom += -15;
+					rc.top += -15;
 				}
 				else
 				{
-					rcA.bottom += 5;
-					rcA.top += 5;
+					rc.bottom += 5;
+					rc.top += 5;
 				}
 			}
 			else if (rect == false)
 			{
-				if (rcB.top <= rcA.bottom
-					&& rcB.left < rcA.right
-					&& rcB.right > rcA.left
-					&& rcB.bottom >= rcA.top)
+				if (rcB.top <= rc.bottom
+					&& rcB.left < rc.right
+					&& rcB.right > rc.left
+					&& rcB.bottom >= rc.top)
 				{
 					rect = true;
 					rcB.bottom += -15;
@@ -185,28 +185,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 			if (rect)
 			{
-				if (rcB.top < rcA.bottom
-					&& rcA.left <= rcB.right
-					&& rcA.right >= rcB.left
-					&& rcB.bottom > rcA.top)
+				if (rcB.top < rc.bottom
+					&& rc.left <= rcB.right
+					&& rc.right >= rcB.left
+					&& rcB.bottom > rc.top)
 				{
 					rect = false;
-					rcA.left += 15;
-					rcA.right += 15;
+					rc.left += 15;
+					rc.right += 15;
 				}
 				else
 				{
-					rcA.left += -5;
-					rcA.right += -5;
+					rc.left += -5;
+					rc.right += -5;
 				}
 				
 			}
 			else if (rect == false)
 			{
-				if (rcA.top < rcB.bottom
-					&& rcA.left <= rcB.right
-					&& rcA.right >= rcB.left
-					&& rcA.bottom > rcB.top)
+				if (rc.top < rcB.bottom
+					&& rc.left <= rcB.right
+					&& rc.right >= rcB.left
+					&& rc.bottom > rcB.top)
 				{
 					rect = true;
 					rcB.left += 15;
@@ -227,28 +227,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			
 			if (rect)
 			{
-				if (rcB.top < rcA.bottom
-					&& rcA.left <= rcB.right
-					&& rcA.right >= rcB.left
-					&& rcB.bottom > rcA.top)
+				if (rcB.top < rc.bottom
+					&& rc.left <= rcB.right
+					&& rc.right >= rcB.left
+					&& rcB.bottom > rc.top)
 				{
 					rect = false;
-					rcA.right += -15;
-					rcA.left += -15;
+					rc.right += -15;
+					rc.left += -15;
 				}
 				else
 				{
-					rcA.right += 5;
-					rcA.left += 5;
+					rc.right += 5;
+					rc.left += 5;
 				}
 				
 			}
 			else if (rect == false)
 			{
-				if (rcA.top < rcB.bottom
-					&& rcA.left <= rcB.right
-					&& rcA.right >= rcB.left
-					&& rcA.bottom > rcB.top)
+				if (rc.top < rcB.bottom
+					&& rc.left <= rcB.right
+					&& rc.right >= rcB.left
+					&& rc.bottom > rcB.top)
 				{
 					rect = true;
 					rcB.right += -15;

@@ -1,109 +1,18 @@
-// WinmAin
-
-#pragma region WinAPI
-/*
-=> API
-
-- 운영체제가 응용 프로그램 개발을 위해 제공하는 함수의 집합
-- 명령어의 집합으로 어플리케이션 프로그램에서 오퍼레이팅 시스템의 기본적인 기능을
-  사용할 필요가 있을 경우 API에서 명령어 호출이 진행된다.
-
-EX)                 WinMain을 통해 시동
-하드웨어 --------- 운영체제 (Windows) -------------------응용 프로그램
-( API 함수 )     <- 운영체제가 API 호출을 통해 알려줌     <- 장치들 정보 요청
-
--> 장점
-- 운영체제가 같으면 같은 기능의 집합을 사용하기에 
-  확장성, 연동성 및 유지보수면에서 유리하다. (윈도우즈 != 리눅스)
-- 운영체제에 종속되기 때문에 개발 확장성이 아주 좋다. (게임)
-=> Windows API 가 Root가 되어 외부 라이브러리로 가져와 부족한 기능을 채울 수 있다.
-
--> 단점
-- 플랫폼에 고착화
-  ㄴ C 언어 개발
-
-=> API 구조
-- 크게 진입점과 메세지 루프, Windows Procedure로 나뉜다.
-
-*/
-#pragma endregion
-
-
-// WinAPI.cpp : 애플리케이션에 대한 진입점을 정의합니다.
-//
 #include "Stdafx.h"
 
-// 전역 변수
-/*
-=> 인스턴스
-- 윈도우 OS가 현재 실행되고 있는 프로그램을 확인하기 위한 값
-- 기본적으로 같은 프로그램이면 같은 인스턴스 값을 가진다.
-- 클래스가 메모리에 실제로 구현된 실체
-ㄴ 실행되고 있는 각각의 프로그램들
-*/
-
-RECT rc;
-
 HINSTANCE _hInstance;
-// 윈도우 핸들 (윈도우 창)
 HWND _hWnd;
-// TEXT _T 준수모드를 끄면 빨간 줄 사라짐
-// 윈도우 타이틀
-LPTSTR _lpszClass = TEXT("Windows API");
-//TCHAR* pszString = _T("Windows API");
-int danX = 10;
-int danY = 100;
-int Y = 0;
-
-int dan = 1;
-char test[30];
-int name = 0;
+POINT _ptMouse = { 0,0 };
 
 
-
-/*
-유니코드 : 모든 언어 2Byte 처리
-멀티바이트 : 영어 1Byte 한글 2Byte -> 영어에 최적화
-
-=> TCHAR
-- TCHAR형은 프로젝트의 문자셋 설정에 따라 자동적으로 char 또는 wchar_t로 Type_Casting
-  되는 중간 매크로 자료형
-- 멀티 바이트와 유니 코드 환경에서 별도의 수정 작업 없이 프로그램을 구동하기 위해서는
-  TCHAR형으로 문자열을 표현할 것을 추천
-
-- 일반적으로 윈도우 응용 프로그램에서 문자열 상수를 쓰기 위해서는 중간 설정에 따라
-  char* 또는 wchar_t*로 변환해주는 _T 매크로를 이용해야 한다.
-
-*/
-
-/*
-LPSTR           -> Long Pointer   = char*
-LPCSTR          -> Constant       = const char*
-LPCTSTR         -> t_string       = const tchar*
-*/
 #define MAX_LOADSTRING 100
-
-// 전역 변수:
-// 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 
 // 콜백 함수
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
+void setWindowSize(int x, int y, int width, int height);
 
-/*
-hInstance         : 프로그램 인스턴스 핸들
-hPrevInstance     : 이전에 실행된 인스턴스 핸들 
-lpszCmdParam      : 명령형으로 입력된 프로그램 인수
-nCmdShow          : 프로그램이 시작될 형태 (최소화 / 크기 등등)
-*/
-// 진입점
-/*
-// 문자셋
-int APIENTRY _tWinMain(HINSTANCE hInstance,
-                       HINSTANCE hPrevInstance,
-                       TCHAR*     lpszCmdParam,
-                       int       nCmdShow)
-*/
+RECT _rc1, _rc2;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -141,7 +50,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 윈도우 프로시져 : 
     wndClass.lpfnWndProc = (WNDPROC)WndProc;
     // 클래스 이름(식별자 정보) : 아이콘 옆의 클래스 이름
-    wndClass.lpszClassName = _lpszClass;
+    wndClass.lpszClassName = WINNAME;
     // 메뉴 이름 => NULL 사용하지 않겠다.
     wndClass.lpszMenuName = NULL;
     // 윈도우 스타일 (다시 그리기 정보)
@@ -153,20 +62,26 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-3. 화면에 보여줄 윈도우 창 생성
     _hWnd = CreateWindow
     (
-        _lpszClass,                 // 윈도우 클래스 식별자
-        _lpszClass,                 // 윈도우 타이틀 바 이름
-        WS_EX_OVERLAPPEDWINDOW,     // 윈도우 스타일 (게임은 계속 그려짐)
-        400,                        // 윈도우 화면 x 좌표
-        100,                        // 윈도우 화면 y 좌표
-        800,                        // 윈도우 화면 가로 크기
-        800,                        // 윈도우 화면 세로 크기
-        NULL,                       // 부모 윈도우 -> GetDesktopWindow
-        (HMENU)NULL,                // 메뉴 핸들
-        hInstance,                  // 인스턴스 지정
-        NULL                        // 윈도의 자식 윈도우를 생성하면 지정하고 그렇지 않다면 NULL
-                                    // ㄴ 필요에 의해서 사용하기도 하지만 지금은 NULL (창 여러개 가능)
+        WINNAME,                         // 윈도우 클래스 식별자
+        WINNAME,                         // 윈도우 타이틀 바 이름
+        WINSTYLE,                        // 윈도우 스타일 (게임은 계속 그려져야됨)
+        WINSTART_X,                      // 윈도우 화면 x 좌표
+        WINSTART_Y,                      // 윈도우 화면 y 좌표
+        WINSIZE_X,                       // 윈도우 화면 가로 크기
+        WINSIZE_Y,                       // 윈도우 화면 세로 크기
+        NULL,                            // 부모 윈도우 -> GetDesktopWindow
+        (HMENU)NULL,                     // 메뉴 핸들
+        hInstance,                       // 인스턴스 지정
+        NULL                             // 윈도의 자식 윈도우를 생성하면 지정하고 그렇지 않다면 NULL
+                                         // ㄴ 필요에 의해서 사용하기도 하지만 지금은 NULL (창 여러개 가능)
     );
 
+    // 클라이언트 영역의 사이즈를 정확히 잡아주기 위해
+    setWindowSize(WINSTART_X, WINSTART_Y, WINSIZE_X, WINSIZE_Y);
+
+    // 윈도우창 세팅 끝
+    // ====================================================================================
+    // 
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
 
@@ -230,23 +145,42 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     HDC hdc;
     PAINTSTRUCT ps;
 
- 
+    static POINT pt = { 0, 0 };
+    char strPT[128];
+
     switch (iMessage)
     {
     case WM_CREATE:             // 생성자 
-        rc = RectMakeCenter( 400, 400, 100, 100 );
+        _rc1 = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
+        _rc2 = RectMakeCenter(WINSIZE_X / 2 + 200, 400, 100, 100);
+
         break;
 
     case WM_PAINT:              // 출력에 관한 모든것을 담당한다. (문자, 그림, 도형등 화면에 보이는 모든것)
        
         hdc = BeginPaint(hWnd, &ps);
-        Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-        //DrawRectMake(hdc, rc);
 
- 
+        // wsprintf() : 숫자 -> 문자열 출력
+        wsprintf(strPT, "X : %d       y : %d", pt.x, pt.y);
+        TextOut(hdc, 10, 10, strPT, strlen(strPT));
+        
+        Rectangle(hdc, _rc1.left, _rc1.top, _rc1.right, _rc1.bottom);
+        DrawRectMake(hdc, _rc2);
+
+        EllipseMakeCenter(hdc, WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
+
+
         EndPaint(hWnd, &ps);
         break;
 
+    case WM_MOUSEMOVE:
+        pt.x = LOWORD(lParam);
+        pt.y = HIWORD(lParam);
+
+        InvalidateRect(hWnd, NULL, true);
+
+
+        break;
     case WM_LBUTTONDOWN:
        
 
@@ -280,4 +214,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     return (DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
 
+// 클라이언트 창 사이즈
+void setWindowSize(int x, int y, int width, int height)
+{
+    RECT rc = { 0,0, width, height };
+
+    // 실제 윈도우 크기 조정
+    // AdjustWindowRect() : RECT 구조체 , 윈도우 스타일, 메뉴 여부
+    AdjustWindowRect(&rc, WINSTYLE, false);
+
+    // cx, cy : 중점 좌표
+    // 얻어온 RECT의 정보로 윈도우 사이즈 세팅
+    SetWindowPos(_hWnd, NULL, x, y,
+        (rc.right - rc.left), (rc.bottom - rc.top), // 중점 좌표
+        SWP_NOZORDER | SWP_NOMOVE);  
+    // 렌더링 옵션 ZORDER : 이미지 겹침 처리
+    // NOZORDER : 가장 상단 우선권
+}
 

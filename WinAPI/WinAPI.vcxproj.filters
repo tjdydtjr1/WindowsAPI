@@ -28,6 +28,9 @@
     <Filter Include="과제\23.06.12 과제">
       <UniqueIdentifier>{038086d2-a4f7-46d8-afa3-6acefc329f5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.06.13 과제">
+      <UniqueIdentifier>{c9dfe594-3983-44b3-8291-42df9cab0fee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -44,7 +47,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="23.06.08_기본 구.cpp">
+    <ClCompile Include="23.06.08_기본 구조.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
     <ClCompile Include="23.06.09_충돌 PAINT.cpp">
@@ -71,7 +74,7 @@
     <ClCompile Include="사각형2개움직이기.cpp">
       <Filter>과제\23.06.09 과제</Filter>
     </ClCompile>
-    <ClCompile Include="23.06.12_PCH.cpp">
+    <ClCompile Include="23.06.12_PCH, 문자셋.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
     <ClCompile Include="Stdafx.cpp">
@@ -95,5 +98,25 @@
     <ClCompile Include="사각형 영혼 밀어 넣기2.cpp">
       <Filter>과제\23.06.12 과제</Filter>
     </ClCompile>
+    <ClCompile Include="사각형리스트.cpp">
+      <Filter>과제\23.06.12 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.13_매크로 함수, 전역 변수, WinMain.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="사각형 드래그 이동.cpp">
+      <Filter>과제\23.06.13 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="사각형 크기 조절.cpp">
+      <Filter>과제\23.06.13 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="사각형 4단 밀기.cpp">
+      <Filter>과제\23.06.13 과제</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="23.06.13 과제 내용.cpp">
+      <Filter>과제\23.06.13 과제</Filter>
+    </None>
   </ItemGroup>
 </Project>
