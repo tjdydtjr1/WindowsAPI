@@ -124,20 +124,20 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     //    NULL                        // 윈도의 자식 윈도우를 생성하면 지정하고 그렇지 않다면 NULL
     //                                // ㄴ 필요에 의해서 사용하기도 하지만 지금은 NULL (창 여러개 가능)
     //);
+/*
+     1-4. 화면에 윈도우창 보여주기
+    ShowWindow(_hWnd, nCmdShow);
 
-    // 1-4. 화면에 윈도우창 보여주기
-   // ShowWindow(_hWnd, nCmdShow);
+     단일 프로젝트 (단기 / 과제)업데이트 처리 해야 한다.
+     UpdateWindow(_hWnd);
 
-    // 단일 프로젝트 (단기 / 과제)업데이트 처리 해야 한다.
-    //UpdateWindow(_hWnd);
+     2. 메세지 루프
+     MSG : 운영체제에서 발생하는 메세지 정보를 저장하기 위한 구조체
+    MSG message;
 
-    // 2. 메세지 루프
-    // MSG : 운영체제에서 발생하는 메세지 정보를 저장하기 위한 구조체
-   // MSG message;
-
-    // 업데이트시 반드시 호출해야 됨 업데이트 후 메모리를 날려줘야 함
-    //ZeroMemory(&message, sizeof(message));
-
+     업데이트시 반드시 호출해야 됨 업데이트 후 메모리를 날려줘야 함
+    ZeroMemory(&message, sizeof(message));
+ */
 
     /*
     * ******************* 무조건 면접 질문에 나온다.

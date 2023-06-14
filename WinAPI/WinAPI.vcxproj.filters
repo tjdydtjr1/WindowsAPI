@@ -31,6 +31,15 @@
     <Filter Include="과제\23.06.13 과제">
       <UniqueIdentifier>{c9dfe594-3983-44b3-8291-42df9cab0fee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D FameWork\DesigePattern">
+      <UniqueIdentifier>{53a434aa-298d-42aa-92ff-9878af0079a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D FameWork\DesigePattern\Singleton">
+      <UniqueIdentifier>{e32afcb4-3d40-4315-a483-7c76ad16577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="과제\23.06.14 과제">
+      <UniqueIdentifier>{e4720a33-8e62-4626-82b5-f9fa124ccab6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -43,6 +52,12 @@
       <Filter>2D FameWork\Utility\Math</Filter>
     </ClInclude>
     <ClInclude Include="CommonMacroFunction.h">
+      <Filter>2D FameWork\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonBase.h">
+      <Filter>2D FameWork\DesigePattern\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomFunction.h">
       <Filter>2D FameWork\Utility</Filter>
     </ClInclude>
   </ItemGroup>
@@ -115,6 +130,18 @@
     </ClCompile>
     <ClCompile Include="디자인패턴.cpp">
       <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.14_싱글톤 패턴.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.14 과제 내용.cpp">
+      <Filter>과제\23.06.14 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="무작위 도형 출력.cpp">
+      <Filter>과제\23.06.14 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="공 튀기기.cpp">
+      <Filter>과제\23.06.14 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

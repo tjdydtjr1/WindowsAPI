@@ -118,6 +118,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		mousePT.x = LOWORD(lParam);
 		mousePT.y = HIWORD(lParam);
 
+		// ================================================================
 		// 사각형 이동
 		if (bRcA)
 		{
@@ -126,6 +127,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcA.right = rc_1.right + (mousePT.x - movePT.x);
 			rcA.top = rc_1.top + (mousePT.y - movePT.y);
 			rcA.bottom = rc_1.bottom + (mousePT.y - movePT.y);
+
+			
 		}
 		else if (bRcB)
 		{
@@ -134,6 +137,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcB.right = rc_2.right + (mousePT.x - movePT.x);
 			rcB.top = rc_2.top + (mousePT.y - movePT.y);
 			rcB.bottom = rc_2.bottom + (mousePT.y - movePT.y);
+
+			
 		}
 		else if (bRcC)
 		{
@@ -142,6 +147,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcC.right = rc_3.right + (mousePT.x - movePT.x);
 			rcC.top = rc_3.top + (mousePT.y - movePT.y);
 			rcC.bottom = rc_3.bottom + (mousePT.y - movePT.y);
+
+			
 		}
 		else if (bRcD)
 		{
@@ -150,10 +157,103 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcD.right = rc_4.right + (mousePT.x - movePT.x);
 			rcD.top = rc_4.top + (mousePT.y - movePT.y);
 			rcD.bottom = rc_4.bottom + (mousePT.y - movePT.y);
+
+			
+		}
+
+		// ================================================================
+		// 윈도우 창 안벗어나게 예외처리
+		if (rcA.left < WINMINSIZE_LEFT)
+		{
+			rcA.left = WINMINSIZE_LEFT + 10;
+			rcA.right = rcA.left + 100;
+		}
+		else if (rcA.right > WINMINSIZE_RIGHT)
+		{
+			rcA.right = WINMINSIZE_RIGHT - 10;
+			rcA.left = rcA.right - 100;
+		}
+
+		if (rcA.top < WINMINSIZE_TOP)
+		{
+			rcA.top = WINMINSIZE_TOP + 10;
+			rcA.bottom = rcA.top + 100;
+		}
+		else if (rcA.bottom > WINMINSIZE_BOTTOM)
+		{
+			rcA.bottom = WINMINSIZE_BOTTOM - 10;
+			rcA.top = rcA.bottom - 100;
 		}
 		
+		if (rcB.left < WINMINSIZE_LEFT)
+		{
+			rcB.left = WINMINSIZE_LEFT + 10;
+			rcB.right = rcB.left + 100;
+		}
+		else if (rcB.right > WINMINSIZE_RIGHT)
+		{
+			rcB.right = WINMINSIZE_RIGHT - 10;
+			rcB.left = rcB.right - 100;
+		}
+
+		if (rcB.top < WINMINSIZE_TOP)
+		{
+			rcB.top = WINMINSIZE_TOP + 10;
+			rcB.bottom = rcB.top + 100;
+		}
+		else if (rcB.bottom > WINMINSIZE_BOTTOM)
+		{
+			rcB.bottom = WINMINSIZE_BOTTOM - 10;
+			rcB.top = rcB.bottom - 100;
+		}
+
+		if (rcC.left < WINMINSIZE_LEFT)
+		{
+			rcC.left = WINMINSIZE_LEFT + 10;
+			rcC.right = rcC.left + 100;
+		}
+		else if (rcC.right > WINMINSIZE_RIGHT)
+		{
+			rcC.right = WINMINSIZE_RIGHT - 10;
+			rcC.left = rcC.right - 100;
+		}
+
+		if (rcC.top < WINMINSIZE_TOP)
+		{
+			rcC.top = WINMINSIZE_TOP + 10;
+			rcC.bottom = rcC.top + 100;
+		}
+		else if (rcC.bottom > WINMINSIZE_BOTTOM)
+		{
+			rcC.bottom = WINMINSIZE_BOTTOM - 10;
+			rcC.top = rcC.bottom - 100;
+		}
+
+		if (rcD.left < WINMINSIZE_LEFT)
+		{
+			rcD.left = WINMINSIZE_LEFT + 10;
+			rcD.right = rcD.left + 100;
+		}
+		else if (rcD.right > WINMINSIZE_RIGHT)
+		{
+			rcD.right = WINMINSIZE_RIGHT - 10;
+			rcD.left = rcD.right - 100;
+		}
+
+		if (rcD.top < WINMINSIZE_TOP)
+		{
+			rcD.top = WINMINSIZE_TOP + 10;
+			rcD.bottom = rcD.top + 100;
+		}
+		else if (rcD.bottom > WINMINSIZE_BOTTOM)
+		{
+			rcD.bottom = WINMINSIZE_BOTTOM - 10;
+			rcD.top = rcD.bottom - 100;
+		}
+
+		// ================================================================
 		// 충돌 체크
-		// A -> B UP
+		// A ->  UP
 		if (rcA.top < rcB.bottom
 			&& rcA.left < rcB.right
 			&& rcA.right > rcB.left
@@ -162,8 +262,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcB.top -= 1;
 			rcB.bottom -= 1;
 		}
-		// A -> B DOWN
-		else if (rcA.top <= rcB.bottom
+		else if (rcA.top < rcC.bottom
+			&& rcA.left < rcC.right
+			&& rcA.right > rcC.left
+			&& rcA.bottom > rcC.top)
+		{
+			rcC.top -= 1;
+			rcC.bottom -= 1;
+		}
+		else if (rcA.top < rcD.bottom
+			&& rcA.left < rcD.right
+			&& rcA.right > rcD.left
+			&& rcA.bottom > rcD.top)
+		{
+			rcB.top -= 1;
+			rcB.bottom -= 1;
+		}
+		// A ->  DOWN
+		if (rcA.top <= rcB.bottom
 			&& rcA.left < rcB.right
 			&& rcA.right > rcB.left
 			&& rcA.bottom >= rcB.top)
@@ -171,22 +287,76 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rcB.top += 1;
 			rcB.bottom += 1;
 		}
-		// A -> B RIGHT
-		else if (rcB.top < rcA.bottom
+		else if (rcA.top <= rcC.bottom
+			&& rcA.left < rcC.right
+			&& rcA.right > rcC.left
+			&& rcA.bottom >= rcC.top)
+		{
+			rcC.top += 1;
+			rcC.bottom += 1;
+		}
+		else if (rcA.top <= rcD.bottom
+			&& rcA.left < rcD.right
+			&& rcA.right > rcD.left
+			&& rcA.bottom >= rcD.top)
+		{
+			rcD.top += 1;
+			rcD.bottom += 1;
+		}
+
+		// A ->  RIGHT
+		if (rcB.top < rcA.bottom
 			&& rcA.left <= rcB.right
 			&& rcA.right >= rcB.left
 			&& rcB.bottom > rcA.top)
 		{
-
+			rcB.right += 1;
+			rcB.left += 1;
 		}
-		// A -> B LEFT
-		else if (rcB.top < rcA.bottom
+		else if (rcC.top < rcA.bottom
+			&& rcA.left <= rcC.right
+			&& rcA.right >= rcC.left
+			&& rcC.bottom > rcA.top)
+		{
+			rcC.right += 1;
+			rcC.left += 1;
+		}
+		else if (rcD.top < rcA.bottom
+			&& rcA.left <= rcD.right
+			&& rcA.right >= rcD.left
+			&& rcD.bottom > rcA.top)
+		{
+			rcD.right += 1;
+			rcD.left += 1;
+		}
+
+		// A ->  LEFT
+		if (rcB.top < rcA.bottom
 			&& rcA.left <= rcB.right
 			&& rcA.right >= rcB.left
 			&& rcB.bottom > rcA.top)
 		{
-
+			rcB.right -= 1;
+			rcB.left -= 1;
 		}
+		else if (rcC.top < rcA.bottom
+			&& rcA.left <= rcC.right
+			&& rcA.right >= rcC.left
+			&& rcC.bottom > rcA.top)
+		{
+			rcC.right -= 1;
+			rcC.left -= 1;
+		}
+		else if (rcD.top < rcA.bottom
+			&& rcA.left <= rcD.right
+			&& rcA.right >= rcD.left
+			&& rcD.bottom > rcA.top)
+		{
+			rcD.right -= 1;
+			rcD.left -= 1;
+		}
+
+
 		InvalidateRect(hWnd, NULL, true);
 
 		break;
@@ -241,6 +411,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			rc_4.bottom = rcD.bottom;
 		}
 
+		// ================================================================
 		// 마우스 좌표에 맞는 Rect 클릭
 		if (rcA.left < mousePT.x && rcA.right > mousePT.x
 			&& rcA.top < mousePT.y && rcA.bottom > mousePT.y)

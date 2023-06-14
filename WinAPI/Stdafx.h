@@ -17,11 +17,12 @@
 // Windows 헤더 파일
 #include <Windows.h>
 
+// C 런타임 헤더 파일
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>		// Windows.h 에 통합되어 있음.
 #include <stdio.h>
-
+#include <time.h>
 #include <tchar.h>
 
 // ===========================================================================
@@ -60,7 +61,12 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 
 */
 
+// # 사용자 정의 헤더 파일 #
 #include "CommonMacroFunction.h"
+#include "RandomFunction.h"
+
+// # 싱글톤 #
+#define RND RandomFunction::getSingleton()
 
 // # 매크로 # (윈도우창 초기화)
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
@@ -98,3 +104,8 @@ extern POINT			_ptMouse;
 #define WINMYNAME(p)				(LPTSTR)(TEXT(p))
 #define RECTCENTER_X(p)				(p.left + p.right) / 2
 #define RECTCENTER_Y(p)				(p.top + p.bottom) / 2
+
+#define WINMINSIZE_LEFT			20
+#define WINMINSIZE_TOP			20
+#define WINMINSIZE_RIGHT		780
+#define WINMINSIZE_BOTTOM		750

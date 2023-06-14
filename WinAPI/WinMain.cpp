@@ -12,7 +12,8 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-RECT _rc1, _rc2;
+int centerX;
+int centerY;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -151,9 +152,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     switch (iMessage)
     {
     case WM_CREATE:             // 생성자 
-        _rc1 = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
-        _rc2 = RectMakeCenter(WINSIZE_X / 2 + 200, 400, 100, 100);
-
+        centerX = WINSIZE_X / 2;
+        centerY = WINSIZE_Y / 2;
         break;
 
     case WM_PAINT:              // 출력에 관한 모든것을 담당한다. (문자, 그림, 도형등 화면에 보이는 모든것)
@@ -164,11 +164,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
         wsprintf(strPT, "X : %d       y : %d", pt.x, pt.y);
         TextOut(hdc, 10, 10, strPT, strlen(strPT));
         
-        Rectangle(hdc, _rc1.left, _rc1.top, _rc1.right, _rc1.bottom);
-        DrawRectMake(hdc, _rc2);
-
-        EllipseMakeCenter(hdc, WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
-
+        Rectangle(hdc, centerX, centerY, 100, 100);
 
         EndPaint(hWnd, &ps);
         break;
@@ -182,8 +178,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
         break;
     case WM_LBUTTONDOWN:
-       
-
+        centerX = RND->getInt(WINSIZE_X);
+        centerY= RND->getInt(WINSIZE_Y);
+        InvalidateRect(hWnd, NULL, true);
         break;
     case WM_RBUTTONDOWN:
     

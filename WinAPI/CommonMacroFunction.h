@@ -47,9 +47,22 @@ inline void EllipseMake(HDC hdc, int x, int y, int width, int height)
 	Ellipse(hdc, x, y, x + width, y + height);
 }
 
+// 사각형 참조를 통한 사각형 그리기
+inline void DrawEllipseMake(HDC hdc, RECT rc)
+{
+	Ellipse(hdc, rc.left, rc.top, rc.right, rc.bottom);
+}
+
 // 타원 센터 기준 축소해서 그리기
 inline void EllipseMakeCenter(HDC hdc, int x, int y, int width, int height)
 {
 	Ellipse(hdc, x - width / 2, y - height / 2, x + width / 2, y + height / 2);
+}
+
+// 삼각형 그리기
+inline void TriangleMake(HDC hdc, int startX, int startY, int endLineX, int endLineY)
+{
+	POINT xyz[4] = { startX, startY, endLineX, endLineY };
+	Polygon(hdc, xyz, 4);
 }
 
