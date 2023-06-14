@@ -144,7 +144,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				LineTo(hdc, width, height);
 				for (int i = 1; i <= 3; ++i)
 				{
-					LineTo(hdc, width - (x * i), height - (y * i));
+					LineTo(hdc, width + (x * i), height - (y * i));
 				}
 				LineTo(hdc, mousePT.x, mousePT.y);
 
@@ -154,7 +154,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				LineTo(hdc, width, height);
 				for (int i = 1; i <= 4; ++i)
 				{
-					LineTo(hdc, width - (x * i), height - (y * i));
+					LineTo(hdc, width + (x * i), height - (y * i));
 				}
 				LineTo(hdc, mousePT.x, mousePT.y);
 
@@ -164,7 +164,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				LineTo(hdc, width, height);
 				for (int i = 1; i <= 5; ++i)
 				{
-					LineTo(hdc, width - (x * i), height - (y * i));
+					LineTo(hdc, width + (x * i), height - (y * i));
 				}
 				LineTo(hdc, mousePT.x, mousePT.y);
 
@@ -174,7 +174,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				LineTo(hdc, width, height);
 				for (int i = 1; i <= 6; ++i)
 				{
-					LineTo(hdc, width - (x * i), height - (y * i));
+					LineTo(hdc, width + (x * i), height - (y * i));
 				}
 				LineTo(hdc, mousePT.x, mousePT.y);
 
@@ -184,7 +184,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				LineTo(hdc, width, height);
 				for (int i = 1; i <= 7; ++i)
 				{
-					LineTo(hdc, width - (x * i), height - (y * i));
+					LineTo(hdc, width + (x * i), height - (y * i));
 				}
 				LineTo(hdc, mousePT.x, mousePT.y);
 
