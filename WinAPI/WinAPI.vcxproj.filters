@@ -95,9 +95,6 @@
     <ClCompile Include="23.06.09 과제 내용.cpp">
       <Filter>과제\23.06.09 과제</Filter>
     </ClCompile>
-    <ClCompile Include="과제.cpp">
-      <Filter>과제\23.06.08 과제</Filter>
-    </ClCompile>
     <ClCompile Include="23.06.08_이름 출력.cpp">
       <Filter>과제\23.06.08 과제</Filter>
     </ClCompile>
@@ -184,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="CardGame.cpp">
       <Filter>과제\23.06.15 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="얼굴 그리기.cpp">
+      <Filter>과제\23.06.14 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
