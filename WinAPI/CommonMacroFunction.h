@@ -62,6 +62,7 @@ inline void EllipseMakeCenter(HDC hdc, int x, int y, int width, int height)
 // 삼각형 그리기
 inline void TriangleMake(HDC hdc, int startX, int startY, int endLineX, int endLineY)
 {
+	//
 	POINT xyz[4] = { startX, startY, endLineX, endLineY };
 	Polygon(hdc, xyz, 4);
 }

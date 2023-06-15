@@ -40,6 +40,18 @@
     <Filter Include="과제\23.06.14 과제">
       <UniqueIdentifier>{e4720a33-8e62-4626-82b5-f9fa124ccab6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.06.15 과제">
+      <UniqueIdentifier>{a240f0e0-dd97-4e18-afcb-c5b5c9ed291e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D FameWork\GameCore">
+      <UniqueIdentifier>{bd413ac0-3d8a-4ecf-8b96-fc0adf940b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ManagerClass">
+      <UniqueIdentifier>{7954b08f-6dd9-420c-92fd-ddd602143666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D FameWork\FameWorkManager">
+      <UniqueIdentifier>{b6d86d02-cbed-4650-ad92-18fc7e229cf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -59,6 +71,18 @@
     </ClInclude>
     <ClInclude Include="RandomFunction.h">
       <Filter>2D FameWork\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameNode.h">
+      <Filter>2D FameWork\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="IWindowMessageHandler.h">
+      <Filter>2D FameWork\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>ManagerClass</Filter>
+    </ClInclude>
+    <ClInclude Include="CardGame.h">
+      <Filter>과제\23.06.15 과제</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +166,24 @@
     </ClCompile>
     <ClCompile Include="공 튀기기.cpp">
       <Filter>과제\23.06.14 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.15_OOP.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.15 과제 내용.cpp">
+      <Filter>과제\23.06.15 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="GameNode.cpp">
+      <Filter>2D FameWork\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="IWindowMessageHandler.cpp">
+      <Filter>2D FameWork\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>ManagerClass</Filter>
+    </ClCompile>
+    <ClCompile Include="CardGame.cpp">
+      <Filter>과제\23.06.15 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

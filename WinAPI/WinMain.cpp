@@ -1,62 +1,44 @@
 #include "Stdafx.h"
+#include "MainGame.h"
+#include "CardGame.h"
 
 HINSTANCE _hInstance;
 HWND _hWnd;
 POINT _ptMouse = { 0,0 };
 
+RECT rc[20] = {0};
 
 #define MAX_LOADSTRING 100
 
-// 콜백 함수
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-int centerX;
-int centerY;
+//MainGame* _mg;
+CardGame* _card;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-    // 인스턴스를 전역 변수에 담는다.
+    _card = new CardGame;
+
+
     _hInstance = hInstance;
-
-    /*
-    - WinMain의 역할
-    1. 윈도우 창을 세팅 후 화면에 띄우기
-     ㄴ 화면에 창을 띄우기 위해서는 4가지를 모두 처리해야 한다.
-
-    2. 메세지 루프
-    */
-
-    // 1-1. 윈도우창 구조체 선언 및 초기화
-    // WNDCLASS : 이 구조체는 윈도우즈 운영체제에서 윈도우 생성을 명령하기 위해서
-    //            커스텀한 윈도우를 식별할 수 있는 정보 등을 기록하는 역할을 수행한다.
     WNDCLASS wndClass;
 
-    // 클래스 여분 메모리 : 게임은 동적으로 관리 할당 X
     wndClass.cbClsExtra = 0;
-    // 윈도우 여분 메모리 : 윈도우가 불필요한 메모리를 점유하기 때문에 할당 X
     wndClass.cbWndExtra = 0;
-    // 백그라운드 :                                  하얀색으로 백그라운드를 그리겠다.
     wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-    // 마우스 커서 : 현재 마우스 커서 모양 사용
     wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-    // 창 아이콘 : 프로그램의 아이콘
     wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    // 윈도우를 소요한 프로그램의 식별자 정보
     wndClass.hInstance = hInstance;
-    // 윈도우 프로시져 : 
     wndClass.lpfnWndProc = (WNDPROC)WndProc;
-    // 클래스 이름(식별자 정보) : 아이콘 옆의 클래스 이름
     wndClass.lpszClassName = WINNAME;
-    // 메뉴 이름 => NULL 사용하지 않겠다.
     wndClass.lpszMenuName = NULL;
-    // 윈도우 스타일 (다시 그리기 정보)
     wndClass.style = CS_HREDRAW | CS_VREDRAW;
-
+    
     // 1-2. 윈도우 클래스 등록
     RegisterClass(&wndClass);
 
@@ -86,6 +68,15 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
 
+   /* if (FAILED(_mg->init()))
+    {
+        return 0;
+    }*/
+    if (FAILED(_card->init()))
+    {
+        return 0;
+    }
+
     // 단일 프로젝트 (단기 / 과제)업데이트 처리 해야 한다.
     //UpdateWindow(_hWnd);
 
@@ -96,7 +87,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 업데이트시 반드시 호출해야 됨 업데이트 후 메모리를 날려줘야 함
     //ZeroMemory(&message, sizeof(message));
     
-
+  
     /*
     * ******************* 무조건 면접 질문에 나온다.
     * 메세지 루프 종류 , 1 2 번의 차이 활용 처
@@ -135,80 +126,17 @@ int APIENTRY WinMain(HINSTANCE hInstance,
         DispatchMessage(&message);
     }
 
+    //_mg->release();
+    _card->release();
+    UnregisterClass(WINNAME, hInstance);
+
     return message.wParam;
 }
 
 
-
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-    HDC hdc;
-    PAINTSTRUCT ps;
-
-    static POINT pt = { 0, 0 };
-    char strPT[128];
-
-    switch (iMessage)
-    {
-    case WM_CREATE:             // 생성자 
-        centerX = WINSIZE_X / 2;
-        centerY = WINSIZE_Y / 2;
-        break;
-
-    case WM_PAINT:              // 출력에 관한 모든것을 담당한다. (문자, 그림, 도형등 화면에 보이는 모든것)
-       
-        hdc = BeginPaint(hWnd, &ps);
-
-        // wsprintf() : 숫자 -> 문자열 출력
-        wsprintf(strPT, "X : %d       y : %d", pt.x, pt.y);
-        TextOut(hdc, 10, 10, strPT, strlen(strPT));
-        
-        Rectangle(hdc, centerX, centerY, 100, 100);
-
-        EndPaint(hWnd, &ps);
-        break;
-
-    case WM_MOUSEMOVE:
-        pt.x = LOWORD(lParam);
-        pt.y = HIWORD(lParam);
-
-        InvalidateRect(hWnd, NULL, true);
-
-
-        break;
-    case WM_LBUTTONDOWN:
-        centerX = RND->getInt(WINSIZE_X);
-        centerY= RND->getInt(WINSIZE_Y);
-        InvalidateRect(hWnd, NULL, true);
-        break;
-    case WM_RBUTTONDOWN:
-    
-        break;
-
-    case WM_KEYDOWN:
-
-        switch (wParam)
-        {
-        case VK_LEFT:
-           
-            break;
-        case VK_RIGHT:
-            break;
-        case VK_ESCAPE:
-            PostMessage(hWnd, WM_DESTROY, 0, 0);
-            break;
-
-        }
-        break;
-
-    case WM_DESTROY:            
-        PostQuitMessage(0);     
-                                
-        return 0;
-    }
-    // 윈도우 프로시저에서 처리되지 않은 나머지 메세지를 처리해 준다.
-    return (DefWindowProc(hWnd, iMessage, wParam, lParam));
+    return _card->MainProc(hWnd, iMessage, wParam, lParam);
 }
 
 // 클라이언트 창 사이즈

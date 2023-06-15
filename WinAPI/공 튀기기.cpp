@@ -22,6 +22,7 @@ PAINTSTRUCT ps;
 char Text[128];
 
 
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd, int nCmdShow)
 {
 	_hInstance = hInstance;
@@ -61,7 +62,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	MSG message;
 	while (true)
 	{
-
 		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
 		{
 			if (message.message == WM_QUIT)
@@ -71,9 +71,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
-		
 		//   원            사각형
-		
 		switch (state)
 		{
 			// Right
@@ -99,7 +97,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 				}
 			}
 			// 오른쪽에서 탑으로 올라가는 경우
-			else
+			else if (temp == 0)
 			{
 				// 반시계 방향 진행 시
 				temp = 0;
@@ -109,7 +107,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 			// Bottom
 		case 1:
 			// 탑에서 오른쪽으로 왔던 경우
-			if(temp == 2)
+			if(temp == 0)
 			{
 				if (ellipse.bottom < rc.bottom)
 				{
@@ -125,10 +123,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 					state = 2;
 				}
 			}
-			else
+			else if (temp == 2)
 			{
 				temp = 1;
-				state = 1;
+				state = 0;
 			}
 			break;
 			// Left
@@ -150,7 +148,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 					state = 3;
 				}
 			}
-			else
+			else if(temp == 3)
 			{
 				temp = 2;
 				state = 1;
@@ -159,7 +157,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 			// Top
 		case 3:
 			// 아래에서 왼쪽으로 가는 경우
-			if(temp == 0)
+			if(temp == 2)
 			{
 				if (ellipse.top > rc.top)
 				{
@@ -187,23 +185,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 		/*if (test)
 		{
-			if (ellipse.right == rc.right)
-			{
-			}
 			if (ellipse.bottom < rc.bottom && ellipse.right < rc.right)
 			{
 				
-				ellipse.left += speedX;
-				ellipse.right += speedX;
-				ellipse.top += speedY;
-				ellipse.bottom += speedY;
+				ellipse.left += speed;
+				ellipse.right += speed;
+				ellipse.top += speed;
+				ellipse.bottom += speed;
 				
 				Sleep(100);
 			}
 			else if (ellipse.right < rc.right)
 			{
-				ellipse.bottom += speedY;
-				ellipse.left -= speedX;
+				ellipse.bottom += speed;
+				ellipse.left -= speed;
 				
 				Sleep(100);
 
@@ -217,10 +212,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		{
 			if(ellipse.top > rc.top)
 			{
-				ellipse.left -= speedX;
-				ellipse.right -= speedX;
-				ellipse.top -= speedY;
-				ellipse.bottom -= speedY;
+				ellipse.left -= speed;
+				ellipse.right -= speed;
+				ellipse.top -= speed;
+				ellipse.bottom -= speed;
 				Sleep(100);
 			}
 			else if (ellipse.top <= rc.top)

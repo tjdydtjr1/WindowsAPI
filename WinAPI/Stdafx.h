@@ -70,10 +70,10 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 
 // # 매크로 # (윈도우창 초기화)
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
-#define WINSTART_X			400
-#define WINSTART_Y			100
-#define WINSIZE_X			800
-#define WINSIZE_Y			800
+#define WINSTART_X			400			// 400
+#define WINSTART_Y			100			// 100
+#define WINSIZE_X			800			// 800
+#define WINSIZE_Y			800			// 800
 // WS_CATION  : 타이틀바를 가지기 위한 옵션
 // WS_SYSMENU : 제목 표시줄에 컨트롤 메뉴 상자 창
 #define WINSTYLE			WS_CAPTION | WS_SYSMENU
