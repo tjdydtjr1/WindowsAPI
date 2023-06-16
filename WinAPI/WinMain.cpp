@@ -14,16 +14,16 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-//MainGame* _mg;
-CardGame* _card;
+MainGame* _mg;
+//CardGame* _card;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-    _card = new CardGame;
-
+    //_card = new CardGame;
+    _mg = new MainGame;
 
     _hInstance = hInstance;
     WNDCLASS wndClass;
@@ -68,14 +68,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
 
-   /* if (FAILED(_mg->init()))
-    {
-        return 0;
-    }*/
-    if (FAILED(_card->init()))
+    if (FAILED(_mg->init()))
     {
         return 0;
     }
+    /*if (FAILED(_card->init()))
+    {
+        return 0;
+    }*/
 
     // 단일 프로젝트 (단기 / 과제)업데이트 처리 해야 한다.
     //UpdateWindow(_hWnd);
@@ -126,8 +126,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
         DispatchMessage(&message);
     }
 
-    //_mg->release();
-    _card->release();
+    _mg->release();
+    //_card->release();
     UnregisterClass(WINNAME, hInstance);
 
     return message.wParam;
@@ -136,7 +136,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-    return _card->MainProc(hWnd, iMessage, wParam, lParam);
+    //return _card->MainProc(hWnd, iMessage, wParam, lParam);
+    return _mg->MainProc(hWnd, iMessage, wParam, lParam);
+
 }
 
 // 클라이언트 창 사이즈

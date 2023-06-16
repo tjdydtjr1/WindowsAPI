@@ -1,11 +1,14 @@
 #include "Stdafx.h"
 #include "GameNode.h"
-#include "CardGame.h"
 
 HRESULT GameNode::init(void)
 {
 	// 타이머 초기화
-	SetTimer(_hWnd, 1, 50, NULL);
+	SetTimer(_hWnd, 1, 10, NULL);
+    
+    // 코딩 컨벤션을 맞추기 위해 RND는 초기화 기능이 없지만 초기화를 만들어 준다.
+    RND->init();
+    KEYMANAGER->init();
 
 	// 함수가 성공적으로 실행 되었음을 알린다.
 	return S_OK;
@@ -15,6 +18,10 @@ void GameNode::release(void)
 {
 	// 동적할당과 같이 삭제하지 않고 종료하면 메모리 leak
 	KillTimer(_hWnd, 1);
+
+    RND->releaseSingleton();
+    KEYMANAGER->releaseSingleton();
+
 }
 
 void GameNode::update(void)
@@ -33,10 +40,7 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
     HDC hdc;
     PAINTSTRUCT ps;
     char text[128];
-
-    HBRUSH brush_Red;
-    HBRUSH brush_Blue;
-
+    
     switch (iMessage)
     {
     case WM_TIMER:
@@ -45,21 +49,12 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
     case WM_PAINT:              
         
         hdc = BeginPaint(hWnd, &ps);
-        brush_Red = CreateSolidBrush(RGB(255, 0, 0));
-        brush_Red = (HBRUSH)::SelectObject(hdc, brush_Red);
-        
         // 마우스 좌표 확인
         wsprintf(text, "마우스 X : %d , 마우스 Y : %d", _ptMouse.x, _ptMouse.y);
         TextOut(hdc, 10, 10, text, strlen(text));
         
-        // 기본틀 출력
         this->render(hdc);
         
-        // 정답 시 색 변경        
-        brush_Blue = CreateSolidBrush(RGB(0, 0, 255));
-        brush_Blue = (HBRUSH)::SelectObject(hdc, brush_Blue);
-        Rectangle(hdc, 100, 100, 200, 200);
-
         EndPaint(hWnd, &ps);
         break;
 
@@ -70,7 +65,6 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
         break;
 
     case WM_LBUTTONDOWN:
-        
 
         break;
     case WM_RBUTTONDOWN:
@@ -83,6 +77,8 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
         {
         case VK_ESCAPE:
             PostMessage(hWnd, WM_DESTROY, 0, 0);
+            break;
+        case VK_SPACE:
             break;
         }
         break;

@@ -25,17 +25,21 @@
 #include <time.h>
 #include <tchar.h>
 
+
 // ===========================================================================
 // C++ 런타임 헤더 파일
 #include <iostream>
-
 #include <chrono>
 #include <random>
 #include <vector>
 #include <map>
-
 #include <unordered_map>
 #include <cassert>
+
+// bitset : 비트 연산을 좀더 쉽게 관리해 주는 함수를 지원하는 STL
+// ㄴ reset(), set(), flip(), all(), any(), size() 등등..
+#include <bitset>
+
 
 /*
 // ! D2D/D3D 헤더 파일
@@ -64,11 +68,16 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 // # 사용자 정의 헤더 파일 #
 #include "CommonMacroFunction.h"
 #include "RandomFunction.h"
+#include "KeyManager.h"
 
 // # 싱글톤 #
-#define RND RandomFunction::getSingleton()
+// 전역객체 : 호출이 많기에 스네이크를 사용 안함
+#define RND			RandomFunction::getSingleton()
+#define KEYMANAGER	KeyManager::getSingleton()
+
 
 // # 매크로 # (윈도우창 초기화)
+// 매크로 표기법 _로 단어 구분
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
 #define WINSTART_X			400			// 400
 #define WINSTART_Y			100			// 100

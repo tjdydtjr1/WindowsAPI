@@ -15,6 +15,8 @@ public:
 	}
 	~RandomFunction() {}
 
+	HRESULT init(void) { return S_OK; }
+
 	// 간단한 함수이기에 inline 명시해도 될듯
 	inline int getInt(int num)
 	{
