@@ -1,6 +1,6 @@
 #include "Stdafx.h"
 #include "MainGame.h"
-#include "CardGame.h"
+//#include "CardGame.h"
 
 HINSTANCE _hInstance;
 HWND _hWnd;
@@ -117,14 +117,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
         }
     } 
 
-    // OS와 소통하기 위해 MSG가 있다.
-    while (GetMessage(&message, 0, 0, 0))
-    {
-        // 키보드 필수 함수
-        TranslateMessage(&message);
-        // 프로시져와 단일로 소통하는 메세지 함수
-        DispatchMessage(&message);
-    }
+    //// OS와 소통하기 위해 MSG가 있다.
+    //while (GetMessage(&message, 0, 0, 0))
+    //{
+    //    // 키보드 필수 함수
+    //    TranslateMessage(&message);
+    //    // 프로시져와 단일로 소통하는 메세지 함수
+    //    DispatchMessage(&message);
+    //}
 
     _mg->release();
     //_card->release();

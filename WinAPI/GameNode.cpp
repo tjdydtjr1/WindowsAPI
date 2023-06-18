@@ -4,7 +4,7 @@
 HRESULT GameNode::init(void)
 {
 	// 타이머 초기화
-	SetTimer(_hWnd, 1, 10, NULL);
+	SetTimer(_hWnd, 1, 300, NULL);
     
     // 코딩 컨벤션을 맞추기 위해 RND는 초기화 기능이 없지만 초기화를 만들어 준다.
     RND->init();

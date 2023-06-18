@@ -70,9 +70,9 @@ public:
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
 
-	GameNode() {};
+	GameNode() {}
 	// 자식 객체의 소멸자를 호출하기 위해 사용
-	virtual ~GameNode() {};
+	virtual ~GameNode() {}
 
 };
 

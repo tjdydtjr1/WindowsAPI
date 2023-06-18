@@ -21,13 +21,12 @@ bool KeyManager::isOnceKeyDown(int key)
 	- 어떤 키가 입력된건지 체크 / 프로그램에서 키를 입력받고 싶을 때 사용하는 API 공용 함수
 	- 기본적으로 메세지 큐에 있는 키의 정보를 확인 한다.
 	- 키가 눌린 시점을 체크하기 위해 &(AND) 연산을 사용해서 확인한다.
-
 	- 0x0000
 	- 0x0001
 	- 0x8000
 	- 0x8001
 	*/
-
+	
 	// 비트 단위로 AND 연산을 한다.
 	// ㄴ 둘다 1일 때만 결과가 1이고 / 아니라면 결과가 0
 	if (GetAsyncKeyState(key) & 0x8000)
@@ -46,7 +45,7 @@ bool KeyManager::isOnceKeyDown(int key)
 	return false;
 }
 
-bool KeyManager::inOnceKeyUp(int key)
+bool KeyManager::isOnceKeyUp(int key)
 {
 	if (GetAsyncKeyState(key) & 0x8000)
 	{

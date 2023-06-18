@@ -25,18 +25,19 @@ public:
 	// 키가 한번만 눌렸는지
 	bool isOnceKeyDown(int key);
 	// 키가 한번 누르고 띄었는지
-	bool inOnceKeyUp(int key);
+	bool isOnceKeyUp(int key);
 	// 키가 계속 눌려있는지
 	bool isStayKeyDown(int key);
 	// 토글키 => 상태 키 유지
 	bool isToggleKey(int key);
 
-	bitset<KEY_MAX> getKeyUp(void) { return _keyUp; }
-	bitset<KEY_MAX> getKeyDown(void) { return _keyDown; }
-
 	void setKeyUp(int key, bool state) { _keyUp.set(key, state); }
 	void setKeyDown(int key, bool state) { _keyDown.set(key, state); }
 
+	bitset<KEY_MAX> getKeyUp(void) { return _keyUp; }
+	bitset<KEY_MAX> getKeyDown(void) { return _keyDown; }
+
+	
 
 	KeyManager() {}
 	~KeyManager() {}

@@ -11,6 +11,7 @@ class MainGame : public GameNode
 private:
 	MoleGame* _mole;
 	RECT _rc[MOLE_ARR];
+	
 	RECT rc;
 public:
 	HRESULT init(void);
@@ -18,8 +19,8 @@ public:
 	void update(void);
 	void render(HDC hdc);
 
-	MainGame() {  };
-	~MainGame() {  };
+	MainGame() {  }
+	~MainGame() {  }
 
 };
 

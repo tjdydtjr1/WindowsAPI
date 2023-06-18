@@ -34,7 +34,7 @@ void MoleGame::setRect(int startX, int startY)
 	}
 }
 
-bool MoleGame::checkXY(int mouseX, int mouseY)
+bool MoleGame::checkXY(long mouseX, long mouseY)
 {
 	// »óÅÂ°ª
 	if (_state)
@@ -46,6 +46,7 @@ bool MoleGame::checkXY(int mouseX, int mouseY)
 				&& _rc[i].top <= mouseY && _rc[i].bottom >= mouseY)
 			{
 				_state = false;
+				_score += 1000;
 			}
 			else
 			{

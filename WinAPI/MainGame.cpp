@@ -5,7 +5,7 @@
 HRESULT MainGame::init(void)
 {
 	GameNode::init();
-	// rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
+	rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
 
 	// ===================================================================================
 	// 객체 생성
@@ -28,7 +28,7 @@ void MainGame::release(void)
 void MainGame::update(void)
 {
 	GameNode::update();
-	if (KEYMANAGER->isOnceKeyDown(WM_LBUTTONDOWN))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		_mole->checkXY(_ptMouse.x, _ptMouse.y);
 	}
@@ -54,7 +54,7 @@ void MainGame::update(void)
 		rc.top += 3;
 		rc.bottom += 3;
 
-	}
+	}*/
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		rc.top -= 3;
@@ -74,13 +74,14 @@ void MainGame::update(void)
 	{
 		rc.top += 3;
 		rc.bottom += 3;
-	}*/
+	}
 }
 
 void MainGame::render(HDC hdc)
 {
 	// 점수판
-	TextOut(hdc, 600, 10, _mole->getScroe(), TEXT_MAX);
+	_mole->setScore(_mole->getScore());
+	_mole->printScore(hdc);
 
 	// 기본 사각형 틀 생성
 	_mole->printBaseGame(hdc);
@@ -97,10 +98,10 @@ void MainGame::render(HDC hdc)
 	}
 	
 
-	/*if (KEYMANAGER->isToggleKey(VK_F1))
+	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-	}*/
+	}
 
 
 }
