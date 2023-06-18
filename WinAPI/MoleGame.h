@@ -1,6 +1,7 @@
 #pragma once
 
 #define MOLE_ARR 9
+#define TEXT_MAX 128
 
 class MoleGame
 {
@@ -8,25 +9,39 @@ private:
 	RECT _rc[MOLE_ARR];
 	POINT _mouseXY;
 	bool _state;
+	char _text[TEXT_MAX];
 public:
+	// 게임 기본틀 생성
+	void printBaseGame(HDC hdc);
 	// Rect 좌표 세팅
-	void setRect(RECT* rc, int startX, int startY);
-	
+	void setRect(int startX, int startY);
+
 	// Rect 배열 좌표 가져오기
 	RECT getRect(int idx) { return _rc[idx]; }
 	
-
+	// 점수 설정
+	void setScore(int score) { wsprintf(_text, "Score : %d", score); }
+	char* getScroe() { return _text; }
+	
+	// 상태값 설정하기 ( 마우스 충돌 체크)
 	void setState(bool state) { _state = state; }
+	// 상태값 가져오기
 	bool getState() { return _state; }
 
-	bool checkXY(RECT* rc, int mouseX, int mouseY);
+	// 사각형 충돌체범위와 마우스 좌표 범위
+	bool checkXY(int mouseX, int mouseY);
 
 	// 기본 Rect 배치
-	void printRect(HDC hdc, RECT* rc, int n);
+	void printRect(HDC hdc);
 	// 기본 타원 배치
-	void printEllipse(HDC hdc, RECT* rc, int n);
+	void printEllipse(HDC hdc);
+
+	// 랜덤하게 나올 위치
+	void printMole(HDC hdc);
 	
-	MoleGame() {}
+	MoleGame()
+		: _state(false)
+	{}
 	~MoleGame() {}
 
 };

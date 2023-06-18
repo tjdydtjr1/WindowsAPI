@@ -52,7 +52,7 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
         // 마우스 좌표 확인
         wsprintf(text, "마우스 X : %d , 마우스 Y : %d", _ptMouse.x, _ptMouse.y);
         TextOut(hdc, 10, 10, text, strlen(text));
-        
+
         this->render(hdc);
         
         EndPaint(hWnd, &ps);

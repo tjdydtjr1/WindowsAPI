@@ -6,8 +6,13 @@ HRESULT MainGame::init(void)
 {
 	GameNode::init();
 	// rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
+
+	// ===================================================================================
+	// 객체 생성
 	_mole = new MoleGame;
-	_mole->getRect(9);
+
+	// 기본 좌표값 세팅
+	_mole->setRect(100, 100);
 
 	return S_OK;
 }
@@ -15,6 +20,8 @@ HRESULT MainGame::init(void)
 void MainGame::release(void)
 {
 	GameNode::release();
+
+	// 객체 할당 해제
 	SAFE_DELETE(_mole);
 }
 
@@ -23,6 +30,7 @@ void MainGame::update(void)
 	GameNode::update();
 	if (KEYMANAGER->isOnceKeyDown(WM_LBUTTONDOWN))
 	{
+		_mole->checkXY(_ptMouse.x, _ptMouse.y);
 	}
 
 	/*if (KEYMANAGER->isOnceKeyDown(VK_UP))
@@ -71,6 +79,24 @@ void MainGame::update(void)
 
 void MainGame::render(HDC hdc)
 {
+	// 점수판
+	TextOut(hdc, 600, 10, _mole->getScroe(), TEXT_MAX);
+
+	// 기본 사각형 틀 생성
+	_mole->printBaseGame(hdc);
+	
+	// 보류
+	//_mole->printRect(hdc, 9);
+
+	// 나올 위치 원 생성
+	_mole->printEllipse(hdc);
+
+	if (!_mole->getState())
+	{
+		_mole->printMole(hdc);
+	}
+	
+
 	/*if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);

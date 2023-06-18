@@ -10,7 +10,8 @@ class MainGame : public GameNode
 {
 private:
 	MoleGame* _mole;
-	RECT rc[MOLE_ARR];
+	RECT _rc[MOLE_ARR];
+	RECT rc;
 public:
 	HRESULT init(void);
 	void release(void);
