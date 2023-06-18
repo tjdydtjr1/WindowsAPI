@@ -92,6 +92,7 @@
       <Filter>과제\23.06.16 과제</Filter>
     </ClInclude>
     <ClInclude Include="testKeyManager.h" />
+    <ClInclude Include="testGamaNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -204,6 +205,7 @@
       <Filter>과제\23.06.16 과제</Filter>
     </ClCompile>
     <ClCompile Include="testKeyManager.cpp" />
+    <ClCompile Include="testGamaNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">

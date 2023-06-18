@@ -17,7 +17,6 @@ bool KeyManager::isOnceKeyDown(int key)
 {
 	/*
 	GetAsyncKeyState()
-
 	- 어떤 키가 입력된건지 체크 / 프로그램에서 키를 입력받고 싶을 때 사용하는 API 공용 함수
 	- 기본적으로 메세지 큐에 있는 키의 정보를 확인 한다.
 	- 키가 눌린 시점을 체크하기 위해 &(AND) 연산을 사용해서 확인한다.
@@ -25,6 +24,7 @@ bool KeyManager::isOnceKeyDown(int key)
 	- 0x0001
 	- 0x8000
 	- 0x8001
+
 	*/
 	
 	// 비트 단위로 AND 연산을 한다.
