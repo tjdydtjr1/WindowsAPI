@@ -94,12 +94,17 @@
     <ClInclude Include="MoleGame.h">
       <Filter>과제\23.06.16 과제</Filter>
     </ClInclude>
-    <ClInclude Include="Example_Mole.h" />
     <ClInclude Include="DumpAvoid.h">
       <Filter>과제\23.06.19과제</Filter>
     </ClInclude>
     <ClInclude Include="BulletShot.h">
       <Filter>과제\23.06.19과제</Filter>
+    </ClInclude>
+    <ClInclude Include="CrocodileGame.h">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClInclude>
+    <ClInclude Include="Example_Mole.h">
+      <Filter>과제\23.06.16 과제</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -212,7 +217,6 @@
     <ClCompile Include="MoleGame.cpp">
       <Filter>과제\23.06.16 과제</Filter>
     </ClCompile>
-    <ClCompile Include="Example_Mole.cpp" />
     <ClCompile Include="23.06.19_설계_PtInRect%28%29.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
@@ -224,6 +228,12 @@
     </ClCompile>
     <ClCompile Include="BulletShot.cpp">
       <Filter>과제\23.06.19과제</Filter>
+    </ClCompile>
+    <ClCompile Include="CrocodileGame.cpp">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClCompile>
+    <ClCompile Include="Example_Mole.cpp">
+      <Filter>과제\23.06.16 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

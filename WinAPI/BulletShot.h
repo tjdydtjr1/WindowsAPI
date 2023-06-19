@@ -8,6 +8,8 @@ private:
 	RECT _player[2];
 	RECT _bullet;
 	vector<RECT> _bulletVec;
+	bool _isFire;
+	vector<RECT>::iterator _iterVec;
 public:
 	HRESULT init(void);
 	void release(void);

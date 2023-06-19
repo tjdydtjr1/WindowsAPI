@@ -1,8 +1,11 @@
 #include "Stdafx.h"
 #include "MainGame.h"
+// 과제용
 #include "Example_Mole.h"
 #include "DumpAvoid.h"
 #include "BulletShot.h"
+#include "CrocodileGame.h"
+//
 
 HINSTANCE _hInstance;
 HWND _hWnd;
@@ -17,11 +20,13 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-BulletShot* _bullet;
+//BulletShot* _bullet;
 //DumpAvoid* _dump;
 //Example_Mole* _mole;
-//MainGame* _mg;
 //CardGame* _card;
+CrocodileGame* _croco;
+
+//MainGame* _mg;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -30,9 +35,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 {
     //_dump = new DumpAvoid;
     //_card = new CardGame;
-   // _mg = new MainGame;
    // _mole = new Example_Mole;
-    _bullet = new BulletShot;
+   // _bullet = new BulletShot;
+    _croco = new CrocodileGame;
+
+   // _mg = new MainGame;
 
     _hInstance = hInstance;
     WNDCLASS wndClass;
@@ -77,15 +84,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
 
-    if (FAILED(_bullet->init()))
-    {
-        return 0;
-    }
-    /*if (FAILED(_dump->init()))
+    /*if (FAILED(_bullet->init()))
     {
         return 0;
     }*/
-    /*if (FAILED(_mg->init()))
+    /*if (FAILED(_dump->init()))
     {
         return 0;
     }*/
@@ -93,7 +96,16 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     {
         return 0;
     }*/
+    if (FAILED(_croco->init()))
+    {
+        return 0;
+    }
 
+
+    /*if (FAILED(_mg->init()))
+    {
+        return 0;
+    }*/
     // 단일 프로젝트 (단기 / 과제)업데이트 처리 해야 한다.
     //UpdateWindow(_hWnd);
 
@@ -143,12 +155,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     //    DispatchMessage(&message);
     //}
 
-    _bullet->release();
-    //_mg->release();
+    //_bullet->release();
     //_mole->release();
     //_card->release();
     //_dump->release();
+    _croco->release();
 
+    //_mg->release();
     UnregisterClass(WINNAME, hInstance);
 
     return message.wParam;
@@ -158,10 +171,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
     //return _card->MainProc(hWnd, iMessage, wParam, lParam);
-    //return _mg->MainProc(hWnd, iMessage, wParam, lParam);
     //return _mole->MainProc(hWnd, iMessage, wParam, lParam);
     //return _dump->MainProc(hWnd, iMessage, wParam, lParam);
-    return _bullet->MainProc(hWnd, iMessage, wParam, lParam);
+    //return _bullet->MainProc(hWnd, iMessage, wParam, lParam);
+    return _croco->MainProc(hWnd, iMessage, wParam, lParam);
+
+    //return _mg->MainProc(hWnd, iMessage, wParam, lParam);
+
 }
 
 // 클라이언트 창 사이즈

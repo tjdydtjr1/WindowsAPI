@@ -136,6 +136,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CommonMacroFunction.h" />
+    <ClInclude Include="CrocodileGame.h" />
     <ClInclude Include="DumpAvoid.h" />
     <ClInclude Include="Example_Mole.h" />
     <ClInclude Include="GameNode.h">
@@ -200,6 +201,7 @@
     <ClCompile Include="CardGame.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CrocodileGame.cpp" />
     <ClCompile Include="DumpAvoid.cpp" />
     <ClCompile Include="Example_Mole.cpp" />
     <ClCompile Include="GameNode.cpp">
