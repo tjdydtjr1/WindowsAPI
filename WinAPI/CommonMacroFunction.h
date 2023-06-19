@@ -67,3 +67,9 @@ inline void TriangleMake(HDC hdc, int startX, int startY, int endLineX, int endL
 	Polygon(hdc, xyz, 4);
 }
 
+inline void LineMove(HDC hdc, int startX, int startY, int endX, int endY)
+{
+	MoveToEx(hdc, startX, startY, NULL);
+	LineTo(hdc, endX, endY);
+
+}

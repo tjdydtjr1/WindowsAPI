@@ -55,6 +55,9 @@
     <Filter Include="과제\23.06.16 과제">
       <UniqueIdentifier>{bb10ff31-c8ae-4d75-b557-f078cf3965c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.06.19과제">
+      <UniqueIdentifier>{28369c69-f550-40e9-884b-9acfa5fb42f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -91,8 +94,10 @@
     <ClInclude Include="MoleGame.h">
       <Filter>과제\23.06.16 과제</Filter>
     </ClInclude>
-    <ClInclude Include="testKeyManager.h" />
-    <ClInclude Include="testGamaNode.h" />
+    <ClInclude Include="Example_Mole.h" />
+    <ClInclude Include="CreditGame.h">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -204,8 +209,16 @@
     <ClCompile Include="MoleGame.cpp">
       <Filter>과제\23.06.16 과제</Filter>
     </ClCompile>
-    <ClCompile Include="testKeyManager.cpp" />
-    <ClCompile Include="testGamaNode.cpp" />
+    <ClCompile Include="Example_Mole.cpp" />
+    <ClCompile Include="23.06.19_설계_PtInRect%28%29.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.19_과제 내용.cpp">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditGame.cpp">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">

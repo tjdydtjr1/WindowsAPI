@@ -13,6 +13,22 @@ HRESULT KeyManager::init(void)
 	return S_OK;
 }
 
+bool KeyManager::isOnceKeyUp(int key)
+{
+	if (GetAsyncKeyState(key) & 0x8000)
+	{
+		this->setKeyUp(key, true);
+	}
+	else
+	{
+		if (this->getKeyUp()[key])
+		{
+			this->setKeyUp(key, false);
+		}
+	}
+	return false;
+}
+
 bool KeyManager::isOnceKeyDown(int key)
 {
 	/*
@@ -34,31 +50,14 @@ bool KeyManager::isOnceKeyDown(int key)
 		if (!this->getKeyDown()[key])
 		{
 			this->setKeyDown(key, true);
-			return true;
 		}
 	}
 	else
 	{
-		this->setKeyDown(key, false);
+		this->setKeyDown(key, true);
+		return true;
 	}
 
-	return false;
-}
-
-bool KeyManager::isOnceKeyUp(int key)
-{
-	if (GetAsyncKeyState(key) & 0x8000)
-	{
-		this->setKeyUp(key, true);
-	}
-	else
-	{
-		if (this->getKeyUp()[key])
-		{
-			this->setKeyUp(key, false);
-			return true;
-		}
-	}
 	return false;
 }
 

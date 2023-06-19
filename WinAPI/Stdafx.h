@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <tchar.h>
+#include <conio.h>
 
 
 // ===========================================================================
@@ -69,6 +70,7 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #include "CommonMacroFunction.h"
 #include "RandomFunction.h"
 #include "KeyManager.h"
+
 
 // # 싱글톤 #
 // 전역객체 : 호출이 많기에 스네이크를 사용 안함
