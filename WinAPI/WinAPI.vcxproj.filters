@@ -95,7 +95,10 @@
       <Filter>과제\23.06.16 과제</Filter>
     </ClInclude>
     <ClInclude Include="Example_Mole.h" />
-    <ClInclude Include="CreditGame.h">
+    <ClInclude Include="DumpAvoid.h">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletShot.h">
       <Filter>과제\23.06.19과제</Filter>
     </ClInclude>
   </ItemGroup>
@@ -216,7 +219,10 @@
     <ClCompile Include="23.06.19_과제 내용.cpp">
       <Filter>과제\23.06.19과제</Filter>
     </ClCompile>
-    <ClCompile Include="CreditGame.cpp">
+    <ClCompile Include="DumpAvoid.cpp">
+      <Filter>과제\23.06.19과제</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletShot.cpp">
       <Filter>과제\23.06.19과제</Filter>
     </ClCompile>
   </ItemGroup>

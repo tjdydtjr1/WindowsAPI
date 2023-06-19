@@ -1,7 +1,8 @@
 #include "Stdafx.h"
 #include "MainGame.h"
 #include "Example_Mole.h"
-#include "CreditGame.h"
+#include "DumpAvoid.h"
+#include "BulletShot.h"
 
 HINSTANCE _hInstance;
 HWND _hWnd;
@@ -16,7 +17,8 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-CreditGame* _credit;
+BulletShot* _bullet;
+//DumpAvoid* _dump;
 //Example_Mole* _mole;
 //MainGame* _mg;
 //CardGame* _card;
@@ -26,11 +28,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-    _credit = new CreditGame;
+    //_dump = new DumpAvoid;
     //_card = new CardGame;
    // _mg = new MainGame;
    // _mole = new Example_Mole;
-   
+    _bullet = new BulletShot;
+
     _hInstance = hInstance;
     WNDCLASS wndClass;
 
@@ -74,10 +77,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
 
-    if (FAILED(_credit->init()))
+    if (FAILED(_bullet->init()))
     {
         return 0;
     }
+    /*if (FAILED(_dump->init()))
+    {
+        return 0;
+    }*/
     /*if (FAILED(_mg->init()))
     {
         return 0;
@@ -136,10 +143,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     //    DispatchMessage(&message);
     //}
 
+    _bullet->release();
     //_mg->release();
     //_mole->release();
     //_card->release();
-    _credit->release();
+    //_dump->release();
 
     UnregisterClass(WINNAME, hInstance);
 
@@ -152,8 +160,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
     //return _card->MainProc(hWnd, iMessage, wParam, lParam);
     //return _mg->MainProc(hWnd, iMessage, wParam, lParam);
     //return _mole->MainProc(hWnd, iMessage, wParam, lParam);
-    return _credit->MainProc(hWnd, iMessage, wParam, lParam);
-
+    //return _dump->MainProc(hWnd, iMessage, wParam, lParam);
+    return _bullet->MainProc(hWnd, iMessage, wParam, lParam);
 }
 
 // 클라이언트 창 사이즈

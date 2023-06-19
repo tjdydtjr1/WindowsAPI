@@ -4,22 +4,22 @@
 #define OBJECT_MAX 30
 
 
-class CreditGame : public GameNode
+class DumpAvoid : public GameNode
 {
 	RECT _player[2];
 	RECT _object[OBJECT_MAX];
 	RECT _startBox;
-	bool _die[OBJECT_MAX];
+	POINT _arrow[3];
+	bool _isDie;
 	int _time;
-	bool _collision;
-	int start;
+
 public:
 	HRESULT init(void);
 	void release(void);
 	void update(void);
 	void render(HDC hdc);
 
-	CreditGame() {}
-	~CreditGame() {}
+	DumpAvoid() {}
+	~DumpAvoid() {}
 };
 

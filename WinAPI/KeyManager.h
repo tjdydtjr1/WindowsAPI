@@ -37,7 +37,6 @@ public:
 	bitset<KEY_MAX> getKeyUp(void) { return _keyUp; }
 	bitset<KEY_MAX> getKeyDown(void) { return _keyDown; }
 
-	
 
 	KeyManager() {}
 	~KeyManager() {}
