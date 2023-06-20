@@ -55,8 +55,11 @@
     <Filter Include="과제\23.06.16 과제">
       <UniqueIdentifier>{bb10ff31-c8ae-4d75-b557-f078cf3965c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="과제\23.06.19과제">
+    <Filter Include="과제\23.06.19 과제">
       <UniqueIdentifier>{28369c69-f550-40e9-884b-9acfa5fb42f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="과제\23.06.20 과제">
+      <UniqueIdentifier>{6bc12dd3-559e-4f8f-baff-40430848a5e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,16 +98,22 @@
       <Filter>과제\23.06.16 과제</Filter>
     </ClInclude>
     <ClInclude Include="DumpAvoid.h">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClInclude>
     <ClInclude Include="BulletShot.h">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClInclude>
     <ClInclude Include="CrocodileGame.h">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClInclude>
     <ClInclude Include="Example_Mole.h">
       <Filter>과제\23.06.16 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootingEx.h">
+      <Filter>과제\23.06.20 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootingGame.h">
+      <Filter>과제\23.06.20 과제</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,19 +230,31 @@
       <Filter>내용 정리</Filter>
     </ClCompile>
     <ClCompile Include="23.06.19_과제 내용.cpp">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClCompile>
     <ClCompile Include="DumpAvoid.cpp">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClCompile>
     <ClCompile Include="BulletShot.cpp">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClCompile>
     <ClCompile Include="CrocodileGame.cpp">
-      <Filter>과제\23.06.19과제</Filter>
+      <Filter>과제\23.06.19 과제</Filter>
     </ClCompile>
     <ClCompile Include="Example_Mole.cpp">
       <Filter>과제\23.06.16 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.20.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.20 과제 내용.cpp">
+      <Filter>과제\23.06.20 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootingEx.cpp">
+      <Filter>과제\23.06.20 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootingGame.cpp">
+      <Filter>과제\23.06.20 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

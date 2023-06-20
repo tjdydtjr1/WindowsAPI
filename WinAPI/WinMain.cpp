@@ -5,6 +5,8 @@
 #include "DumpAvoid.h"
 #include "BulletShot.h"
 #include "CrocodileGame.h"
+#include "ShootingEx.h"
+#include "ShootingGame.h"
 //
 
 HINSTANCE _hInstance;
@@ -20,12 +22,9 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-//BulletShot* _bullet;
-//DumpAvoid* _dump;
-//Example_Mole* _mole;
-//CardGame* _card;
-CrocodileGame* _croco;
 
+
+ShootingGame* _game;
 //MainGame* _mg;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -33,13 +32,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-    //_dump = new DumpAvoid;
-    //_card = new CardGame;
-   // _mole = new Example_Mole;
-   // _bullet = new BulletShot;
-    _croco = new CrocodileGame;
+ 
 
-   // _mg = new MainGame;
+    _game = new ShootingGame;
+   //_mg = new MainGame;
 
     _hInstance = hInstance;
     WNDCLASS wndClass;
@@ -84,25 +80,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
 
-    /*if (FAILED(_bullet->init()))
-    {
-        return 0;
-    }*/
-    /*if (FAILED(_dump->init()))
-    {
-        return 0;
-    }*/
-    /*if (FAILED(_card->init()))
-    {
-        return 0;
-    }*/
-    if (FAILED(_croco->init()))
+    
+    if (FAILED(_game->init()))
     {
         return 0;
     }
 
 
-    /*if (FAILED(_mg->init()))
+   /* if (FAILED(_mg->init()))
     {
         return 0;
     }*/
@@ -155,11 +140,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     //    DispatchMessage(&message);
     //}
 
-    //_bullet->release();
-    //_mole->release();
-    //_card->release();
-    //_dump->release();
-    _croco->release();
+
+    _game->release();
 
     //_mg->release();
     UnregisterClass(WINNAME, hInstance);
@@ -170,12 +152,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-    //return _card->MainProc(hWnd, iMessage, wParam, lParam);
-    //return _mole->MainProc(hWnd, iMessage, wParam, lParam);
-    //return _dump->MainProc(hWnd, iMessage, wParam, lParam);
-    //return _bullet->MainProc(hWnd, iMessage, wParam, lParam);
-    return _croco->MainProc(hWnd, iMessage, wParam, lParam);
-
+    
+    return _game->MainProc(hWnd, iMessage, wParam, lParam);
     //return _mg->MainProc(hWnd, iMessage, wParam, lParam);
 
 }

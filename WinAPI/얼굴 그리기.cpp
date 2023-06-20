@@ -6,7 +6,6 @@ LPTSTR _lpszClass = TEXT("¾ó±¼ ±×¸®±â");
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-
 RECT rc;
 POINT xy = { 0 };
 
