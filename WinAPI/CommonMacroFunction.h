@@ -54,9 +54,11 @@ inline void DrawEllipseMake(HDC hdc, RECT rc)
 }
 
 // 타원 센터 기준 축소해서 그리기
-inline void EllipseMakeCenter(HDC hdc, int x, int y, int width, int height)
+inline RECT EllipseMakeCenter(int x, int y, int width, int height)
 {
-	Ellipse(hdc, x - width / 2, y - height / 2, x + width / 2, y + height / 2);
+	RECT rc = { x - width / 2, y - height / 2, x + width / 2, y + height / 2 };
+
+	return rc;
 }
 
 // 삼각형 그리기
