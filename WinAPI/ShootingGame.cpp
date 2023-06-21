@@ -41,7 +41,7 @@ void ShootingGame::update(void)
 	{
 		_playerA.setPlayerXY(_playerA.getPlayerXY().x, _playerA.getPlayerXY().y + PLAYER_SPEED);
 	}
-	if (KEYMANAGER->isStayKeyDown(VK_RETURN))
+	if (KEYMANAGER->isStayKeyDown(VK_HOME))
 	{
 		fireBulletA();
 	}
@@ -51,8 +51,19 @@ void ShootingGame::update(void)
 		{
 			continue;
 		}
-		_bulletA[i].rc.left += 14;
-		_bulletA[i].rc.right += 14;
+		_bulletA[i].rc.left += 10;
+		_bulletA[i].rc.right += 10;
+
+		if (collisionCheck(_bulletA[i].rc, _playerBoxB[0]) 
+			|| collisionCheck(_bulletA[i].rc, _playerBoxB[1]))
+		{
+			_playerB.setHp(_playerB.getHp() - 1);
+			
+			_bulletA[i].rc = RectMakeCenter
+			(
+				_playerBoxA[1].left, _playerBoxA[1].bottom + 10, 10, 10
+			);
+		}
 
 		if (_bulletA[i].rc.right > WINSIZE_X)
 		{
@@ -79,8 +90,18 @@ void ShootingGame::update(void)
 		{
 			continue;
 		}
-		_bulletB[i].rc.left -= 14;
-		_bulletB[i].rc.right -= 14;
+		_bulletB[i].rc.left -= 10;
+		_bulletB[i].rc.right -= 10;
+
+		if (collisionCheck(_bulletB[i].rc, _playerBoxA[0]) 
+			|| collisionCheck(_bulletB[i].rc, _playerBoxA[1]))
+		{
+			_playerA.setHp(_playerA.getHp() - 1);
+			_bulletA[i].rc = RectMakeCenter
+			(
+				_playerBoxB[1].left, _playerBoxB[1].bottom + 10, 10, 10
+			);
+		}
 
 		if (_bulletB[i].rc.right < 0)
 		{
@@ -102,18 +123,6 @@ void ShootingGame::render(HDC hdc)
 	DrawRectMake(hdc, _playerBoxB[0]);
 	DrawRectMake(hdc, _playerBoxB[1]);
 
-	for (int i = 0; i < 5; ++i)
-	{
-		if (!_bulletB[i].fire)
-		{
-			continue;
-		}
-		Ellipse(hdc,
-			_bulletB[i].rc.left,
-			_bulletB[i].rc.top,
-			_bulletB[i].rc.right,
-			_bulletB[i].rc.bottom);
-	}
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -128,9 +137,79 @@ void ShootingGame::render(HDC hdc)
 			_bulletA[i].rc.bottom);
 	}
 
+	for (int i = 0; i < 5; ++i)
+	{
+		if (!_bulletB[i].fire)
+		{
+			continue;
+		}
+		Ellipse(hdc,
+			_bulletB[i].rc.left,
+			_bulletB[i].rc.top,
+			_bulletB[i].rc.right,
+			_bulletB[i].rc.bottom);
+	}
+
+	if (_playerA.getHp() == 3)
+	{
+		HBRUSH brush_Green = CreateSolidBrush(RGB(0, 255, 0));
+		brush_Green = (HBRUSH)::SelectObject(hdc, brush_Green);
+		Rectangle(hdc, 50, 50, 400, 100);
+
+		DeleteObject(brush_Green);
+	}
+	else if (_playerA.getHp() == 2)
+	{
+		HBRUSH brush_Blue = CreateSolidBrush(RGB(0, 0, 255));
+
+		brush_Blue = (HBRUSH)::SelectObject(hdc, brush_Blue);
+		Rectangle(hdc, 50, 50, 300, 100);
+		DeleteObject(brush_Blue);
+
+	}
+	else if (_playerA.getHp() == 1)
+	{
+		HBRUSH brush_Red = CreateSolidBrush(RGB(255, 0, 0));
+
+		brush_Red = (HBRUSH)::SelectObject(hdc, brush_Red);
+		Rectangle(hdc, 50, 50, 100, 100);
+		DeleteObject(brush_Red);
+	}
+	else
+	{
+		_hpBar[0] = RectMake(50, 50, 350, 50);
+	}
 	
 
+	if (_playerB.getHp() == 3)
+	{
+		HBRUSH brush_Green = CreateSolidBrush(RGB(0, 255, 0));
+		brush_Green = (HBRUSH)::SelectObject(hdc, brush_Green);
+		Rectangle(hdc, 400, 50, 750, 100);
 
+		DeleteObject(brush_Green);
+	}
+	else if (_playerB.getHp() == 2)
+	{
+		HBRUSH brush_Blue = CreateSolidBrush(RGB(0, 0, 255));
+
+		brush_Blue = (HBRUSH)::SelectObject(hdc, brush_Blue);
+		Rectangle(hdc, 400, 50, 600, 100);
+		DeleteObject(brush_Blue);
+
+	}
+	else if (_playerB.getHp() == 1)
+	{
+		HBRUSH brush_Red = CreateSolidBrush(RGB(255, 0, 0));
+
+		brush_Red = (HBRUSH)::SelectObject(hdc, brush_Red);
+		Rectangle(hdc, 400, 50, 500, 100);
+		DeleteObject(brush_Red);
+	}
+	else
+	{
+		_hpBar[1] = RectMake(400, 50, 350, 50);
+	}
 }
 
 void ShootingGame::fireBulletA(void)
@@ -146,12 +225,11 @@ void ShootingGame::fireBulletA(void)
 
 		_bulletA[i].rc = RectMakeCenter
 		(
-			_playerBoxA[1].left, _playerBoxA[1].bottom + 10, 10, 10
+			_playerBoxA[1].right, _playerBoxA[1].bottom + 10, 10, 10
 		);
 		break;
 	}
 }
-
 
 void ShootingGame::fireBulletB(void)
 {
@@ -172,3 +250,14 @@ void ShootingGame::fireBulletB(void)
 	}
 }
 
+bool ShootingGame::collisionCheck(RECT rc1, RECT rc2)
+{
+	if (rc1.left <= rc2.left &&
+		rc1.right >= rc2.right &&
+		rc1.bottom >= rc2.bottom &&
+		rc1.top <= rc2.top)
+	{
+		return true;
+	}
+	return false;
+}

@@ -244,7 +244,7 @@
     <ClCompile Include="Example_Mole.cpp">
       <Filter>과제\23.06.16 과제</Filter>
     </ClCompile>
-    <ClCompile Include="23.06.20.cpp">
+    <ClCompile Include="23.06.20_설계시 참고.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
     <ClCompile Include="23.06.20 과제 내용.cpp">
@@ -255,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="ShootingGame.cpp">
       <Filter>과제\23.06.20 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.21.cpp">
+      <Filter>내용 정리</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

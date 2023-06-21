@@ -3,7 +3,6 @@
 
 #define VK_WKEY 0x57
 #define VK_SKEY 0x53
-#define BULLET_SPEED 5
 #define PLAYER_SPEED 5
 
 
@@ -81,6 +80,8 @@ public:
 
 	void fireBulletA(void);
 	void fireBulletB(void);
+
+	bool collisionCheck(RECT rc1, RECT rc2);
 
 	ShootingGame() {}
 	~ShootingGame() {}
