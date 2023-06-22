@@ -12,8 +12,11 @@ private:
 	GImage* _plgImageA;
 
 	RECT _rc;
-	RECT _findPicture[5];
 
+	RECT _findPicture[5];
+	int _time;
+
+	
 public:
 	HRESULT init(void);
 	void release(void);
