@@ -10,9 +10,20 @@ HRESULT GameNode::init(void)
     RND->init();
     KEYMANAGER->init();
 
+    this->setDoubleBuffer();
+
+
 	// 함수가 성공적으로 실행 되었음을 알린다.
 	return S_OK;
 }
+
+void GameNode::setDoubleBuffer(void)
+{
+    _DoubleBuffer = new GImage;
+    _DoubleBuffer->init(WINSIZE_X, WINSIZE_Y);
+
+}
+
 
 void GameNode::release(void)
 {
@@ -22,11 +33,13 @@ void GameNode::release(void)
     RND->releaseSingleton();
     KEYMANAGER->releaseSingleton();
 
+    SAFE_DELETE(_DoubleBuffer);
+
 }
 
 void GameNode::update(void)
 {
-	InvalidateRect(_hWnd, NULL, true);
+	InvalidateRect(_hWnd, NULL, false);
 }
 
 void GameNode::render(HDC hdc)
@@ -39,7 +52,7 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 {
     HDC hdc;
     PAINTSTRUCT ps;
-    char text[128];
+    
     
     switch (iMessage)
     {
@@ -49,10 +62,7 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
     case WM_PAINT:              
         
         hdc = BeginPaint(hWnd, &ps);
-        // 마우스 좌표 확인
-        wsprintf(text, "마우스 X : %d , 마우스 Y : %d", _ptMouse.x, _ptMouse.y);
-        TextOut(hdc, 10, 10, text, strlen(text));
-
+        
         this->render(hdc);
 
         EndPaint(hWnd, &ps);
@@ -60,7 +70,7 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 
     case WM_MOUSEMOVE:
         _ptMouse.x = LOWORD(lParam);
-        _ptMouse.y = LOWORD(lParam);
+        _ptMouse.y = HIWORD(lParam);
         
         break;
 
@@ -76,8 +86,6 @@ LRESULT GameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
         {
         case VK_ESCAPE:
             PostMessage(hWnd, WM_DESTROY, 0, 0);
-            break;
-        case VK_SPACE:
             break;
         }
         break;

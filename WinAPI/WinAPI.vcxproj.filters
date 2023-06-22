@@ -61,6 +61,9 @@
     <Filter Include="과제\23.06.20 과제">
       <UniqueIdentifier>{6bc12dd3-559e-4f8f-baff-40430848a5e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.06.22 과제">
+      <UniqueIdentifier>{d94ce27a-a5c0-488f-b63c-936ca3113843}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -115,6 +118,7 @@
     <ClInclude Include="ShootingGame.h">
       <Filter>과제\23.06.20 과제</Filter>
     </ClInclude>
+    <ClInclude Include="GImage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -258,6 +262,13 @@
     </ClCompile>
     <ClCompile Include="23.06.21.cpp">
       <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.22.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="GImage.cpp" />
+    <ClCompile Include="23.06.22 과제 내용.cpp">
+      <Filter>과제\23.06.22 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

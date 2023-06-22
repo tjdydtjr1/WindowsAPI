@@ -112,6 +112,28 @@ void ShootingEx::update(void)
 			_bullet[i].fire = false;
 	}
 
+	/*
+	 IntersectRect() : 교집합을 구하는 함수 (RECT 끼리의)
+	- 첫번째 인자는 두 사각형 A, B가 충돌했을 때 생기는 사각형
+	- 이 부분의 크기가 존재한다면 충돌이 된것이고 아니라면 충돌이 안된것
+	- 2번 인자의 렉트와 3번 인자의 렉트가 겹치는 영역이 생기면 1번 렉트에 저장을 한다.
+	- 충돌을 감지하면 충돌한 인자의 포인터 전달
+	  ㄴ 충돌이 없으면 0 / 충돌이 발생한 상황이라면 NON ZERO 반환
+	
+	RECT temp;
+
+	for (int i = 0; i < ENEMY_MAX; ++i)
+	{
+		for (int j = 0; i < BULLET_MAX; ++j)
+		{
+		       // if문을 사용해서 반환값이 true일 경우에 코드를 작성하면 OK
+			if (IntersectRect(&temp, &_enemy[i].rc, &_bullet[j].rc))
+			{
+
+			}
+		}
+	}
+	*/
 	
 }
 

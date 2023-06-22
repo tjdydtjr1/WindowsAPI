@@ -13,7 +13,6 @@ HINSTANCE _hInstance;
 HWND _hWnd;
 POINT _ptMouse = { 0,0 };
 
-RECT rc[20] = {0};
 
 #define MAX_LOADSTRING 100
 
@@ -24,8 +23,7 @@ void setWindowSize(int x, int y, int width, int height);
 
 
 
-ShootingGame* _game;
-//MainGame* _mg;
+MainGame* _mg;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -34,8 +32,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 {
  
 
-    _game = new ShootingGame;
-   //_mg = new MainGame;
+   _mg = new MainGame;
 
     _hInstance = hInstance;
     WNDCLASS wndClass;
@@ -79,18 +76,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 
     // 1-4. 화면에 윈도우창 보여주기
     ShowWindow(_hWnd, nCmdShow);
-
     
-    if (FAILED(_game->init()))
+    if (FAILED(_mg->init()))
     {
         return 0;
     }
-
-
-   /* if (FAILED(_mg->init()))
-    {
-        return 0;
-    }*/
     // 단일 프로젝트 (단기 / 과제)업데이트 처리 해야 한다.
     //UpdateWindow(_hWnd);
 
@@ -141,9 +131,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     //}
 
 
-    _game->release();
 
-    //_mg->release();
+    _mg->release();
+
     UnregisterClass(WINNAME, hInstance);
 
     return message.wParam;
@@ -153,8 +143,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
     
-    return _game->MainProc(hWnd, iMessage, wParam, lParam);
-    //return _mg->MainProc(hWnd, iMessage, wParam, lParam);
+    return _mg->MainProc(hWnd, iMessage, wParam, lParam);
 
 }
 
