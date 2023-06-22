@@ -29,7 +29,7 @@ public:
 		int			width;
 		int			height;
 		BYTE		loadType;
-		// unsigned char = BYTE
+		// BYTE = unsigned 
 		tagImage()
 		{
 			resID = 0;
