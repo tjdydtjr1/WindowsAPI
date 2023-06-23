@@ -1,12 +1,15 @@
 #include "Stdafx.h"
 #include "MainGame.h"
 // °úÁ¦¿ë
-#include "Example_Mole.h"
-#include "DumpAvoid.h"
-#include "BulletShot.h"
-#include "CrocodileGame.h"
-#include "ShootingEx.h"
-#include "ShootingGame.h"
+//#include "Example_Mole.h"
+//#include "DumpAvoid.h"
+//#include "BulletShot.h"
+//#include "CrocodileGame.h"
+//#include "ShootingEx.h"
+//#include "ShootingGame.h"
+//#include "ImageMole.h"
+//#include "FindPicture.h"
+#include "FuncTri.h"
 //
 
 HINSTANCE _hInstance;
@@ -21,18 +24,16 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-
-
-MainGame* _mg;
+FuncTri* _mg;
+//MainGame* _mg;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
- 
-
-   _mg = new MainGame;
+    _mg = new FuncTri;
+   //_mg = new MainGame;
 
     _hInstance = hInstance;
     WNDCLASS wndClass;

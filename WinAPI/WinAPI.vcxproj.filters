@@ -64,6 +64,9 @@
     <Filter Include="과제\23.06.22 과제">
       <UniqueIdentifier>{d94ce27a-a5c0-488f-b63c-936ca3113843}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.06.23 과제">
+      <UniqueIdentifier>{ce0e5b6b-8176-49ff-9a28-062b3895dbed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -97,9 +100,6 @@
       <Filter>과제\23.06.15 과제</Filter>
     </ClInclude>
     <ClInclude Include="KeyManager.h" />
-    <ClInclude Include="MoleGame.h">
-      <Filter>과제\23.06.16 과제</Filter>
-    </ClInclude>
     <ClInclude Include="DumpAvoid.h">
       <Filter>과제\23.06.19 과제</Filter>
     </ClInclude>
@@ -119,6 +119,21 @@
       <Filter>과제\23.06.20 과제</Filter>
     </ClInclude>
     <ClInclude Include="GImage.h" />
+    <ClInclude Include="FindPicture.h">
+      <Filter>과제\23.06.22 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleGame.h">
+      <Filter>과제\23.06.16 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageMole.h">
+      <Filter>과제\23.06.22 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="FuncTri.h">
+      <Filter>과제\23.06.23 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>과제\23.06.23 과제</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -227,9 +242,6 @@
     <ClCompile Include="23.06.16 과제 내용.cpp">
       <Filter>과제\23.06.16 과제</Filter>
     </ClCompile>
-    <ClCompile Include="MoleGame.cpp">
-      <Filter>과제\23.06.16 과제</Filter>
-    </ClCompile>
     <ClCompile Include="23.06.19_설계_PtInRect%28%29.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
@@ -263,12 +275,33 @@
     <ClCompile Include="23.06.21.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
-    <ClCompile Include="23.06.22.cpp">
+    <ClCompile Include="23.06.22_이미지 관련.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
     <ClCompile Include="GImage.cpp" />
     <ClCompile Include="23.06.22 과제 내용.cpp">
       <Filter>과제\23.06.22 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="FindPicture.cpp">
+      <Filter>과제\23.06.22 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleGame.cpp">
+      <Filter>과제\23.06.16 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageMole.cpp">
+      <Filter>과제\23.06.22 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.23_삼각함수.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="FuncTri.cpp">
+      <Filter>과제\23.06.23 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.23 과제 내용.cpp">
+      <Filter>과제\23.06.23 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>과제\23.06.23 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

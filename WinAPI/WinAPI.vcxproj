@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletShot.h" />
     <ClInclude Include="C3DMatrix.h" />
     <ClInclude Include="C3DVector.h" />
@@ -139,10 +140,13 @@
     <ClInclude Include="CrocodileGame.h" />
     <ClInclude Include="DumpAvoid.h" />
     <ClInclude Include="Example_Mole.h" />
+    <ClInclude Include="FindPicture.h" />
+    <ClInclude Include="FuncTri.h" />
     <ClInclude Include="GameNode.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="GImage.h" />
+    <ClInclude Include="ImageMole.h" />
     <ClInclude Include="IWindowMessageHandler.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h">
@@ -210,9 +214,16 @@
     <ClCompile Include="23.06.22 과제 내용.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="23.06.22.cpp">
+    <ClCompile Include="23.06.22_이미지 관련.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="23.06.23 과제 내용.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="23.06.23_삼각함수.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletShot.cpp" />
     <ClCompile Include="C3DMatrix.cpp" />
     <ClCompile Include="C3DVector.cpp" />
@@ -222,10 +233,13 @@
     <ClCompile Include="CrocodileGame.cpp" />
     <ClCompile Include="DumpAvoid.cpp" />
     <ClCompile Include="Example_Mole.cpp" />
+    <ClCompile Include="FindPicture.cpp" />
+    <ClCompile Include="FuncTri.cpp" />
     <ClCompile Include="GameNode.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GImage.cpp" />
+    <ClCompile Include="ImageMole.cpp" />
     <ClCompile Include="IWindowMessageHandler.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="MainGame.cpp">

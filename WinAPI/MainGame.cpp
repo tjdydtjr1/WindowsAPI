@@ -6,29 +6,32 @@ HRESULT MainGame::init(void)
 {
 	GameNode::init();
 	_bgImage = new GImage;
-	_bgImage->init("Resources/Images/BackGround/test.bmp", WINSIZE_X, WINSIZE_Y);
+	_bgImage->init("Resources/Images/BackGround/DeadSpace.bmp", WINSIZE_X, WINSIZE_Y);
 
-	//_plgImage = new GImage;
-	//_plgImage->init("Resources/Images/Object/Airplane.bmp", 173, 291, true, RGB(255, 0, 255));
-	/*
-	* 그림 좌표
-	950, 50 1041, 139
+	_plgImage = new GImage;
+	_plgImage->init("Resources/Images/Object/Airplane.bmp", 173, 291, true, RGB(255, 0, 255));
+	_rc = RectMakeCenter(400, 400, 173, 291);
 
-	1150, 0 1278, 145
+	_radian = 3.1415926535f;
+	_degree = 180.0f;
 
-	1192, 254 1275, 336
+	for (int i = 0; i < 5; ++i)
+	{
+		_star[i].x = cosf((i * 72 - 90 ) * PI / 180.0f) * 200 + WINSIZE_X / 2;
+		_star[i].y = sinf((i * 72 - 90 ) * PI / 180.0f) * 200 + WINSIZE_Y / 2;
+		
+		/*
+		오망성을 그리기 위한 포인트 5개
+		ㄴ 72 = 360 / 5
+		
+		90 -> 초기 각도
 
-	1132, 563 1241 618
+		디그리를 -> 라디안으로
 
-	1053, 676 1161 776
-	*/
-	_findPicture[0] = RectMakeCenter(950, 50, 50, 50);
-	_findPicture[1] = RectMakeCenter(1150, 0, 50, 50);
-	_findPicture[2] = RectMakeCenter(1192, 254, 50, 50);
-	_findPicture[3] = RectMakeCenter(1132, 563, 50, 50);
-	_findPicture[4] = RectMakeCenter(1053, 676, 50, 50);
-
-	_time = 600;
+		200 -> 중심에서의 거리
+		WINSIZE_X / Y -> 중점
+		*/
+	}
 
 	return S_OK;
 }
@@ -47,7 +50,6 @@ void MainGame::update(void)
 {
 	GameNode::update();
 
-	_rc = RectMakeCenter(_ptMouse.x, _ptMouse.y, 80, 80);
 
 	if (!KEYMANAGER->isOnceKeyDown('Q'))
 	{
@@ -80,7 +82,8 @@ void MainGame::update(void)
 		_rc.bottom += 5.0f;
 	}
 
-	
+	GetLocalTime(&_st);
+	_st.wSecond;
 }
 
 void MainGame::render(HDC hdc)
@@ -88,53 +91,57 @@ void MainGame::render(HDC hdc)
 	// =======================================================
 	HDC memDC = this->getDoubleBuffer()->getMemDC();
 	// PatBlt() : 사각형 안에 영역을 브러쉬로 채우는 함수
-	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
+	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =======================================================
-	RECT temp;
-	char text[128];
-	
-	_bgImage->render(memDC, 0, 0);
-	wsprintf(text, "마우스 X : %d , 마우스 Y : %d", _ptMouse.x, _ptMouse.y);
-	TextOut(memDC, 10, 10, text, strlen(text));
+	/*_bgImage->render(memDC, 0, 0);
+	_plgImage->render(memDC, _rc.left, _rc.top);*/
+	// =======================================================
 
-	
-	wsprintf(text, "TIME : %d", (--_time) / 10 );
-	TextOut(memDC, 600, 10, text, strlen(text));
-	
-	
 
-	if (KEYMANAGER->isToggleKey(VK_F1))
-	{
-		DrawRectMake(memDC, _rc);
-	}
+	char strRadian[128];
+	char strDegree[128];
+	char strSecond[128];
 
-	if (KEYMANAGER->isToggleKey(VK_LBUTTON) && IntersectRect(&temp, &_rc, &_findPicture[0]))
-	{
-		DrawEllipseMake(memDC, _findPicture[0]);
-	}
-	else if(!KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && IntersectRect(&temp, &_rc, &_findPicture[0]))
-	{
-		_time += 100;
-	}
-	if (IntersectRect(&temp, &_rc, &_findPicture[1]))
-	{
-		DrawEllipseMake(memDC, _findPicture[1]);
-	}
-	if (IntersectRect(&temp, &_rc, &_findPicture[2]))
-	{
-		DrawEllipseMake(memDC, _findPicture[2]);
-	}
-	if (IntersectRect(&temp, &_rc, &_findPicture[3]))
-	{
-		DrawEllipseMake(memDC, _findPicture[3]);
-	}
-	if (IntersectRect(&temp, &_rc, &_findPicture[4]))
-	{
-		DrawEllipseMake(memDC, _findPicture[4]);
-	}
-	//_plgImage->render(memDC, _ptMouse.x, _ptMouse.y);
+	sprintf_s(strSecond, "%d 초", _st.wSecond);
+	TextOut(memDC, WINSIZE_X / 2, 100, strSecond, strlen(strSecond));
+
+	// 라디안에서 디그리로
+	// ㄴ 1 Radian = 180 / PI Degree
+	sprintf_s(strRadian, "%.2f 라디안 값은 %.2f 디그리 값과 같다."
+		, _radian, _radian * (180.0f / M_PI));
+	TextOut(memDC, WINSIZE_X / 2 - 100, WINSIZE_Y / 2 - 100, strRadian, strlen(strRadian));
+
+	// 디그리에서 라디안으로
+	// ㄴ 1 Degree = PI / 180 Radian
+	sprintf_s(strDegree, "%.2f 디그리 값은 %.2f 라디안 값과 같다."
+		, _degree, _degree * (PI / 180.0f));
+	TextOut(memDC, WINSIZE_X / 2 - 100, WINSIZE_Y / 2, strDegree, strlen(strDegree));
+
+	// CreatePen(펜 스타일, 길이, 색상);
+	HPEN pen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
+	HPEN currentPen;
+	
+	currentPen = (HPEN)::SelectObject(memDC, pen);
+
+
+	LineMake(memDC, WINSIZE_X / 2 - 100, WINSIZE_Y / 2 + 100, WINSIZE_X / 2 + 200, WINSIZE_Y / 2 + 100);
+
+	DeleteObject(pen);
+
 
 	// =======================================================
+	/*
+	
+
+	*/
+
+
+	SetPixel(memDC, _star[0].x, _star[0].y, RGB(255, 0, 0));
+
+	for (int i = 0; i < 5; ++i)
+	{
+		EllipseMake(memDC, _star[i].x, _star[i].y, 10, 10);
+	}
 
 	this->getDoubleBuffer()->render(hdc, 0, 0);
 
