@@ -1,16 +1,27 @@
 #pragma once
 #include "GameNode.h"
 
-using std::vector;
+#define MAX_BULLET 100
+#define PI		3.1415926535f
+#define MOVE_SPEED 3
 
-struct a
+
+struct bullet
 {
-
+	RECT rc;
+	bool fire;
+	int degree;
 };
 
 class Bullet : public GameNode
 {
 private:
+	POINT _berral;
+	bullet _bullet[MAX_BULLET];
+	int _theta;
+	int _speed;
+	int _degree;
+	int _idx;
 
 
 public:
@@ -19,6 +30,7 @@ public:
 	void update(void);
 	void render(HDC hdc);
 
+	void fireBullet();
 
 	Bullet() {}
 	~Bullet() {}

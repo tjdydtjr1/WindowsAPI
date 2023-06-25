@@ -9,7 +9,8 @@
 //#include "ShootingGame.h"
 //#include "ImageMole.h"
 //#include "FindPicture.h"
-#include "FuncTri.h"
+//#include "FuncTri.h"
+#include "Bullet.h"
 //
 
 HINSTANCE _hInstance;
@@ -24,7 +25,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-FuncTri* _mg;
+Bullet* _mg;
 //MainGame* _mg;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -32,7 +33,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-    _mg = new FuncTri;
+    _mg = new Bullet;
    //_mg = new MainGame;
 
     _hInstance = hInstance;
