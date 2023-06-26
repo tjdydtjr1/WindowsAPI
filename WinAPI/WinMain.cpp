@@ -1,16 +1,8 @@
 #include "Stdafx.h"
 #include "MainGame.h"
 // °úÁ¦¿ë
-//#include "Example_Mole.h"
-//#include "DumpAvoid.h"
-//#include "BulletShot.h"
-//#include "CrocodileGame.h"
-//#include "ShootingEx.h"
-//#include "ShootingGame.h"
-//#include "ImageMole.h"
-//#include "FindPicture.h"
-//#include "FuncTri.h"
-#include "Bullet.h"
+ #include "SliceGame.h" 
+#include "MiniMap.h"
 //
 
 HINSTANCE _hInstance;
@@ -25,16 +17,18 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-Bullet* _mg;
 //MainGame* _mg;
+MiniMap* _mg;
+
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-    _mg = new Bullet;
    //_mg = new MainGame;
+    _mg = new MiniMap;
+
 
     _hInstance = hInstance;
     WNDCLASS wndClass;

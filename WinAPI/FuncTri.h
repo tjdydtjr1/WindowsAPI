@@ -28,7 +28,7 @@ class FuncTri : public GameNode
 	SEC _h;
 	SYSTEMTIME _st;
 
-	int _seta;
+	int _theta;
 
 public:
 	HRESULT init(void);

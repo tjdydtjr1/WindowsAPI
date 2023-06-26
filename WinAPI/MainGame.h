@@ -13,29 +13,19 @@
 #define DEGREE_RADIAN(_deg)			(M_PI * (_deg) / 180.f)
 
 
-struct STAR
-{
-	int x;
-	int y;
-};
-
 class MainGame : public GameNode
 {
 private:
 	GImage* _bgImage;
-	GImage* _plgImage;
-	GImage* _plgImageA;
-	
+	GImage* _plImage;
 	RECT _rc;
 
-	float _radian;
-	float _degree;
+	int _countA, _countB;
+	int _alphaA, _alphaB;
+	int _alphaNum;
 
-	// 시간 관련 구조체
-	SYSTEMTIME _st;
-	HPEN _currentStarPen;
-	STAR _star[5];
-	
+	bool _isAlphaIncrese;
+
 public:
 	HRESULT init(void);
 	void release(void);

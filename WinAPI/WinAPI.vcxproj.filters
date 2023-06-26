@@ -67,6 +67,15 @@
     <Filter Include="과제\23.06.23 과제">
       <UniqueIdentifier>{ce0e5b6b-8176-49ff-9a28-062b3895dbed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrigonoMetric Function">
+      <UniqueIdentifier>{7893cf7b-3c86-4e02-917c-ae28b27e89c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GImage">
+      <UniqueIdentifier>{b85937b7-5422-4028-8556-3197f43bcb77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="과제\23.06.26 과제">
+      <UniqueIdentifier>{a3d40d06-e6c9-426c-acf6-cca1f65aa5c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -118,7 +127,6 @@
     <ClInclude Include="ShootingGame.h">
       <Filter>과제\23.06.20 과제</Filter>
     </ClInclude>
-    <ClInclude Include="GImage.h" />
     <ClInclude Include="FindPicture.h">
       <Filter>과제\23.06.22 과제</Filter>
     </ClInclude>
@@ -133,6 +141,15 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>과제\23.06.23 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="GImage.h">
+      <Filter>GImage</Filter>
+    </ClInclude>
+    <ClInclude Include="SliceGame.h">
+      <Filter>과제\23.06.26 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMap.h">
+      <Filter>과제\23.06.26 과제</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,7 +295,6 @@
     <ClCompile Include="23.06.22_이미지 관련.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
-    <ClCompile Include="GImage.cpp" />
     <ClCompile Include="23.06.22 과제 내용.cpp">
       <Filter>과제\23.06.22 과제</Filter>
     </ClCompile>
@@ -303,10 +319,30 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>과제\23.06.23 과제</Filter>
     </ClCompile>
+    <ClCompile Include="23.06.24.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
+    <ClCompile Include="GImage.cpp">
+      <Filter>GImage</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.26 과제 내용.cpp">
+      <Filter>과제\23.06.26 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="SliceGame.cpp">
+      <Filter>과제\23.06.26 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
+      <Filter>과제\23.06.26 과제</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">
       <Filter>과제\23.06.13 과제</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TrigonoMetric Function\TrigonoMetric Function.txt">
+      <Filter>TrigonoMetric Function</Filter>
+    </Text>
   </ItemGroup>
 </Project>

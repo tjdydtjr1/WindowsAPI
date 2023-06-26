@@ -5,16 +5,16 @@ HRESULT FuncTri::init(void)
 {
 	GameNode::init();
 	
-	_seta = 6;
+	_theta = 6;
 
-	_sec.x = cosf((_seta - 90) * PI / 180.0f) * 250 + WINSIZE_X / 2;
-	_sec.y = sinf((_seta - 90) * PI / 180.0f) * 250 + WINSIZE_Y / 2;
+	_sec.x = cosf((_theta - 90) * PI / 180.0f) * 250 + WINSIZE_X / 2;
+	_sec.y = sinf((_theta - 90) * PI / 180.0f) * 250 + WINSIZE_Y / 2;
 
-	_min.x = cosf((_seta - 90) * PI / 180.0f) * 170 + WINSIZE_X / 2;
-	_min.y = sinf((_seta - 90) * PI / 180.0f) * 170 + WINSIZE_Y / 2;
+	_min.x = cosf((_theta - 90) * PI / 180.0f) * 170 + WINSIZE_X / 2;
+	_min.y = sinf((_theta - 90) * PI / 180.0f) * 170 + WINSIZE_Y / 2;
 
-	_h.x = cosf((_seta - 90) * PI / 180.0f) * 100 + WINSIZE_X / 2;
-	_h.y = sinf((_seta - 90) * PI / 180.0f) * 100 + WINSIZE_Y / 2;
+	_h.x = cosf((_theta - 90) * PI / 180.0f) * 100 + WINSIZE_X / 2;
+	_h.y = sinf((_theta - 90) * PI / 180.0f) * 100 + WINSIZE_Y / 2;
 
 	_ellipse = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 600, 600);
 
@@ -31,16 +31,16 @@ void FuncTri::update(void)
 	GameNode::update();
 	GetLocalTime(&_st);
 
-	_seta = 6;
+	_theta = 6;
 
-	_sec.x = cosf((_st.wSecond * _seta - 90) * PI / 180.0f) * 250 + WINSIZE_X / 2;
-	_sec.y = sinf((_st.wSecond * _seta - 90) * PI / 180.0f) * 250 + WINSIZE_Y / 2;
+	_sec.x = cosf((_st.wSecond * _theta - 90) * PI / 180.0f) * 250 + WINSIZE_X / 2;
+	_sec.y = sinf((_st.wSecond * _theta - 90) * PI / 180.0f) * 250 + WINSIZE_Y / 2;
 
-	_min.x = cosf((_st.wMinute * _seta - 90) * PI / 180.0f) * 170 + WINSIZE_X / 2;
-	_min.y = sinf((_st.wMinute * _seta - 90) * PI / 180.0f) * 170 + WINSIZE_Y / 2;
+	_min.x = cosf((_st.wMinute * _theta - 90) * PI / 180.0f) * 170 + WINSIZE_X / 2;
+	_min.y = sinf((_st.wMinute * _theta - 90) * PI / 180.0f) * 170 + WINSIZE_Y / 2;
 
-	_h.x = cosf((_st.wHour * _seta - 90) * PI / 180.0f) * 100 + WINSIZE_X / 2;
-	_h.y = sinf((_st.wHour * _seta - 90) * PI / 180.0f) * 100 + WINSIZE_Y / 2;
+	_h.x = cosf((_st.wHour * _theta - 90) * PI / 180.0f) * 100 + WINSIZE_X / 2;
+	_h.y = sinf((_st.wHour * _theta - 90) * PI / 180.0f) * 100 + WINSIZE_Y / 2;
 }
 
 void FuncTri::render(HDC hdc)

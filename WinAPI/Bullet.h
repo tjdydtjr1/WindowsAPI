@@ -10,7 +10,8 @@ struct bullet
 {
 	RECT rc;
 	bool fire;
-	int degree;
+	POINT xy;
+	int r;
 };
 
 class Bullet : public GameNode
@@ -20,7 +21,6 @@ private:
 	bullet _bullet[MAX_BULLET];
 	int _theta;
 	int _speed;
-	int _degree;
 	int _idx;
 
 

@@ -30,7 +30,9 @@ void Bullet::update(void)
 	{
 		// 총알 발사
 		fireBullet();
-
+		_bullet[_idx].xy.x = cosf((_theta - 90) * PI / 180.0f) * _bullet[_idx].r;
+		_bullet[_idx].xy.y = sinf((_theta - 90) * PI / 180.0f) * _bullet[_idx].r;
+		++_idx;
 
 		/*if (!_bullet[_idx].fire)
 		{
@@ -54,9 +56,17 @@ void Bullet::update(void)
 		{
 			continue;
 		}
+
+		/*_bullet[i].rc.left -= MOVE_SPEED;
+		_bullet[i].rc.right -= MOVE_SPEED;
+		_bullet[i].rc.top -= (_berral.y / (_berral.x + MOVE_SPEED)) * MOVE_SPEED;
+		_bullet[i].rc.bottom -= (_berral.y / (_berral.x + MOVE_SPEED)) * MOVE_SPEED;*/
+
+
+
 		//tan(_theta * PI / 180.0f)
 		// _theta => 포신 각도			각도								반지름 증가
-		if (_berral.x < WINSIZE_X / 2)
+		/*if (_berral.x < WINSIZE_X / 2)
 		{
 			_bullet[i].rc.left -= MOVE_SPEED;
 			_bullet[i].rc.right -= MOVE_SPEED;
@@ -70,7 +80,8 @@ void Bullet::update(void)
 			_bullet[i].rc.top -= (_berral.y / _berral.x + MOVE_SPEED) * MOVE_SPEED;
 			_bullet[i].rc.bottom -= (_berral.y / _berral.x + MOVE_SPEED) * MOVE_SPEED;
 
-		}
+		}*/
+	}
 		//_bullet[i].rc.top -= _berral.y;
 		//_bullet[i].rc.bottom -= _berral.y;
 
@@ -130,9 +141,6 @@ void Bullet::update(void)
 			_bullet[i].rc.right -= MOVE_SPEED;
 			_bullet[i].rc.bottom -= MOVE_SPEED;
 		}*/
-
-	
-	}
 	
 }
 
