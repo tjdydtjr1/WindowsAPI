@@ -11,6 +11,7 @@ HRESULT MainGame::init(void)
 	_plImage = new GImage;
 	_plImage->init("Resources/Images/Object/Airplane.bmp", 173, 291, true, RGB(255, 0, 255));
 
+
 	_rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 173, 291);
 
 	_countA = _countB = 0;
