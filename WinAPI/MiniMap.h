@@ -9,6 +9,7 @@ private:
 	GImage* _bgImage;
 	GImage* _miniMap;
 	GImage* _testImage;
+	GImage* _charImage;
 
 
 	RECT _rc;

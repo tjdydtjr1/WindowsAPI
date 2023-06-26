@@ -7,9 +7,11 @@ GImage::GImage()
     , _fileName(nullptr)
     , _isTrans(false)
     , _transColor(RGB(0, 0, 0))
-    , _blendImage(NULL)
+    , _blendImage(NULL)     // È£È¯¼º
 {
 }
+
+
 
 HRESULT GImage::init(int width, int height)
 {

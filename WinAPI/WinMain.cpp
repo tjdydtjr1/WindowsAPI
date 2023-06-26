@@ -18,7 +18,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void setWindowSize(int x, int y, int width, int height);
 
 //MainGame* _mg;
-MiniMap* _mg;
+SliceGame* _mg;
 
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -27,7 +27,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      int       nCmdShow)
 {
    //_mg = new MainGame;
-    _mg = new MiniMap;
+    _mg = new SliceGame;
 
 
     _hInstance = hInstance;

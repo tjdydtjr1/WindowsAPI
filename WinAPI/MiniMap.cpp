@@ -10,10 +10,15 @@ HRESULT MiniMap::init(void)
 	
 	_testImage = new GImage;
 
+	_charImage = new GImage;
+
 	_bgImage->init("Resources/Images/BackGround/stage1.bmp", WINSIZE_X, WINSIZE_Y, true, RGB(255, 0, 255));
 	_miniMap->init("Resources/Images/BackGround/stage1.bmp", WINSIZE_X / 4, WINSIZE_Y / 4 + 50, true, RGB(255, 0, 255));
 	
 	_testImage->init("Resources/Images/BackGround/stage1.bmp", WINSIZE_X / 2, WINSIZE_Y / 2, true, RGB(255, 0, 255));
+
+	_charImage->init("Resources/Images/Object/Char.bmp", 40, 40, true, RGB(255, 0, 255));
+	
 	//_testImage->init(, WINSIZE_X / 2, WINSIZE_Y / 2, true, RGB(255, 0, 255));
 
 	_rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y - 50, 40, 40);
@@ -91,19 +96,19 @@ void MiniMap::render(HDC hdc)
 	// 전체 이미지
 	_bgImage->render(memDC, 0, 0);
 
+	_charImage->render(memDC, _rc.left, _rc.top);
 	//_miniMap->render(memDC, _miniRc.left - 550, _miniRc.top - 500, WINSIZE_X, WINSIZE_Y, 0, 0, 0);
-	
+
 	// 미니맵 위치
-	_miniMap->render(memDC, (WINSIZE_X - 350), WINSIZE_Y - 220);
-
-	DrawRectMake(memDC, _rc);
-	DrawRectMake(memDC, _miniRc);
-
-
 	if (KEYMANAGER->isToggleKey(VK_TAB))
 	{
 		_testImage->render(memDC, WINSIZE_X / 4, WINSIZE_Y / 4);
-		DrawRectMake(memDC, _testRc);
+		_charImage->render(memDC, _testRc.left, _testRc.top);
+	}
+	else
+	{
+		_miniMap->render(memDC, (WINSIZE_X - 350), WINSIZE_Y - 220);
+		_charImage->render(memDC, _miniRc.left, _miniRc.top);
 	}
 
 

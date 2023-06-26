@@ -10,6 +10,7 @@ HRESULT SliceGame::init(void)
 	_idx = 0;
 	_temp = 0;
 
+
 	for (int i = 0; i < 9; ++i)
 	{
 		// 초기화
@@ -34,13 +35,11 @@ HRESULT SliceGame::init(void)
 		_check[_temp] = i;
 	}
 
-
 	_countA = _countB = 0;
 	_alphaA = _alphaB = 0;
 	_alphaNum = 1;
 
 	_isAlphaIncrese = false;
-
 
 	return S_OK;
 }
@@ -126,27 +125,7 @@ void SliceGame::update(void)
 			}
 		}
 	}
-
-	/*_countA++;
-	if (_countA % 3 == 0)
-	{
-		_alphaA++;
-
-		if (_alphaA >= 255)
-		{
-			_alphaA = 0;
-		}
-	}
-
-	_countB++;
-	if (_countB % 6 == 0)
-	{
-		_alphaB += 5;
-		if (_alphaB >= 255)
-		{
-			_alphaB = 0;
-		}
-	}*/
+	
 }
 
 void SliceGame::render(HDC hdc)
@@ -172,7 +151,7 @@ void SliceGame::render(HDC hdc)
 	// 짤린 이미지 및 해당하는 rect 출력
 	for (int i = 0; i < 9; ++i)
 	{
-		DrawRectMake(memDC, _rc[i]);
+		//DrawRectMake(memDC, _rc[i]);
 		_plImage[i].render(memDC, _rc[_check[i]].left, _rc[_check[i]].top,
 			(200 * (i % 3)), 200 * (i / 3), 200, 200, 255);
 	}
