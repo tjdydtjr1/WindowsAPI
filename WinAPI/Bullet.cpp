@@ -62,8 +62,6 @@ void Bullet::update(void)
 		_bullet[i].rc.top -= (_berral.y / (_berral.x + MOVE_SPEED)) * MOVE_SPEED;
 		_bullet[i].rc.bottom -= (_berral.y / (_berral.x + MOVE_SPEED)) * MOVE_SPEED;*/
 
-
-
 		//tan(_theta * PI / 180.0f)
 		// _theta => 포신 각도			각도								반지름 증가
 		/*if (_berral.x < WINSIZE_X / 2)

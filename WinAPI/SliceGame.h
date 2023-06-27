@@ -5,20 +5,17 @@ class SliceGame : public GameNode
 {
 private:
 	GImage* _bgImage;
-	GImage _plImage[9];
 	RECT _rc[9];
 	RECT _switch;
-
 
 	int _check[9];
 	int _idx;
 	int _temp;
 
-	int _countA, _countB;
-	int _alphaA, _alphaB;
-	int _alphaNum;
+	int _test[9];
 
-	bool _isAlphaIncrese;
+	RECT _swapRc;
+	int _swap;
 
 public:
 	HRESULT init(void);
@@ -28,6 +25,7 @@ public:
 
 	SliceGame()
 		: _check{0}
+		, _swap(8)
 	{}
 	~SliceGame() {}
 

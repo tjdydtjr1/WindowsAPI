@@ -10,18 +10,6 @@ HRESULT SliceGame::init(void)
 	_idx = 0;
 	_temp = 0;
 
-
-	for (int i = 0; i < 9; ++i)
-	{
-		// 초기화
-		_plImage[i].init("Resources/Images/Object/baseball.bmp", 600, 600, true, RGB(255, 0, 255));
-	}
-
-	for (int i = 0; i < 9; ++i)
-	{
-		_rc[i] = RectMake(900 + (201 * (i % 3)),201 * (i / 3), 200, 200);
-	}
-
 	// 그림 섞기 위한 인덱스
 	for (int i = 0; i < 9; ++i)
 	{
@@ -33,13 +21,17 @@ HRESULT SliceGame::init(void)
 			continue;
 		}
 		_check[_temp] = i;
+		_test[i] = i;
 	}
 
-	_countA = _countB = 0;
-	_alphaA = _alphaB = 0;
-	_alphaNum = 1;
 
-	_isAlphaIncrese = false;
+	for (int i = 0; i < 9; ++i)
+	{
+		_rc[_check[i]] = RectMake(900 + (201 * (i % 3)), 201 * (i / 3), 200, 200);
+	}
+	
+
+	
 
 	return S_OK;
 }
@@ -48,84 +40,83 @@ void SliceGame::release(void)
 {
 	GameNode::release();
 	SAFE_DELETE(_bgImage);
-	//SAFE_DELETE_ARRAY(_plImage);
-	delete[] _plImage;
+	
+	//delete[] _plImage;
 }
 
 void SliceGame::update(void)
 {
 	GameNode::update();
 
+	for (int i = 0; i < 9; ++i)
+	{
+		_rc[_check[i]] = RectMake(900 + (201 * (i % 3)), 201 * (i / 3), 200, 200);
+	}
+
+	if (!KEYMANAGER->isOnceKeyDown(VK_F1))
+	{
+		// 치트 사용
+		for (int i = 0; i < 9; ++i)
+		{
+			_check[i] = i;
+		}
+		_check[7] = 8;
+		_check[8] = 7;
+		
+		
+	}
+	
+	// _rc[check[i] -> 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_rc[8].left += 5;
-		_rc[8].right += 5;
-		for (int i = 0; i < 8; ++i)
+		if (_swap != 2 && _swap != 5 && _swap != 8)
 		{
-			if (IntersectRect(&_switch, &_rc[8], &_rc[i]))
-			{
-				_switch = _rc[8];
-				_rc[8] = _rc[i];
-				_rc[i] = _switch;
-				
-				_rc[i].left -= 5;
-				_rc[i].right -= 5;
-			}
+			_temp = _check[_swap + 1];
+			_check[_swap + 1] = _check[_swap];
+			_check[_swap] = _temp;
+
+			++_swap;
 		}
+
+		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_rc[8].left -= 5;
-		_rc[8].right -= 5;
-		for (int i = 0; i < 8; ++i)
+		if (_swap != 0 && _swap != 3 && _swap != 6)
 		{
-			if (IntersectRect(&_switch, &_rc[8], &_rc[i]))
-			{
-				_switch = _rc[8];
-				_rc[8] = _rc[i];
-				_rc[i] = _switch;
+			// _check[0] = 2 1 4 5 8 6
+			// _rc[_check[0]] = > _rc[2] = 0번이미지 
+			_temp = _check[_swap - 1];
+			_check[_swap - 1] = _check[_swap];
+			_check[_swap] = _temp;
+		
 
-				_rc[i].left += 5;
-				_rc[i].right += 5;
-
-			}
+			--_swap;
 		}
+
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		_rc[8].top -= 5;
-		_rc[8].bottom -= 5;
-		for (int i = 0; i < 8; ++i)
+		if (_swap != 0 && _swap != 1 && _swap != 2)
 		{
-			if (IntersectRect(&_switch, &_rc[8], &_rc[i]))
-			{
-				_switch = _rc[8];
-				_rc[8] = _rc[i];
-				_rc[i] = _switch;
-
-				_rc[i].top += 5;
-				_rc[i].bottom += 5;
-			}
+			_temp = _check[_swap - 3];
+			_check[_swap - 3] = _check[_swap];
+			_check[_swap] = _temp;
+		
+			_swap -= 3;
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		_rc[8].top += 5;
-		_rc[8].bottom += 5;
-		for (int i = 0; i < 8; ++i)
+		if (_swap != 6 && _swap != 7 && _swap != 8)
 		{
-			if (IntersectRect(&_switch, &_rc[8], &_rc[i]))
-			{
-				_switch = _rc[8];
-				_rc[8] = _rc[i];
-				_rc[i] = _switch;
+			_temp = _check[_swap + 3];
+			_check[_swap + 3] = _check[_swap];
+			_check[_swap] = _temp;
 
-				_rc[i].top -= 5;
-				_rc[i].bottom -= 5;
-			}
+			_swap += 3;
 		}
 	}
-	
 }
 
 void SliceGame::render(HDC hdc)
@@ -147,14 +138,24 @@ void SliceGame::render(HDC hdc)
 	// 좌측 원본 이미지	
 	_bgImage->render(memDC, 0, 0);
 
+	char text[128];
 	
-	// 짤린 이미지 및 해당하는 rect 출력
+	// 짤린 이미지 출력
+
 	for (int i = 0; i < 9; ++i)
 	{
-		//DrawRectMake(memDC, _rc[i]);
-		_plImage[i].render(memDC, _rc[_check[i]].left, _rc[_check[i]].top,
+		//DrawRectMake(memDC, _rc[i]); 5 -> 0 _rc[5] -> 0Image
+		_bgImage->render(memDC, _rc[i].left, _rc[i].top,
 			(200 * (i % 3)), 200 * (i / 3), 200, 200, 255);
 	}
+	for (int i = 0; i < 9; ++i)
+	{
+		wsprintf(text, "%d", _test[i]);
+		TextOut(memDC, _rc[i].left, _rc[i].top, text, strlen(text));
+	}
+	//DrawRectMake(memDC, _rc[9]);
+	
+	
 	
 	// 클리핑 : 자르기
 	//_bgImage->render(memDC, _rc.left, _rc.top, 500, 500, 300, 300, _alphaB);

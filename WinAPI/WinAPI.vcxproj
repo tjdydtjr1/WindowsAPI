@@ -164,6 +164,7 @@
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SliceGame.h" />
     <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="WormGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -273,6 +274,7 @@
     <ClCompile Include="WinMain.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="WormGame.cpp" />
     <ClCompile Include="공 튀기기.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
