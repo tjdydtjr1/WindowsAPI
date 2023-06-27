@@ -23,11 +23,14 @@ void WormGame::update(void)
 {
 	GameNode::update();
 	_test += 5;
-	_xy.x = cosf((_theta - 90) * PI / 180.0f) * (100 ) + WINSIZE_X / 2 - _test;
-	_xy.y = sinf((_theta - 90) * PI / 180.0f) * (100) + WINSIZE_Y - _test;
-	_rc = RectMakeCenter(_xy.x, _xy.y, 50, 50);
-
 	
+	// x > y 45도 이하
+	// x < y 45도 이상
+	_rc.left -= 5;
+	_rc.right -= 5;
+	_rc.top -= 2;
+	_rc.bottom -= 2;
+
 
 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))

@@ -9,29 +9,32 @@ HRESULT SliceGame::init(void)
 
 	_idx = 0;
 	_temp = 0;
+	_count = 0;
 
-	// 그림 섞기 위한 인덱스
+	// 그림 섞기 위한 랜덤 인덱스
 	for (int i = 0; i < 9; ++i)
 	{
 		_idx = rand() % 9;
 		_temp = _idx;
-		if (_check[_temp])
+		if (_rndIdx[_temp])
 		{
 			--i;
 			continue;
 		}
-		_check[_temp] = i;
-		_test[i] = i;
+		_rndIdx[_temp] = i;
+		_checkIdx[i] = i;
 	}
 
 
 	for (int i = 0; i < 9; ++i)
 	{
-		_rc[_check[i]] = RectMake(900 + (201 * (i % 3)), 201 * (i / 3), 200, 200);
+		_rc[_rndIdx[i]] = RectMake(900 + (200 * (i % 3)), 200 * (i / 3), 200, 200);
 	}
 	
-
-	
+	for (int i = 0; i < 9; ++i)
+	{
+		_result[i] = RectMake(900 + (200 * (i % 3)), 200 * (i / 3), 200, 200);
+	}
 
 	return S_OK;
 }
@@ -40,8 +43,6 @@ void SliceGame::release(void)
 {
 	GameNode::release();
 	SAFE_DELETE(_bgImage);
-	
-	//delete[] _plImage;
 }
 
 void SliceGame::update(void)
@@ -50,32 +51,42 @@ void SliceGame::update(void)
 
 	for (int i = 0; i < 9; ++i)
 	{
-		_rc[_check[i]] = RectMake(900 + (201 * (i % 3)), 201 * (i / 3), 200, 200);
+		_rc[_rndIdx[i]] = RectMake(900 + (200 * (i % 3)), 200 * (i / 3), 200, 200);
 	}
 
+	// 치트 사용
 	if (!KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
-		// 치트 사용
 		for (int i = 0; i < 9; ++i)
 		{
-			_check[i] = i;
+			_rndIdx[i] = i;
 		}
-		_check[7] = 8;
-		_check[8] = 7;
-		
+		_rndIdx[7] = 8;
+		_rndIdx[8] = 7;
+		_swap = 8;
+		_count = 8;
 		
 	}
 	
-	// _rc[check[i] -> 
+	// 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
+		
 		if (_swap != 2 && _swap != 5 && _swap != 8)
 		{
-			_temp = _check[_swap + 1];
-			_check[_swap + 1] = _check[_swap];
-			_check[_swap] = _temp;
+			_temp = _rndIdx[_swap + 1];
+			_rndIdx[_swap + 1] = _rndIdx[_swap];
+			_rndIdx[_swap] = _temp;
 
 			++_swap;
+		}
+		_count = 0;
+		for (int i = 0; i < 9; ++i)
+		{
+			if (_rndIdx[i] == i)
+			{
+				++_count;
+			}
 		}
 
 		
@@ -86,12 +97,19 @@ void SliceGame::update(void)
 		{
 			// _check[0] = 2 1 4 5 8 6
 			// _rc[_check[0]] = > _rc[2] = 0번이미지 
-			_temp = _check[_swap - 1];
-			_check[_swap - 1] = _check[_swap];
-			_check[_swap] = _temp;
+			_temp = _rndIdx[_swap - 1];
+			_rndIdx[_swap - 1] = _rndIdx[_swap];
+			_rndIdx[_swap] = _temp;
 		
-
 			--_swap;
+		}
+		_count = 0;
+		for (int i = 0; i < 9; ++i)
+		{
+			if (_rndIdx[i] == i)
+			{
+				++_count;
+			}
 		}
 
 	}
@@ -99,24 +117,54 @@ void SliceGame::update(void)
 	{
 		if (_swap != 0 && _swap != 1 && _swap != 2)
 		{
-			_temp = _check[_swap - 3];
-			_check[_swap - 3] = _check[_swap];
-			_check[_swap] = _temp;
+			_temp = _rndIdx[_swap - 3];
+			_rndIdx[_swap - 3] = _rndIdx[_swap];
+			_rndIdx[_swap] = _temp;
 		
 			_swap -= 3;
+		}
+		_count = 0;
+		for (int i = 0; i < 9; ++i)
+		{
+			if (_rndIdx[i] == i)
+			{
+				++_count;
+			}
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		if (_swap != 6 && _swap != 7 && _swap != 8)
 		{
-			_temp = _check[_swap + 3];
-			_check[_swap + 3] = _check[_swap];
-			_check[_swap] = _temp;
+			_temp = _rndIdx[_swap + 3];
+			_rndIdx[_swap + 3] = _rndIdx[_swap];
+			_rndIdx[_swap] = _temp;
 
 			_swap += 3;
 		}
+		_count = 0;
+		for (int i = 0; i < 9; ++i)
+		{
+			if (_rndIdx[i] == i)
+			{
+				++_count;
+			}
+		}
 	}
+
+	// 결과확인
+
+	
+
+	if (_count >= 9)
+	{
+		_alpha += 5;
+		if (_alpha >= 255)
+		{
+			_alpha = 255;
+		}
+	}
+
 }
 
 void SliceGame::render(HDC hdc)
@@ -136,26 +184,37 @@ void SliceGame::render(HDC hdc)
 	//_plImage->alphaRender(memDC, _rc.left, _rc.top, _alphaB);
 	// =======================================================
 	// 좌측 원본 이미지	
-	_bgImage->render(memDC, 0, 0);
-
-	char text[128];
 	
-	// 짤린 이미지 출력
+	
+	if(_count < 9)
+	{
+		_bgImage->render(memDC, 0, 0);
 
-	for (int i = 0; i < 9; ++i)
-	{
-		//DrawRectMake(memDC, _rc[i]); 5 -> 0 _rc[5] -> 0Image
-		_bgImage->render(memDC, _rc[i].left, _rc[i].top,
-			(200 * (i % 3)), 200 * (i / 3), 200, 200, 255);
+		char text[128];
+
+		// 짤린 이미지 출력
+
+		for (int i = 0; i < 9; ++i)
+		{
+			//DrawRectMake(memDC, _rc[i]); 5 -> 0 _rc[5] -> 0Image
+			_bgImage->render(memDC, _rc[i].left, _rc[i].top,
+				(200 * (i % 3)), 200 * (i / 3), 200, 200, 255);
+		}
+		for (int i = 0; i < 9; ++i)
+		{
+			wsprintf(text, "%d", _checkIdx[i]);
+			TextOut(memDC, _rc[i].left, _rc[i].top, text, strlen(text));
+		}
 	}
-	for (int i = 0; i < 9; ++i)
+	else if (_count >= 9)
 	{
-		wsprintf(text, "%d", _test[i]);
-		TextOut(memDC, _rc[i].left, _rc[i].top, text, strlen(text));
+		_bgImage->alphaRender(memDC, WINSIZE_X / 4, WINSIZE_Y / 4, _alpha);
+
 	}
 	//DrawRectMake(memDC, _rc[9]);
 	
 	
+
 	
 	// 클리핑 : 자르기
 	//_bgImage->render(memDC, _rc.left, _rc.top, 500, 500, 300, 300, _alphaB);
@@ -167,3 +226,17 @@ void SliceGame::render(HDC hdc)
 
 
 }
+
+//bool SliceGame::rectEqual(RECT _rc1, RECT _rc2)
+//{
+//	if (
+//		_rc1.left == _rc2.left &&
+//		_rc1.top == _rc2.top &&
+//		_rc1.right == _rc2.right &&
+//		_rc1.bottom == _rc2.bottom
+//		)
+//	{
+//		return true;
+//	}
+//	return false;
+//}
