@@ -26,6 +26,7 @@ void WormGame::update(void)
 	
 	// x > y 45도 이하
 	// x < y 45도 이상
+	
 	_rc.left -= 5;
 	_rc.right -= 5;
 	_rc.top -= 2;
