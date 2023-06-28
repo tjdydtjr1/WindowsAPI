@@ -28,8 +28,13 @@
 
 struct Worm
 {
+	// ¸öÃ¼
 	RECT m_rc;
+	// ÃÊ±âÈ­ ÁÂÇ¥
 	POINT m_xy;
+
+	// 
+	POINT m_dest;
 };
 
 
@@ -43,8 +48,6 @@ private:
 	POINT _xy;
 	int _theta;
 	int _test;
-
-	
 	POINT _speed;
 
 public:

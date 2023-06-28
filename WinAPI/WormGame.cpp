@@ -10,6 +10,7 @@ HRESULT WormGame::init(void)
 
 	_rc = RectMakeCenter(_xy.x, _xy.y, 50, 50);
 
+	// =============================================================================
 	_worm[0].m_xy.x = WINSIZE_X / 2;
 	_worm[0].m_xy.y = WINSIZE_Y - 100;
 
@@ -17,13 +18,11 @@ HRESULT WormGame::init(void)
 
 	for (int i = 1; i < MAX_WORM; ++i)
 	{
-		_worm[i].m_xy.x =  25;
-		_worm[i].m_xy.y =  25;
+		_worm[i].m_xy.x = -(i * 10);
+		_worm[i].m_xy.y = -(i * 10);
 
 		_worm[i].m_rc = RectMakeCenter(_worm[i].m_xy.x, _worm[i].m_xy.y, 50, 50);
 	}
-
-	
 
 	_speed.x = cosf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
 	_speed.y = sinf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
@@ -64,14 +63,18 @@ void WormGame::update(void)
 	// x < y 45도 이상
 	if (_rc.left < 10)
 	{
-		_theta += 90;// = 360 - (_theta * 2);
+		_theta = (180 - _theta * 2);
 		//_theta = 30;
 	}
 	else if (_rc.right >= WINSIZE_X)
 	{
+		_theta = -(180 - _theta * 2);
+
 	}
 	 if (_rc.top <= 10)
 	{
+		 _theta = -(180 - _theta * 2);
+
 		 if (0 < _theta && _theta < 30)
 		 {
 			 
@@ -87,6 +90,8 @@ void WormGame::update(void)
 	}
 	else if (_rc.bottom >= WINSIZE_Y)
 	{
+		 _theta = (180 - _theta * 2);
+
 	}
 	
 /*	_rc.left		 -= _test;
@@ -115,7 +120,7 @@ void WormGame::update(void)
 	}*/
 	
 	
-
+	// 방향키로 각도 조절
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_theta += 5;
@@ -127,11 +132,11 @@ void WormGame::update(void)
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		
+		//
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		
+		//
 	}
 }
 
@@ -140,15 +145,17 @@ void WormGame::render(HDC hdc)
 	HDC memDC = this->getDoubleBuffer()->getMemDC();
 	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =====================================================================
+	
+	
+	// 각도 표시
 	char test[128];
-
 	wsprintf(test, "%d", _theta);
 	TextOut(memDC, 10, 10, test, strlen(test));
 
+	// 테스트
 	DrawEllipseMake(memDC, _rc);
 
-	LineMove(memDC, (_rc.left + _rc.right) / 2, _rc.top + _rc.bottom / 2, _speed.x, _speed.y);
-
+	// 지렁이
 	for (int i = 0; i < MAX_WORM; ++i)
 	{
 		DrawEllipseMake(memDC, _worm[i].m_rc);
