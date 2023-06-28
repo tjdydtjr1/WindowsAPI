@@ -3,6 +3,8 @@
 
 #define MAX_WORM 50
 #define PI 3.14159265358979f
+#define MOVE_SPEED 10
+
 
 struct Worm
 {

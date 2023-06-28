@@ -87,8 +87,8 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
 #define WINSTART_X			400			// 400
 #define WINSTART_Y			100			// 100
-#define WINSIZE_X			1800		// 1200
-#define WINSIZE_Y			1000			// 800
+#define WINSIZE_X			1200		// 1200
+#define WINSIZE_Y			800			// 800
 // WS_CATION  : 타이틀바를 가지기 위한 옵션
 // WS_SYSMENU : 제목 표시줄에 컨트롤 메뉴 상자 창
 #define WINSTYLE			WS_CAPTION | WS_SYSMENU
