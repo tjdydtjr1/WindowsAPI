@@ -5,12 +5,29 @@ HRESULT WormGame::init(void)
 {
 	GameNode::init();
 	_theta = 30;
-	_xy.x = cosf((_theta - 90) * PI / 180.0f) * 100 + WINSIZE_X / 2;
-	_xy.y = sinf((_theta - 90) * PI / 180.0f) * 100 + WINSIZE_Y;
+	_xy.x =  WINSIZE_X / 2;
+	_xy.y =  WINSIZE_Y - 100;
 
 	_rc = RectMakeCenter(_xy.x, _xy.y, 50, 50);
 
-	_test = 30;
+	_worm[0].m_xy.x = WINSIZE_X / 2;
+	_worm[0].m_xy.y = WINSIZE_Y - 100;
+
+	_worm[0].m_rc = RectMakeCenter(_worm[0].m_xy.x, _worm[0].m_xy.y, 50, 50);
+
+	for (int i = 1; i < MAX_WORM; ++i)
+	{
+		_worm[i].m_xy.x =  25;
+		_worm[i].m_xy.y =  25;
+
+		_worm[i].m_rc = RectMakeCenter(_worm[i].m_xy.x, _worm[i].m_xy.y, 50, 50);
+	}
+
+	
+
+	_speed.x = cosf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
+	_speed.y = sinf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
+
 	return S_OK;
 }
 
@@ -23,42 +40,90 @@ void WormGame::update(void)
 {
 	GameNode::update();
 	
+	_rc = RectMakeCenter(_xy.x, _xy.y, 50, 50);
+	
+	// 방향 수정
+	_speed.x = cosf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
+	_speed.y = sinf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
+	
+	// 방향, 속도 증가
+	_xy.x += _speed.x;
+	_xy.y += _speed.y;
+
+
+
+	for (int i = 0; i < MAX_WORM; ++i)
+	{
+		_worm[i].m_xy.x += _speed.x;
+		_worm[i].m_xy.y += _speed.y;
+
+		_worm[i].m_rc = RectMakeCenter(_worm[i].m_xy.x, _worm[i].m_xy.y, 50, 50);
+	}
+
 	// x > y 45도 이하
 	// x < y 45도 이상
-	
-	_xy.x = cosf((_theta - 90) * PI / 180.0f) * 100 + WINSIZE_X / 2;
-	_xy.y = sinf((_theta - 90) * PI / 180.0f) * 100 + WINSIZE_Y;
-
-	if (_rc.left <= 0)
+	if (_rc.left < 10)
 	{
-		_test = -(_test);
+		_theta += 90;// = 360 - (_theta * 2);
+		//_theta = 30;
 	}
 	else if (_rc.right >= WINSIZE_X)
 	{
-		_test = -(_test);
 	}
-	else if (_rc.top <= 0)
+	 if (_rc.top <= 10)
 	{
-		_xy.y = -(_xy.y);
+		 if (0 < _theta && _theta < 30)
+		 {
+			 
+		 }
+		 else if (30 < _theta && _theta < 60)
+		 {
+
+		 }
+		 else if (60 < _theta && _theta < 90)
+		 {
+
+		 }
 	}
 	else if (_rc.bottom >= WINSIZE_Y)
 	{
-		_xy.y = -(_xy.y);
 	}
 	
-	_rc.left -= _test;
-	_rc.right -= _test;
-	_rc.top -= _xy.y / (_xy.x + _test);
-	_rc.bottom -= _xy.y / (_xy.x + _test);
+/*	_rc.left		 -= _test;
+	_rc.right		 -= _test;
+	_rc.top			-= _xy.y / (_xy.x + _test) * 2;
+	_rc.bottom		 -= _xy.y / (_xy.x + _test) * 2;*/
 
+	// speed 값에서 speedx, speedy
+	/*_rc.left -= _test;
+	_rc.right -= _test;
+	_rc.top -= _xy.y * _test / (_xy.x * _test);
+	_rc.bottom -= _xy.y * _test / (_xy.x * _test);*/
+
+	/*_rc.left -= _test;
+	_rc.right -= _test;
+	_rc.top -= _test + _xy.x / _xy.x;
+	_rc.bottom -= _test + _xy.x / _xy.x;*/
+
+	/*for (int i = 0; i < MAX_WORM; ++i)
+	{
+		_worm[i].m_rc.left	 -= _test;
+		_worm[i].m_rc.right  -= _test;
+		_worm[i].m_rc.top	 -= _worm[i].m_xy.y / (_worm[i].m_xy.x + _test) * 2;
+		_worm[i].m_rc.bottom -= _worm[i].m_xy.y / (_worm[i].m_xy.x + _test) * 2;
+
+	}*/
+	
+	
 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_theta += 10;
+		_theta += 5;
+		
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_theta -= 10;
+		_theta -= 5;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
@@ -75,8 +140,20 @@ void WormGame::render(HDC hdc)
 	HDC memDC = this->getDoubleBuffer()->getMemDC();
 	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =====================================================================
-	
+	char test[128];
+
+	wsprintf(test, "%d", _theta);
+	TextOut(memDC, 10, 10, test, strlen(test));
+
 	DrawEllipseMake(memDC, _rc);
+
+	LineMove(memDC, (_rc.left + _rc.right) / 2, _rc.top + _rc.bottom / 2, _speed.x, _speed.y);
+
+	for (int i = 0; i < MAX_WORM; ++i)
+	{
+		DrawEllipseMake(memDC, _worm[i].m_rc);
+	}
+
 
 	this->getDoubleBuffer()->render(hdc, 0, 0);
 

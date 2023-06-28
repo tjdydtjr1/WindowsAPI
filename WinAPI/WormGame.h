@@ -6,24 +6,30 @@
 #define MOVE_SPEED 10
 
 
+//struct Worm
+//{
+//	// 시작위치
+//	int m_startX;
+//	int m_startY;
+//	// 방향바꾸기 전 마지막 위치
+//	int m_destX;
+//	int m_destY;
+//	// 진행 각도
+//	int m_degreeX;
+//	int m_degreeY;
+//	// 인덱스 넘버
+//	int m_idx;
+//	// 몸체 생성
+//	RECT m_rc;
+//	// 방향이 바뀌었는지
+//	bool isKeyInput;
+//
+//};
+
 struct Worm
 {
-	// 시작위치
-	int m_startX;
-	int m_startY;
-	// 방향바꾸기 전 마지막 위치
-	int m_destX;
-	int m_destY;
-	// 진행 각도
-	int m_degreeX;
-	int m_degreeY;
-	// 인덱스 넘버
-	int m_idx;
-	// 몸체 생성
 	RECT m_rc;
-	// 방향이 바뀌었는지
-	bool isKeyInput;
-
+	POINT m_xy;
 };
 
 
@@ -37,6 +43,9 @@ private:
 	POINT _xy;
 	int _theta;
 	int _test;
+
+	
+	POINT _speed;
 
 public:
 	HRESULT init(void);
