@@ -4,6 +4,7 @@
  #include "SliceGame.h" 
 #include "MiniMap.h"
 #include "WormGame.h"
+#include "Motion.h"
 //
 
 HINSTANCE _hInstance;
@@ -18,7 +19,8 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-MainGame* _mg;
+//MainGame* _mg;
+Motion* _mg;
 
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -26,7 +28,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-   _mg = new MainGame;
+   _mg = new Motion;
 
 
     _hInstance = hInstance;
