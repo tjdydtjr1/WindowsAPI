@@ -76,6 +76,9 @@
     <Filter Include="과제\23.06.26 과제">
       <UniqueIdentifier>{a3d40d06-e6c9-426c-acf6-cca1f65aa5c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.06.29 과제">
+      <UniqueIdentifier>{a4f10acc-5970-4f88-b34e-c3f7e54cee2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="WormGame.h">
       <Filter>과제\23.06.26 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="ZeroAttack.h">
+      <Filter>과제\23.06.29 과제</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +345,12 @@
     </ClCompile>
     <ClCompile Include="WormGame.cpp">
       <Filter>과제\23.06.26 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.06.29 과제 내용.cpp">
+      <Filter>과제\23.06.29 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="ZeroAttack.cpp">
+      <Filter>과제\23.06.29 과제</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -165,6 +165,7 @@
     <ClInclude Include="SliceGame.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="WormGame.h" />
+    <ClInclude Include="ZeroAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -236,6 +237,9 @@
     <ClCompile Include="23.06.26 과제 내용.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="23.06.29 과제 내용.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -275,6 +279,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="WormGame.cpp" />
+    <ClCompile Include="ZeroAttack.cpp" />
     <ClCompile Include="공 튀기기.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>

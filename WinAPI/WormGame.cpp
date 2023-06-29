@@ -11,19 +11,17 @@ HRESULT WormGame::init(void)
 	_rc = RectMakeCenter(_xy.x, _xy.y, 50, 50);
 
 	// =============================================================================
-	_worm[0].m_xy.x = WINSIZE_X / 2;
-	_worm[0].m_xy.y = WINSIZE_Y - 100;
 
-	_worm[0].m_rc = RectMakeCenter(_worm[0].m_xy.x, _worm[0].m_xy.y, 50, 50);
-
-	for (int i = 1; i < MAX_WORM; ++i)
+	// 초기 위치
+	for (int i = 0; i < MAX_WORM; ++i)
 	{
-		_worm[i].m_xy.x = -(i * 10);
-		_worm[i].m_xy.y = -(i * 10);
+		_worm[i].m_xy.x = WINSIZE_X / 2;
+		_worm[i].m_xy.y = WINSIZE_Y - 100;
 
 		_worm[i].m_rc = RectMakeCenter(_worm[i].m_xy.x, _worm[i].m_xy.y, 50, 50);
 	}
-
+	
+	// 각도에 따른 이동
 	_speed.x = cosf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
 	_speed.y = sinf((_theta - 90) * PI / 180.f) * MOVE_SPEED;
 

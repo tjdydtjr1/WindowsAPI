@@ -51,12 +51,13 @@ bool KeyManager::isOnceKeyDown(int key)
 		{
 			this->setKeyDown(key, true);
 		}
+		else
+		{
+			this->setKeyDown(key, true);
+			return true;
+		}
 	}
-	else
-	{
-		this->setKeyDown(key, true);
-		return true;
-	}
+	
 
 	return false;
 }
