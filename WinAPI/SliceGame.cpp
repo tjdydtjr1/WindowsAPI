@@ -171,7 +171,7 @@ void SliceGame::render(HDC hdc)
 {
 
 	// =======================================================
-	HDC memDC = this->getDoubleBuffer()->getMemDC();
+	HDC memDC = this->getBackBuffer()->getMemDC();
 	// PatBlt() : 사각형 안에 영역을 브러쉬로 채우는 함수
 	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =======================================================
@@ -222,7 +222,7 @@ void SliceGame::render(HDC hdc)
 	// =======================================================
 
 	// =======================================================
-	this->getDoubleBuffer()->render(hdc, 0, 0);
+	this->getBackBuffer()->render(hdc, 0, 0);
 
 
 }

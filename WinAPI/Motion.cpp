@@ -92,6 +92,7 @@ void Motion::release(void)
 	SAFE_DELETE(_diagonalSting);
 	SAFE_DELETE(_jump);
 	SAFE_DELETE(_bgImage);
+	SAFE_DELETE(_cl);
 }
 
 void Motion::update(void)
@@ -304,7 +305,7 @@ void Motion::update(void)
 void Motion::render(HDC hdc)
 {
 	// =======================================================
-	HDC memDC = this->getDoubleBuffer()->getMemDC();
+	HDC memDC = this->getBackBuffer()->getMemDC();
 	// PatBlt() : 사각형 안에 영역을 브러쉬로 채우는 함수
 	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =======================================================
@@ -378,6 +379,6 @@ void Motion::render(HDC hdc)
 		}
 	}
 	// =======================================================
-	this->getDoubleBuffer()->render(hdc, 0, 0);
+	this->getBackBuffer()->render(hdc, 0, 0);
 
 }

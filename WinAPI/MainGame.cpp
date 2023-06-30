@@ -4,12 +4,12 @@
 
 HRESULT MainGame::init(void)
 {
-	GameNode::init();
-	_bgImage = new GImage;
-	_bgImage->init("Resources/Images/BackGround/DeadSpace.bmp", WINSIZE_X, WINSIZE_Y);
+	GameNode::init(true);
 
-	_plImage = new GImage;
-	_plImage->init("Resources/Images/Object/Airplane.bmp", 173, 291, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("데스 스페이스", "Resources/Images/BackGround/DeadSpace.bmp", WINSIZE_X, WINSIZE_Y, true, RGB(255,0,255));
+
+	_alphaA = 0;
+	_isAlphaIncrese = false;
 
 	return S_OK;
 }
@@ -17,10 +17,8 @@ HRESULT MainGame::init(void)
 void MainGame::release(void)
 {
 	GameNode::release();
-	
-	SAFE_DELETE(_bgImage);
-	SAFE_DELETE(_plImage);
-	
+
+
 
 }
 
@@ -45,27 +43,32 @@ void MainGame::update(void)
 		
 	}
 
+	++_count;
+
+	if (_count % 3 == 0)
+	{
+		++_alphaA;
+		if (_alphaA > 255)
+		{
+			_alphaA = 255;
+		}
+	}
+
 
 }
 
 
-void MainGame::render(HDC hdc)
+void MainGame::render(void)
 {
-	// =======================================================
-	HDC memDC = this->getDoubleBuffer()->getMemDC();
 	// PatBlt() : 사각형 안에 영역을 브러쉬로 채우는 함수
-	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =======================================================
-	//_bgImage->render(memDC, 0, 0);
-	//_plImage->render(memDC, _rc.left, _rc.top);
-	// =======================================================
-	//_bgImage->alphaRender(memDC, _alphaA);
-
 	
-	// =======================================================
+	IMAGEMANAGER->alphaRender("데스 스페이스", getMemDC(), 0, 0, _alphaA);
 
 	// =======================================================
-	this->getDoubleBuffer()->render(hdc, 0, 0);
+	
+	this->getBackBuffer()->render(getHDC());
 
 
 }

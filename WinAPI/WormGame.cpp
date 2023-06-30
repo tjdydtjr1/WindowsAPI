@@ -140,7 +140,7 @@ void WormGame::update(void)
 
 void WormGame::render(HDC hdc)
 {
-	HDC memDC = this->getDoubleBuffer()->getMemDC();
+	HDC memDC = this->getBackBuffer()->getMemDC();
 	PatBlt(memDC, 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
 	// =====================================================================
 	
@@ -160,6 +160,6 @@ void WormGame::render(HDC hdc)
 	}
 
 
-	this->getDoubleBuffer()->render(hdc, 0, 0);
+	this->getBackBuffer()->render(hdc, 0, 0);
 
 }

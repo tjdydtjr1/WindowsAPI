@@ -12,7 +12,12 @@
 
 #include <SDKDDKVER.h>
 
+// #include <ole2.h>
 #define WIN32_LEAN_AND_MEAN
+
+// 디버깅 콘솔창
+#pragma comment (linker, "/entry:WinMainCRTStartup /subsystem:console")
+
 
 // !라이브러리 추가
 #pragma comment (lib, "msimg32.lib")
@@ -74,12 +79,14 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #include "CommonMacroFunction.h"
 #include "RandomFunction.h"
 #include "KeyManager.h"
+#include "ImageManager.h"
 
 
 // # 싱글톤 #
 // 전역객체 : 호출이 많기에 스네이크를 사용 안함
 #define RND			RandomFunction::getSingleton()
 #define KEYMANAGER	KeyManager::getSingleton()
+#define IMAGEMANAGER ImageManager::getSingleton()
 
 
 // # 매크로 # (윈도우창 초기화)

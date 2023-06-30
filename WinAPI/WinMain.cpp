@@ -19,8 +19,8 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void setWindowSize(int x, int y, int width, int height);
 
-//MainGame* _mg;
-Motion* _mg;
+MainGame* _mg;
+//Motion* _mg;
 
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -28,8 +28,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpszCmdParam,
                      int       nCmdShow)
 {
-   _mg = new Motion;
-
+    _mg = new MainGame;
+  // _mg = new Motion;
 
     _hInstance = hInstance;
     WNDCLASS wndClass;

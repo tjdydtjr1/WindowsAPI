@@ -51,20 +51,35 @@
 */
 #pragma endregion
 
+
+// 백버퍼 -> 정적 이미지
+static GImage* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZE_X, WINSIZE_Y);
+
 class GameNode
 {
 private:
-	GImage* _DoubleBuffer;
-	void setDoubleBuffer(void); // 
+
+	HDC _hdc;
+	bool _managerInit;
+
+	//GImage* _DoubleBuffer;
+	//void setDoubleBuffer(void); // 
 
 public:
 	virtual HRESULT init(void);
+	virtual HRESULT init(bool managerInit);
+
 	virtual void release(void);
 	virtual void update(void);
-	virtual void render(HDC hdc);
+	virtual void render(void);
 
 	// 더블버퍼 이미지 얻기
-	GImage* getDoubleBuffer(void) { return _DoubleBuffer; }
+	// -> 백버퍼 변경
+	GImage* getBackBuffer(void) { return _backBuffer; }
+
+	HDC getMemDC() { return _backBuffer->getMemDC(); }
+	HDC getHDC() { return _hdc; }
+
 
 	// 순수가상 함수 사용 예시
 	//virtual void IFunction() PURE; ( = 0 , abstract , = NULL)
