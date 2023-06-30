@@ -8,7 +8,7 @@ HRESULT Motion::init(void)
 {
 	GameNode::init();
 
-	_startBox = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 300, 100);
+	_startBox = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y - 300, 300, 100);
 	_moveBox = RectMake(50, 50, 150, 100);
 	_outerBox = RectMake(50, 150, 150, 100);
 	_stingBox = RectMake(50, 250, 150, 100);
@@ -311,13 +311,23 @@ void Motion::render(HDC hdc)
 
 	if (!_isStart)
 	{
-		_bgImage->alphaRender(memDC, 100);
-		DrawRectMake(memDC, _startBox);
-		TextOut(memDC, WINSIZE_X / 2, WINSIZE_Y, "Game Start", strlen("Game Start"));
+		_bgImage->alphaRender(memDC, 255);
+		HFONT hFont;
+		hFont = CreateFont(50, 0, 0, 0, 0, 0, 0, 0, JOHAB_CHARSET, 0, 0, 0, VARIABLE_PITCH, TEXT("궁서"));
+		hFont = (HFONT)SelectObject(memDC, hFont);
 
+		//DrawRectMake(memDC, _startBox);
+		SetBkColor(memDC, RGB(255, 255, 0));
+		SetTextColor(memDC, RGB(255, 0, 0));
+		TextOut(memDC, WINSIZE_X / 2 - 100, WINSIZE_Y - 325, "Game Start", strlen("Game Start"));
+		DeleteObject(hFont);
 	}
 	else
 	{
+		HFONT hFont = CreateFont(20, 0, 0, 0, 0, 0, 0, 0, HANGUL_CHARSET, 0, 0, 0, VARIABLE_PITCH, TEXT("궁서"));
+		hFont = (HFONT)SelectObject(memDC, hFont);
+		SetTextColor(memDC, RGB(0, 0, 0));
+
 		DrawRectMake(memDC, _moveBox);
 		DrawRectMake(memDC, _outerBox);
 		DrawRectMake(memDC, _stingBox);
@@ -333,6 +343,9 @@ void Motion::render(HDC hdc)
 		TextOut(memDC, 60, 475, "대각선 찌르기", strlen("대각선 찌르기"));
 		TextOut(memDC, 60, 575, "원 돌리기", strlen("원 돌리기"));
 		TextOut(memDC, 330, 50, "클라이맥스", strlen("클라이맥스"));
+
+		DeleteObject(hFont);
+
 
 		_bgImage->alphaRender(memDC, 70);
 
