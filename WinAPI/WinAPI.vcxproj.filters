@@ -171,6 +171,7 @@
     <ClInclude Include="KeyManager.h">
       <Filter>2D FameWork\FameWorkManager</Filter>
     </ClInclude>
+    <ClInclude Include="Ryno.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -380,6 +381,7 @@
     <ClCompile Include="23.06.30 과제 내용.cpp">
       <Filter>과제\23.06.30 과제</Filter>
     </ClCompile>
+    <ClCompile Include="Ryno.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">

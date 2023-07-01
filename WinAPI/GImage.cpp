@@ -670,7 +670,7 @@ void GImage::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int c
 {
     // 이미지 예외처리
     _imageInfo->currentFrameX = currentFrameX;
-    _imageInfo->currentFrameX = currentFrameY;
+    _imageInfo->currentFrameY = currentFrameY;
 
     if (currentFrameX > _imageInfo->maxFrameX)
     {
@@ -716,5 +716,58 @@ void GImage::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int c
             SRCCOPY
         );
     }
+}
+
+void GImage::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, int sizeX, int sizeY)
+{
+    // 이미지 예외처리
+    _imageInfo->currentFrameX = currentFrameX;
+    _imageInfo->currentFrameY = currentFrameY;
+
+    if (currentFrameX > _imageInfo->maxFrameX)
+    {
+        _imageInfo->currentFrameX = _imageInfo->maxFrameX;
+    }
+    if (currentFrameY > _imageInfo->maxFrameY)
+    {
+        _imageInfo->currentFrameY = _imageInfo->maxFrameY;
+    }
+
+    if (_isTrans)
+    {
+        // GdiTransparentBlt() : 비트맵을 불러올 때 특정 색상을 제외하고 복사한다.
+        GdiTransparentBlt
+        (
+            hdc,                                     // 복사할 장소의 DC (화면 DC)
+            destX,                                   // 복사될 좌표 시작 X
+            destY,                                   // 복사될 좌표 시작 Y
+           sizeX,                   // 복사될 이미지 가로 크기
+           sizeY,                   // 복사될 이미지 세로 크기
+            _imageInfo->hMemDC,                      // 복사될 대상 메모리 DC
+           _imageInfo->currentFrameX * _imageInfo->frameWidth,                  // 복사 시작지점 X
+           _imageInfo->currentFrameY * _imageInfo->frameHeight,                 // 복사 시작지점 Y
+            _imageInfo->frameWidth,                 // 복사 영역 가로 크기
+            _imageInfo->frameHeight,                  // 복사 영역 세로 크기
+            _transColor                             // 복사할 때 제외할 색상 (마젠타) 
+        );
+    }
+    else
+    {
+        // BitBit() : DC간의 영역끼리 서로 고속 복사를 해준다. 
+        // ㄴ SRCCOPY : 소스 영역을 영역에 복사한다.
+        BitBlt
+        (
+            hdc,
+            destX,
+            destY,
+            _imageInfo->frameWidth,
+            _imageInfo->frameHeight,
+            _imageInfo->hMemDC,
+            _imageInfo->currentFrameX * _imageInfo->frameWidth, 
+            _imageInfo->currentFrameY * _imageInfo->frameHeight,
+            SRCCOPY
+        );
+    }
+
 }
 

@@ -57,7 +57,8 @@ public:
 	GImage* addImage(string strKey, const char* fileName, float x, float y, int width, int height, bool isTrans = false, COLORREF transColor = RGB(0, 0, 0));
 	GImage* addFrameImage(string strKey, const char* fileName, int width, int height, int maxFrameX, int maxFrameY, bool isTrans = false, COLORREF transColor = RGB(0, 0, 0));
 	GImage* addFrameImage(string strKey, const char* fileName, float x, float y, int width, int height, int maxFrameX, int maxFrameY, bool isTrans = false, COLORREF transColor = RGB(0, 0, 0));
-	
+
+
 	GImage* findImage(string strKey);
 	bool deleteImage(string strKey);
 	bool deleteAll();
@@ -77,6 +78,7 @@ public:
 	// «¡∑π¿” ∑ª¥ı
 	void frameRender(string strKey, HDC hdc, int destX, int destY);
 	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, int sizeX, int sizeY);
 
 
 	ImageManager() {}

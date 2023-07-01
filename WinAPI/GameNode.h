@@ -73,8 +73,8 @@ public:
 	virtual void update(void);
 	virtual void render(void);
 
-	// 더블버퍼 이미지 얻기
-	// -> 백버퍼 변경
+	//    더블버퍼  이미지 얻기
+	// -> 백버퍼    변경
 	GImage* getBackBuffer(void) { return _backBuffer; }
 
 	HDC getMemDC() { return _backBuffer->getMemDC(); }
