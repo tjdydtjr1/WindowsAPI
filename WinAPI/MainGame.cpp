@@ -16,17 +16,18 @@ HRESULT MainGame::init(void)
 
 	_alphaA = 0;
 	_isAlphaIncrese = false;
+	//_rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 500, 500);
+	
+
 	_idxX = 0;
-	_rc = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 500, 500);
 	_isRynoMove = true;
 	_vec = Vec::RIGHT;
 
-	_up = 0;
-	_down = 0;
+	_upDown = 0;
 
-	_upCount = 0;
-
-	_collisionBox = RectMake(0, WINSIZE_Y - 100, WINSIZE_X, 100);
+	_bottomCollisionBox = RectMake(0, WINSIZE_Y - 100, WINSIZE_X, 100);
+	_ryno->_collisionBox = RectMake(0, WINSIZE_Y - 400, 300, 300);
+	_wallBox = RectMake(WINSIZE_X / 2 + 200, WINSIZE_Y / 3, 200, 600);
 
 	return S_OK;
 }
@@ -45,13 +46,24 @@ void MainGame::update(void)
 	if (KEYMANAGER->isStayKeyDown(VK_SPACE))
 	{
 		_state = State::JUMP;
-		//_state = State::WALL;
+
+		if (_state == State::WALL)
+		{
+			if (_ryno->_collisionBox.bottom >= _bottomCollisionBox.top)
+			{
+				_state = State::JUMP;
+			}
+			else
+			{
+
+			}
+		}
 
 	}
 	
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		if(!(_state == State::JUMP))
+		//if(!(_state == State::JUMP))
 		_state = State::MOVE;
 		_vec = Vec::LEFT;
 		_ryno->_collisionBox.left -= 5;
@@ -61,7 +73,7 @@ void MainGame::update(void)
 	
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		if (!(_state == State::JUMP))
+		//if (!(_state == State::JUMP))
 		_state = State::MOVE;
 		_vec = Vec::RIGHT;
 		_ryno->_collisionBox.left += 5;
@@ -72,34 +84,51 @@ void MainGame::update(void)
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
 		_vec = Vec::UP;
+
+		if (_state == State::WALL)
+		{
+			_ryno->_collisionBox.bottom -= 2;
+			_ryno->_collisionBox.top -= 2;
+		}
+		
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
 		_vec = Vec::DOWN;
+		if (_state == State::WALL)
+		{
+			_ryno->_collisionBox.bottom += 2;
+			_ryno->_collisionBox.top += 2;
+		}
 	}
-	
 
 	++_count;
+	
+
+	/*if (_bottomCollisionBox.top <= _ryno->_collisionBox.bottom)
+	{
+		_state = State::STAY;
+	}*/
 	
 	switch (_vec)
 	{
 	case Vec::UP:
 		if (_count % 3 == 0)
 		{
-			++_up;
-			if (_up > 4)
+			++_upDown;
+			if (_upDown > 4)
 			{
-				_up = 0;
+				_upDown = 0;
 			}
 		}
 		break;
 	case Vec::DOWN:
 		if (_count % 3 == 0)
 		{
-			--_up;
-			if (_up < 0)
+			--_upDown;
+			if (_upDown < 0)
 			{
-				_up = 4;
+				_upDown = 4;
 			}
 		}
 		break;
@@ -145,13 +174,18 @@ void MainGame::update(void)
 		break;
 	case State::JUMP:
 		_ryno->rynoJump();
-		if (_ryno->_collisionBox.bottom < WINSIZE_Y)
+		if (_ryno->_collisionBox.bottom > WINSIZE_Y)
 		{
-			_ryno->_collisionBox.top = _collisionBox.top - 180;
-			_ryno->_collisionBox.bottom = _collisionBox.top;
+			//_ryno->_collisionBox.top = _bottomCollisionBox.top - 180;
+			//_ryno->_collisionBox.bottom = _bottomCollisionBox.top;
+			_state = State::STAY;
 
 		}
-		else if (_upCount >= 0 && _upCount < 100)
+		else if (IntersectRect(&_temp, &_ryno->_collisionBox, &_wallBox))
+		{
+			_state = State::WALL;
+		}
+		/*else if (_upCount >= 0 && _upCount < 100)
 		{
 			++_upCount;
 			_ryno->_collisionBox.top += _upCount;
@@ -163,7 +197,7 @@ void MainGame::update(void)
 			_ryno->_collisionBox.top += _upCount;
 			_ryno->_collisionBox.bottom += _upCount;
 		
-		}
+		}*/
 		
 		
 
@@ -204,7 +238,7 @@ void MainGame::render(void)
 		break;
 	case State::WALL:
 		
-		_ryno->wallRender(getMemDC(), 0, _up);
+		_ryno->wallRender(getMemDC(), 0, _upDown);
 		break;
 	case State::JUMP:
 		_ryno->jumpRender(getMemDC(), _idxX, 0);
@@ -218,7 +252,8 @@ void MainGame::render(void)
 		break;
 	}
 
-	//DrawRectMake(getMemDC(), _collisionBox);
+	DrawRectMake(getMemDC(), _bottomCollisionBox);
+	DrawRectMake(getMemDC(), _wallBox);
 	// =======================================================
 	
 	this->getBackBuffer()->render(getHDC());
