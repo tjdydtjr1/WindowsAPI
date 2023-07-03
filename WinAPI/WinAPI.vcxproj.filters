@@ -177,7 +177,9 @@
     <ClInclude Include="Ryno.h">
       <Filter>과제\23.06.30 과제</Filter>
     </ClInclude>
-    <ClInclude Include="Racing.h" />
+    <ClInclude Include="Racing.h">
+      <Filter>과제\23.07.03 과제</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -396,7 +398,9 @@
     <ClCompile Include="23.07.03 과제 내용.cpp">
       <Filter>과제\23.07.03 과제</Filter>
     </ClCompile>
-    <ClCompile Include="Racing.cpp" />
+    <ClCompile Include="Racing.cpp">
+      <Filter>과제\23.07.03 과제</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">

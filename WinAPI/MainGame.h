@@ -12,6 +12,11 @@ private:
 	Racing* _player;
 	Enemy* _enemy;
 	
+	int _bgSpeed;
+	POINT _xy[ENEMY_MAX];
+	bool _isCreate[ENEMY_MAX];
+
+	int _score;
 
 public:
 	HRESULT init(void);
