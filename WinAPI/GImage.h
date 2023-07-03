@@ -131,8 +131,14 @@ public:
 	// 프레임 렌더
 	void frameRender(HDC hdc, int destX, int destY);
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
-	// 
+	// 프레임 렌더 사이즈 지정 출력 
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, int sizeX, int sizeY);
+
+	// 루프 렌더
+	// ㄴ 반복 / 이미지를 밀고 당기는 방식
+	void loopRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY);
+	void loopAlphaRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY, BYTE alpha);
+
 
 
 

@@ -1,11 +1,6 @@
 #include "Stdafx.h"
 #include "MainGame.h"
-// 과제용
- #include "SliceGame.h" 
-#include "MiniMap.h"
-#include "WormGame.h"
-#include "Motion.h"
-//
+ 
 
 HINSTANCE _hInstance;
 HWND _hWnd;
@@ -48,6 +43,27 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-2. 윈도우 클래스 등록
     RegisterClass(&wndClass);
 
+
+// 전체화면 사용시
+#ifdef FULLSCREEN
+    // 디아비스 모드 구조체 (하면 디스플레이 관련 구조체)
+    DEVMODE dm;
+
+    ZeroMemory(&dm, sizeof(DEVMODE));
+    dm.dmSize = sizeof(DEVMODE);
+    dm.dmBitsPerPel = 32;               // 32비트 트루 컬러
+    dm.dmPanningWidth = 1920;           // 가로
+    dm.dmPelsHeight = 1080;             // 세로
+    dm.dmDisplayFrequency = 60;         // 주사율 (재생 빈도 60Hz)
+
+    // 필드 설정
+    dm.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
+
+    if (ChangeDisplaySettings(&dm, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+    {
+        ChangeDisplaySettings(&dm, 0);
+    }
+
     // 1-3. 화면에 보여줄 윈도우 창 생성
     _hWnd = CreateWindow
     (
@@ -64,6 +80,25 @@ int APIENTRY WinMain(HINSTANCE hInstance,
         NULL                             // 윈도의 자식 윈도우를 생성하면 지정하고 그렇지 않다면 NULL
                                          // ㄴ 필요에 의해서 사용하기도 하지만 지금은 NULL (창 여러개 가능)
     );
+
+#else
+    // 1-3. 화면에 보여줄 윈도우 창 생성
+    _hWnd = CreateWindow
+    (
+        WINNAME,                         // 윈도우 클래스 식별자
+        WINNAME,                         // 윈도우 타이틀 바 이름
+        WINSTYLE,                        // 윈도우 스타일 (게임은 계속 그려져야됨)
+        WINSTART_X,                      // 윈도우 화면 x 좌표
+        WINSTART_Y,                      // 윈도우 화면 y 좌표
+        WINSIZE_X,                       // 윈도우 화면 가로 크기
+        WINSIZE_Y,                       // 윈도우 화면 세로 크기
+        NULL,                            // 부모 윈도우 -> GetDesktopWindow
+        (HMENU)NULL,                     // 메뉴 핸들
+        hInstance,                       // 인스턴스 지정
+        NULL                             // 윈도의 자식 윈도우를 생성하면 지정하고 그렇지 않다면 NULL
+                                         // ㄴ 필요에 의해서 사용하기도 하지만 지금은 NULL (창 여러개 가능)
+    );
+#endif
 
     // 클라이언트 영역의 사이즈를 정확히 잡아주기 위해
     setWindowSize(WINSTART_X, WINSTART_Y, WINSIZE_X, WINSIZE_Y);

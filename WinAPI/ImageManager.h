@@ -81,6 +81,11 @@ public:
 	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, int sizeX, int sizeY);
 
 
+	// ∑Á«¡ ∑ª¥ı
+	void loopRender(string strKey, HDC hdc, const LPRECT drawArea, int offsetX, int offsetY);
+	void loopAlphaRender(string strKey, HDC hdc, const LPRECT drawArea, int offsetX, int offsetY, BYTE alpha);
+
+
 	ImageManager() {}
 	~ImageManager() {}
 

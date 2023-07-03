@@ -89,16 +89,43 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #define IMAGEMANAGER ImageManager::getSingleton()
 
 
-// # 매크로 # (윈도우창 초기화)
-// 매크로 표기법 _로 단어 구분
+// 타이틀
+#define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
+
+//! 전체 화면 => 영상촬영시 사용하자. (작업시 불편)
+//#define FULLSCREEN
+
+// 선택적 컴파일
+#ifdef FULLSCREEN
+#define WINSTART_X			1920
+#define WINSTART_Y			0
+// GetSystemMetrics() : 인자로 전달되는 시스템 설정 정보를 반환
+// ㄴ SM_CXSCREEN, + SM_CYSCREEN = 현재 화면 해상도 X / Y 축 반환
+#define WINSIZE_X			GetSystemMetrics(SM_CXSCREEN)	// 스크린 센터 X
+#define WINSIZE_Y			GetSystemMetrics(SM_CYSCREEN)	// 스크린 센터 Y
+#define WINSTYLE			WS_POPUPWINDOW | WS_MAXIMIZE
+
+#else
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
 #define WINSTART_X			400			// 400
 #define WINSTART_Y			100			// 100
-#define WINSIZE_X			1200		// 1200
+#define WINSIZE_X			1200			// 1200
 #define WINSIZE_Y			800			// 800
+#define WINSTYLE			WS_CAPTION | WS_SYSMENU
+
+#endif
+
+
+// # 매크로 # (윈도우창 초기화)
+// 매크로 표기법 _로 단어 구분
+//#define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))
+//#define WINSTART_X			400			// 400
+//#define WINSTART_Y			100			// 100
+//#define WINSIZE_X			1200		// 1200
+//#define WINSIZE_Y			800			// 800
 // WS_CATION  : 타이틀바를 가지기 위한 옵션
 // WS_SYSMENU : 제목 표시줄에 컨트롤 메뉴 상자 창
-#define WINSTYLE			WS_CAPTION | WS_SYSMENU
+//#define WINSTYLE			WS_CAPTION | WS_SYSMENU
 
 // # 매크로 함수 # -> 한줄이 원칙이나 '\' 역슬래쉬를 사용하여 이을 수 있다.
 // ㄴ 클래스에서 동적할당된 부분 해제
@@ -127,7 +154,4 @@ extern POINT			_ptMouse;
 #define RECTCENTER_X(p)				(p.left + p.right) / 2
 #define RECTCENTER_Y(p)				(p.top + p.bottom) / 2
 
-#define WINMINSIZE_LEFT			20
-#define WINMINSIZE_TOP			20
-#define WINMINSIZE_RIGHT		780
-#define WINMINSIZE_BOTTOM		750
+#define PI 3.14159265358979f
