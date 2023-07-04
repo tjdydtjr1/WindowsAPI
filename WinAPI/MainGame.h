@@ -7,7 +7,7 @@
 using std::vector;
 
 #define MAX_OBJECT 1000
-#define OBJECT_SPEED 5
+#define OBJECT_SPEED 10
 #define PI 3.14159265358979f
 
 struct Object
@@ -17,7 +17,9 @@ struct Object
 	int y;			// y
 	int theta;
 	bool isCreate;
+	bool isVec;
 	POINT xy;   // ¿Ãµø
+	bool _isEffect;
 };
 
 class MainGame : public GameNode
@@ -26,7 +28,9 @@ private:
 	std::vector<Object> _objectVec;
 	vector<Object>::iterator _iter;
 	RECT _blackHole;
-	int _idx;
+	RECT _temp;
+	int _size;
+	
 
 public:
 	HRESULT init(void);

@@ -18,11 +18,12 @@ HRESULT MainGame::init(void)
 
 	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
 	{
+		_iter->isVec = true;
 		_iter->isCreate = false;
 		_iter->theta = 0;
-	}
+		_iter->_isEffect = false;
 
-	_idx = 0;
+	}
 	return S_OK;
 }
 
@@ -47,6 +48,7 @@ void MainGame::update(void)
 			_iter->xy.y = sinf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
 			_iter->rc = RectMakeCenter(_iter->x + _iter->xy.x, _iter->y + _iter->xy.y, 10, 10);
 			_iter->isCreate = true;
+			_iter->_isEffect = true;
 			_iter->theta = 0;
 		}
 	}
@@ -55,14 +57,45 @@ void MainGame::update(void)
 	{
 		if (_iter->isCreate)
 		{
-			_iter->theta;
-			_iter->xy.x = cosf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
-			_iter->xy.y = sinf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
+			if (_iter->isVec)
+			{
+				_iter->theta = atan2f((float)(_blackHole.top + 50 - _iter->rc.top + 5), (float)(_blackHole.left + 50 - _iter->rc.left + 5)) * 180 / PI;
 
-			_iter->x += _iter->xy.x;
-			_iter->y += _iter->xy.y;
-			_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
+				printf("각도 : %d, 위치 : %d , %d\n", _iter[0].theta, _iter[0].rc.left, _iter[0].rc.top);
+
+				_iter->xy.x = cosf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
+				_iter->xy.y = sinf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
+
+				_iter->x += _iter->xy.x;
+				_iter->y += _iter->xy.y;
+				_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
+			}
+			
+
+			if (IntersectRect(&_temp, &_blackHole, &_iter->rc) && _iter->isVec)
+			{
+				_iter->isVec = false;
+				
+				_iter->theta = _iter->theta - 180;
+
+				_iter->xy.x = cosf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
+				_iter->xy.y = sinf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
+
+				_iter->x += _iter->xy.x;
+				_iter->y += _iter->xy.y;
+				_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
+			}
 		}
+		_iter->x += _iter->xy.x;
+		_iter->y += _iter->xy.y;
+		_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
+
+		if (_iter->rc.bottom > WINSIZE_Y || _iter->rc.left < 0)
+		{
+			_iter->isVec = true;
+			_iter->isCreate = false;
+		}
+
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
@@ -101,6 +134,8 @@ void MainGame::update(void)
 		}
 	}
 	
+
+
 }
 
 
@@ -112,17 +147,24 @@ void MainGame::render(void)
 
 	// 블랙홀 그리기
 	DrawEllipseMake(getMemDC(), _blackHole);
-	
+
 	// 오브젝트 그리기
 	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
 	{
-		DrawEllipseMake(getMemDC(), _iter->rc);
+		if (_iter->_isEffect)
+		{
+			_iter->_isEffect = false;
+			
+			DrawEllipseMake(getMemDC(), EllipseMakeCenter(_iter->rc.left, _iter->rc.top, 30, 30));
+		}
+		else
+		{
+			DrawEllipseMake(getMemDC(), _iter->rc);
+		}
+		
 	}
 
-	/*for (int i = 0; i < MAX_OBJECT; ++i)
-	{
-		DrawEllipseMake(getMemDC(), _object[i].rc);
-	}*/
+	
 
 	// =======================================================
 	
