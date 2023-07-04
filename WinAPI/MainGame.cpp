@@ -6,212 +6,123 @@ HRESULT MainGame::init(void)
 {
 	GameNode::init(true);
 	
-	_player = new Racing;
-	_enemy = new Enemy;
-
-	// 트랙
-	IMAGEMANAGER->addImage("Track", "Resources/Images/BackGround/Track.bmp", WINSIZE_X, WINSIZE_Y, true, RGB(255,0,255));
-	// 플레이어
-	IMAGEMANAGER->addFrameImage("Player_Car", "Resources/Images/Object/Car.bmp", 38, 32, 1, 1, true, RGB(255, 0, 255));
-	// 적
-	IMAGEMANAGER->addFrameImage("Enemy_Car", "Resources/Images/Object/Enemy_Car.bmp", 38, 50, 1, 1, true, RGB(255, 0, 255));
-	// 계기판
-	IMAGEMANAGER->addFrameImage("Speed", "Resources/Images/Object/speed.bmp", 270, 198, 1, 1, true, RGB(255, 0, 255));
-	// 엔드
-	IMAGEMANAGER->addImage("End", "Resources/Images/BackGround/End.bmp", WINSIZE_X, WINSIZE_Y, true, RGB(255, 0, 255));
-
-	_bgSpeed = 0;
-
-	for (int i = 0; i < ENEMY_MAX; ++i)
+	//IMAGEMANAGER->addImage("Track", "Resources/Images/BackGround/Track.bmp", WINSIZE_X, WINSIZE_Y);
+	
+	_blackHole = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
+	
+	for (int i = 0; i < MAX_OBJECT; ++i)
 	{
-		_isCreate[i] = false;
+		Object _ob;
+		_objectVec.push_back(_ob);
 	}
-	_score = 0;
+
+	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
+	{
+		_iter->isCreate = false;
+		_iter->theta = 0;
+	}
+
+	_idx = 0;
 	return S_OK;
 }
 
 void MainGame::release(void)
 {
 	GameNode::release();
-
+	
 }
 
 void MainGame::update(void)
 {
 	GameNode::update();
-
-	for (int i = 0; i < ENEMY_MAX; ++i)
+	
+	// 오브젝트 생성
+	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
 	{
-		if (_player->collisionCheck(&_player->getPlayerBox(), &_enemy[i].getEnemyBox(i)))
+		if (!_iter->isCreate)
 		{
-			_player->setDie(true);
+			_iter->x = rand() % WINSIZE_X;
+			_iter->y = rand() % WINSIZE_Y;
+			_iter->xy.x = cosf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
+			_iter->xy.y = sinf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
+			_iter->rc = RectMakeCenter(_iter->x + _iter->xy.x, _iter->y + _iter->xy.y, 10, 10);
+			_iter->isCreate = true;
+			_iter->theta = 0;
+		}
+	}
+
+	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
+	{
+		if (_iter->isCreate)
+		{
+			_iter->theta;
+			_iter->xy.x = cosf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
+			_iter->xy.y = sinf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
+
+			_iter->x += _iter->xy.x;
+			_iter->y += _iter->xy.y;
+			_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
 		}
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_player->setPlayerBox(_player->getPlayerBox().left - 5, _player->getPlayerBox().right - 5);
+		if (_blackHole.left > 0)
+		{
+			_blackHole.left -= OBJECT_SPEED;
+			_blackHole.right -= OBJECT_SPEED;
+		}
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_player->setPlayerBox(_player->getPlayerBox().left + 5, _player->getPlayerBox().right + 5);
+		if (_blackHole.right < WINSIZE_X)
+		{
+			_blackHole.left += OBJECT_SPEED;
+			_blackHole.right += OBJECT_SPEED;
+		}
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
-		if (_player->getSpeed() < 180)
+		if (_blackHole.top > 0)
 		{
-			_player->setSpeed(_player->getSpeed() + 5);
+			_blackHole.bottom -= OBJECT_SPEED;
+			_blackHole.top -= OBJECT_SPEED;
 		}
-
+		
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
-		if (_player->getSpeed() > 10)
+		if (_blackHole.bottom < WINSIZE_Y)
 		{
-			_player->setSpeed(_player->getSpeed() - 5);
+			_blackHole.bottom += OBJECT_SPEED;
+			_blackHole.top += OBJECT_SPEED;
 		}
 	}
 	
-	
-	if (!_player->getSkill())
-	{
-		if (KEYMANAGER->isOnceKeyDown('Z'))
-		{
-			_player->setSkill(true);
-		}
-		else if (KEYMANAGER->isOnceKeyDown('X'))
-		{
-			_player->setSkill(true);
-		}
-		else if (KEYMANAGER->isOnceKeyDown('C'))
-		{
-			_player->setSkill(true);
-		}
-
-	}
-	
-	// 적 생성
-	for (int i = 0; i < ENEMY_MAX; ++i)
-	{
-		if (_isCreate[i])
-		{
-			_enemy[i].setMoveBox(_enemy[i].getEnemyBox(i).top + _player->getSpeed(), _enemy[i].getEnemyBox(i).bottom + _player->getSpeed(), i);
-		}
-
-		if (_enemy[i].getEnemyBox(i).top >= WINSIZE_Y)
-		{
-			_isCreate[i] = false;
-			_score += 1;
-		}
-	}
-	
-	for (int i = 0; i < ENEMY_MAX; ++i)
-	{
-		_xy[i].x = rand() % WINSIZE_X + 200;
-		_xy[i].y = rand() % WINSIZE_Y / 2 - 600;
-
-		if (!_isCreate[i])
-		{
-			_enemy[i].setEnemyBox(_xy[i].x, _xy[i].y, i);
-			_isCreate[i] = true;
-		}
-	}
-
-	_bgSpeed -= BASE_SPEED;
-	_bgSpeed -= _player->getSpeed();
-	
-	// 속도 확인용
-	printf("_bgSpeed : %d, Speed : %d\n", _bgSpeed, _player->getSpeed());
 }
 
 
 void MainGame::render(void)
 {
 	// PatBlt() : 사각형 안에 영역을 브러쉬로 채우는 함수
-	PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, WHITENESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
 	// =======================================================
 
-	IMAGEMANAGER->loopRender("Track", getMemDC(), &RectMake(0, 0, WINSIZE_X, WINSIZE_Y), 0, _bgSpeed);
-	IMAGEMANAGER->frameRender("Player_Car", getMemDC(), _player->getPlayerBox().left, _player->getPlayerBox().top, 0, 0,  100, 100);
+	// 블랙홀 그리기
+	DrawEllipseMake(getMemDC(), _blackHole);
 	
-	//
-	//IMAGEMANAGER->frameRender("ENemy_Car",getMemDC(), _test.left, )
-	//
-	for (int i = 0; i < ENEMY_MAX; ++i)
+	// 오브젝트 그리기
+	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
 	{
-		IMAGEMANAGER->frameRender("Enemy_Car", getMemDC(), _enemy[i].getEnemyBox(i).left, _enemy[i].getEnemyBox(i).top, 0, 0, 100, 100);
-	}
-	
-	
-	IMAGEMANAGER->frameRender("Speed", getMemDC(), 0, WINSIZE_Y - 200);
-	_player->printSpeedLine(getMemDC());
-
-	if (KEYMANAGER->isToggleKey(VK_F1))
-	{
-		DrawRectMake(getMemDC(), _player->getPlayerBox());
-		IMAGEMANAGER->frameRender("Player_Car", getMemDC(), _player->getPlayerBox().left, _player->getPlayerBox().top, 0, 0, 100, 100);
-		
-		for (int i = 0; i < ENEMY_MAX; ++i)
-		{
-			DrawRectMake(getMemDC(), _enemy->getEnemyBox(i));
-			IMAGEMANAGER->frameRender("Enemy_Car", getMemDC(), _enemy[i].getEnemyBox(i).left, 0, 0, _enemy[i].getEnemyBox(i).top, 100, 100);
-		}
+		DrawEllipseMake(getMemDC(), _iter->rc);
 	}
 
-	if (_player->getSkill() && KEYMANAGER->isOnceKeyDown('Z'))
+	/*for (int i = 0; i < MAX_OBJECT; ++i)
 	{
-	
-		_player->absolute(getMemDC(),_player->getPlayerBox());
-		IMAGEMANAGER->frameRender("Player_Car", getMemDC(), _player->getPlayerBox().left, _player->getPlayerBox().top, 0, 0, 100, 100);
-		_player->setSkill(false);
-	}
-	if (_player->getSkill() && KEYMANAGER->isOnceKeyDown('X'))
-	{
-		for (int i = 0; i < ENEMY_MAX; ++i)
-		{
-			_player->carDivide(_enemy[i].getEnemyBox(i));
-		}
-		_player->setSkill(false);
-
-	}
-	else if (_player->getSkill() && KEYMANAGER->isOnceKeyDown('C'))
-	{
-		_player->setSkill(false);
-
-	}
-
-	if (_player->getDie())
-	{
-		RECT _rc = RectMake(WINSIZE_X / 2 - 150 , WINSIZE_Y  - 200, 300, 200);
-		char text[128];
-		// 엔딩
-		IMAGEMANAGER->render("End", getMemDC());
-		TextOut(getMemDC(), WINSIZE_X / 2 - 100, WINSIZE_Y - 100, "다시 시작 하려면 여길 누르세요.", strlen("다시 시작 하려면 여길 누르세요."));
-		wsprintf(text, "SCORE : %d", _score);
-		TextOut(getMemDC(), WINSIZE_X / 2, WINSIZE_Y - 50, text, strlen(text));
-
-		if (PtInRect(&_rc, _ptMouse) && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-		{
-			_player->setDie(false);
-			_player->setSpeed(0);
-			_bgSpeed = -BASE_SPEED;
-
-			for (int i = 0; i < ENEMY_MAX; ++i)
-			{
-				_isCreate[i] = false;
-				_xy[i].x = rand() % WINSIZE_X + 200;
-				_xy[i].y = rand() % WINSIZE_Y / 2 - 600;
-
-				if (!_isCreate[i])
-				{
-					_enemy[i].setEnemyBox(_xy[i].x, _xy[i].y, i);
-					_isCreate[i] = true;
-				}
-			}
-		}
-	}
+		DrawEllipseMake(getMemDC(), _object[i].rc);
+	}*/
 
 	// =======================================================
 	
@@ -219,4 +130,59 @@ void MainGame::render(void)
 
 
 }
+/*
+과제1. 포트폴리오 PPT 작성
 
+- 발표일은 아직 미정
+- 디테일하게 + 깔끔하게
+
+과제2. 블랙홀
+- 무작위로 생성되는 오브젝트 객체
+- 그리고 주변 오브젝트를 빨아들이는 블랙홀을 만든다.
+ㄴ 블랙홀은 조작을 통해서 움직일 수 있다.
+- 오브젝트가 생성되는 위치를 알기위해 표시를 한다.
+ㄴ EX : 색 / 이미지 / 크기
+
+- 필수 : STL -> 벡터 or 리스트 오브젝트 1000개
+*/
+
+/*
+GIF 사용 금지
+목차 넣기
+ㄴ 준 제목
+
+기획서
+ㄴ 통일감이 필요
+
+1. 기획서 올인
+ㄴ 모든 내용을 다 담는 방법
+
+2. 기획서 브릿지
+ㄴ 기반을 만들고 객체지향마냥 분할해서 설명한다.
+
+프로젝트 목표
+제작 의도
+게임 소개
+ㄴ 장르, 회사명, 시각화 이미지, 여백의 미 생각할것
+
+컨텐츠 소개 -> 기능 소개
+ㄴ 이미지 글 많이 쓴다고 다가 아님
+
+플로우 차트
+ㄴ 게임에 대한 흐름도
+
+클래스 구조도
+
+개발 일정
+ㄴ 봤을 때 그럴싸하게
+ㄴ 게임테스트 디버깅 하루정도
+
+개발 툴
+ㄴ vs 포토샵 영상편집 추가
+
+배운점, 느낀점, 개선할점
+
+개발 일정 
+
+1OBJECT_SPEED ~ 20 장
+*/

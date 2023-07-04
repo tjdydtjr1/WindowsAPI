@@ -4,19 +4,29 @@
 // 1. 최상위 관리자 클래스
 // 2. 대리자 (오류 맞고 사망하는 클래스)
 
-#include "Racing.h"
+using std::vector;
+
+#define MAX_OBJECT 1000
+#define OBJECT_SPEED 5
+#define PI 3.14159265358979f
+
+struct Object
+{
+	RECT rc;
+	int x;			// x
+	int y;			// y
+	int theta;
+	bool isCreate;
+	POINT xy;   // 이동
+};
 
 class MainGame : public GameNode
 {
 private:
-	Racing* _player;
-	Enemy* _enemy;
-	
-	int _bgSpeed;
-	POINT _xy[ENEMY_MAX];
-	bool _isCreate[ENEMY_MAX];
-
-	int _score;
+	std::vector<Object> _objectVec;
+	vector<Object>::iterator _iter;
+	RECT _blackHole;
+	int _idx;
 
 public:
 	HRESULT init(void);

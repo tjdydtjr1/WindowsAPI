@@ -85,6 +85,9 @@
     <Filter Include="과제\23.07.03 과제">
       <UniqueIdentifier>{4c72f6b7-643e-46c7-abd5-9957046fa743}</UniqueIdentifier>
     </Filter>
+    <Filter Include="과제\23.07.04 과제">
+      <UniqueIdentifier>{73ee3e87-9497-4326-8bb0-181559b60de7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -180,6 +183,7 @@
     <ClInclude Include="Racing.h">
       <Filter>과제\23.07.03 과제</Filter>
     </ClInclude>
+    <ClInclude Include="BlackHole.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -401,6 +405,10 @@
     <ClCompile Include="Racing.cpp">
       <Filter>과제\23.07.03 과제</Filter>
     </ClCompile>
+    <ClCompile Include="main저장용.cpp">
+      <Filter>과제\23.07.03 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackHole.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">
