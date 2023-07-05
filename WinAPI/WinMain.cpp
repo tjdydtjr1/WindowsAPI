@@ -43,6 +43,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     // 1-2. 윈도우 클래스 등록
     RegisterClass(&wndClass);
 
+    // <->
+    // assert 예시
+    /*HRESULT hr = RegisterClass(&wndClass);
+    assert(SUCCEEDED(hr));*/
 
 // 전체화면 사용시
 #ifdef FULLSCREEN

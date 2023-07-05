@@ -80,14 +80,15 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #include "RandomFunction.h"
 #include "KeyManager.h"
 #include "ImageManager.h"
+#include "FontManager.h"
 
 
 // # 싱글톤 #
 // 전역객체 : 호출이 많기에 스네이크를 사용 안함
-#define RND			RandomFunction::getSingleton()
-#define KEYMANAGER	KeyManager::getSingleton()
-#define IMAGEMANAGER ImageManager::getSingleton()
-
+#define RND				RandomFunction::getSingleton()
+#define KEYMANAGER		KeyManager::getSingleton()
+#define IMAGEMANAGER	ImageManager::getSingleton()
+#define FONTMANAGER		FontManager::getSingleton()
 
 // 타이틀
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))

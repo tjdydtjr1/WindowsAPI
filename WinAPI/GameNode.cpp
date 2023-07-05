@@ -14,6 +14,11 @@ HRESULT GameNode::init(bool managerInit)
 
     if (_managerInit)
     {
+        // 로케일 설정
+        // ㄴ 프로그램의 명령어가 여러가지 언어로 주어져 있는 경우 이 중에 어떤 언어의 것을
+        //    출력할 것인지에 대한 설정 
+        setlocale(LC_ALL, "korean");
+
         // 타이머 초기화
         SetTimer(_hWnd, 1, 30, NULL);
         // 코딩 컨벤션을 맞추기 위해 RND는 초기화 기능이 없지만 초기화를 만들어 준다.

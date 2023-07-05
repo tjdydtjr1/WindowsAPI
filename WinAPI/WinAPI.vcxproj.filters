@@ -88,6 +88,12 @@
     <Filter Include="과제\23.07.04 과제">
       <UniqueIdentifier>{73ee3e87-9497-4326-8bb0-181559b60de7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{aae91bd6-d0ce-4a66-860c-6fbfd553d06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="과제\23.07.05 과제">
+      <UniqueIdentifier>{4a1ceeee-9d68-4ca7-b1fd-9f7fff8e2840}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Stdafx.h">
@@ -183,7 +189,16 @@
     <ClInclude Include="Racing.h">
       <Filter>과제\23.07.03 과제</Filter>
     </ClInclude>
-    <ClInclude Include="BlackHole.h" />
+    <ClInclude Include="BlackHole.h">
+      <Filter>과제\23.07.04 과제</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -408,7 +423,25 @@
     <ClCompile Include="main저장용.cpp">
       <Filter>과제\23.07.03 과제</Filter>
     </ClCompile>
-    <ClCompile Include="BlackHole.cpp" />
+    <ClCompile Include="임시 저장.cpp">
+      <Filter>과제\23.07.04 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackHole.cpp">
+      <Filter>과제\23.07.04 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="23.07.05 과제 내용.cpp">
+      <Filter>과제\23.07.05 과제</Filter>
+    </ClCompile>
+    <ClCompile Include="23.07.05 폰트.cpp">
+      <Filter>내용 정리</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">

@@ -7,23 +7,43 @@ HRESULT MainGame::init(void)
 	GameNode::init(true);
 	
 	//IMAGEMANAGER->addImage("Track", "Resources/Images/BackGround/Track.bmp", WINSIZE_X, WINSIZE_Y);
-	
-	_blackHole = RectMakeCenter(WINSIZE_X / 2, WINSIZE_Y / 2, 100, 100);
-	
-	for (int i = 0; i < MAX_OBJECT; ++i)
-	{
-		Object _ob;
-		_objectVec.push_back(_ob);
-	}
+	_start = new StartScene;
+	_start->init();
 
-	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
-	{
-		_iter->isVec = true;
-		_iter->isCreate = false;
-		_iter->theta = 0;
-		_iter->_isEffect = false;
+	_second = new SecondScene;
+	_second->init();
 
-	}
+	// _currentScene -> 시동이 안되면 그냥 실행 자체가 안된다. -> 굳이 돌려볼 필요도 없다.
+	_currentScene = _start;
+
+	// <-> : assert를 릴리즈할 때 주석 또는 제거하기 위해 주석으로 표시한다.
+	assert(_currentScene != nullptr);
+	//assert(_currentScene != nullptr, "MainGame 초기화 부분에서 노트 파트 오류 발생");
+	
+
+	/*
+	
+	포폴에 1 ~ 2개 사용 -> 영상 자막에 어디에 왜 썻는지 명시
+	=> assert
+	- 디버깅 모드에서 동작하는 오류 검출용 함수
+	ㄴ 릴리즈 모드에서는 동작하지 않는다.
+
+	- assert 함수에 걸리게 되면 버그 발생 위치 / 콜 스택등 여러 정보를 알 수 있다.
+	ㄴ Expression -> false -> assert error
+
+	- 대부분 문법이 true일때만 동작하지만 assert()은 거짓일 때 동작을 한다.
+	ㄴ 그렇기 때문에 일어나면 안되는 조건이 아니라 꼭 일어나야 하는 조건을 명시해야 한다.
+
+	EX) assert(A != NULL)
+	    ㄴ A가 NULL이 아니면 true가 나오게 되므로 패스
+		ㄴ A가 NULL이 맞다면 false가 나오게 되므로 assert error
+
+	C / C++
+	assert() : "C" -> 컴파일 타임을 지나 프로그램을 실행시키고 문제를 파악하겠다.
+	static_assert() : "C++" -> 컴파일 중에 문제를 파악 => 컴파일? = 상수 값
+
+	*/
+	
 	return S_OK;
 }
 
@@ -31,107 +51,43 @@ void MainGame::release(void)
 {
 	GameNode::release();
 	
+	SAFE_DELETE(_start);
+	SAFE_DELETE(_second);
+
 }
 
 void MainGame::update(void)
 {
 	GameNode::update();
-	
-	// 오브젝트 생성
-	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
+	_currentScene->update();
+
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
-		if (!_iter->isCreate)
-		{
-			_iter->x = rand() % WINSIZE_X;
-			_iter->y = rand() % WINSIZE_Y;
-			_iter->xy.x = cosf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
-			_iter->xy.y = sinf(_iter->theta - 90 * PI / 180.f) * OBJECT_SPEED;
-			_iter->rc = RectMakeCenter(_iter->x + _iter->xy.x, _iter->y + _iter->xy.y, 10, 10);
-			_iter->isCreate = true;
-			_iter->_isEffect = true;
-			_iter->theta = 0;
-		}
+		_currentScene = _second;
 	}
-
-	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
+	if (KEYMANAGER->isOnceKeyDown(VK_MBUTTON))
 	{
-		if (_iter->isCreate)
-		{
-			if (_iter->isVec)
-			{
-				_iter->theta = atan2f((float)(_blackHole.top + 50 - _iter->rc.top + 5), (float)(_blackHole.left + 50 - _iter->rc.left + 5)) * 180 / PI;
-
-				printf("각도 : %d, 위치 : %d , %d\n", _iter[0].theta, _iter[0].rc.left, _iter[0].rc.top);
-
-				_iter->xy.x = cosf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
-				_iter->xy.y = sinf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
-
-				_iter->x += _iter->xy.x;
-				_iter->y += _iter->xy.y;
-				_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
-			}
-			
-
-			if (IntersectRect(&_temp, &_blackHole, &_iter->rc) && _iter->isVec)
-			{
-				_iter->isVec = false;
-				
-				_iter->theta = _iter->theta - 180;
-
-				_iter->xy.x = cosf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
-				_iter->xy.y = sinf(_iter->theta * PI / 180.f) * OBJECT_SPEED;
-
-				_iter->x += _iter->xy.x;
-				_iter->y += _iter->xy.y;
-				_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
-			}
-		}
-		_iter->x += _iter->xy.x;
-		_iter->y += _iter->xy.y;
-		_iter->rc = RectMakeCenter(_iter->x, _iter->y, 10, 10);
-
-		if (_iter->rc.bottom > WINSIZE_Y || _iter->rc.left < 0)
-		{
-			_iter->isVec = true;
-			_iter->isCreate = false;
-		}
-
+		_currentScene = _start;
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		if (_blackHole.left > 0)
-		{
-			_blackHole.left -= OBJECT_SPEED;
-			_blackHole.right -= OBJECT_SPEED;
-		}
+		
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		if (_blackHole.right < WINSIZE_X)
-		{
-			_blackHole.left += OBJECT_SPEED;
-			_blackHole.right += OBJECT_SPEED;
-		}
+		
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
-		if (_blackHole.top > 0)
-		{
-			_blackHole.bottom -= OBJECT_SPEED;
-			_blackHole.top -= OBJECT_SPEED;
-		}
+		
 		
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
-		if (_blackHole.bottom < WINSIZE_Y)
-		{
-			_blackHole.bottom += OBJECT_SPEED;
-			_blackHole.top += OBJECT_SPEED;
-		}
+		
 	}
 	
 
@@ -145,26 +101,7 @@ void MainGame::render(void)
 	PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
 	// =======================================================
 
-	// 블랙홀 그리기
-	DrawEllipseMake(getMemDC(), _blackHole);
-
-	// 오브젝트 그리기
-	for (_iter = _objectVec.begin(); _iter != _objectVec.end(); ++_iter)
-	{
-		if (_iter->_isEffect)
-		{
-			_iter->_isEffect = false;
-			
-			DrawEllipseMake(getMemDC(), EllipseMakeCenter(_iter->rc.left, _iter->rc.top, 30, 30));
-		}
-		else
-		{
-			DrawEllipseMake(getMemDC(), _iter->rc);
-		}
-		
-	}
-
-	
+	_currentScene->render();
 
 	// =======================================================
 	
@@ -172,59 +109,4 @@ void MainGame::render(void)
 
 
 }
-/*
-과제1. 포트폴리오 PPT 작성
 
-- 발표일은 아직 미정
-- 디테일하게 + 깔끔하게
-
-과제2. 블랙홀
-- 무작위로 생성되는 오브젝트 객체
-- 그리고 주변 오브젝트를 빨아들이는 블랙홀을 만든다.
-ㄴ 블랙홀은 조작을 통해서 움직일 수 있다.
-- 오브젝트가 생성되는 위치를 알기위해 표시를 한다.
-ㄴ EX : 색 / 이미지 / 크기
-
-- 필수 : STL -> 벡터 or 리스트 오브젝트 1000개
-*/
-
-/*
-GIF 사용 금지
-목차 넣기
-ㄴ 준 제목
-
-기획서
-ㄴ 통일감이 필요
-
-1. 기획서 올인
-ㄴ 모든 내용을 다 담는 방법
-
-2. 기획서 브릿지
-ㄴ 기반을 만들고 객체지향마냥 분할해서 설명한다.
-
-프로젝트 목표
-제작 의도
-게임 소개
-ㄴ 장르, 회사명, 시각화 이미지, 여백의 미 생각할것
-
-컨텐츠 소개 -> 기능 소개
-ㄴ 이미지 글 많이 쓴다고 다가 아님
-
-플로우 차트
-ㄴ 게임에 대한 흐름도
-
-클래스 구조도
-
-개발 일정
-ㄴ 봤을 때 그럴싸하게
-ㄴ 게임테스트 디버깅 하루정도
-
-개발 툴
-ㄴ vs 포토샵 영상편집 추가
-
-배운점, 느낀점, 개선할점
-
-개발 일정 
-
-1OBJECT_SPEED ~ 20 장
-*/

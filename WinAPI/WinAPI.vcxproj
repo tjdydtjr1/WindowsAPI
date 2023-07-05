@@ -144,6 +144,9 @@
     <ClInclude Include="DumpAvoid.h" />
     <ClInclude Include="Example_Mole.h" />
     <ClInclude Include="FindPicture.h" />
+    <ClInclude Include="FontManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="FuncTri.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -164,10 +167,12 @@
     <ClInclude Include="Racing.h" />
     <ClInclude Include="RandomFunction.h" />
     <ClInclude Include="Ryno.h" />
+    <ClInclude Include="SecondScene.h" />
     <ClInclude Include="ShootingEx.h" />
     <ClInclude Include="ShootingGame.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SliceGame.h" />
+    <ClInclude Include="StartScene.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="WormGame.h" />
     <ClInclude Include="ZeroAttack.h" />
@@ -254,6 +259,12 @@
     <ClCompile Include="23.07.03 과제 내용.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="23.07.05 과제 내용.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="23.07.05 폰트.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="BlackHole.cpp" />
     <ClCompile Include="Bullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -268,6 +279,9 @@
     <ClCompile Include="DumpAvoid.cpp" />
     <ClCompile Include="Example_Mole.cpp" />
     <ClCompile Include="FindPicture.cpp" />
+    <ClCompile Include="FontManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="FuncTri.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -290,9 +304,11 @@
     <ClCompile Include="Motion.cpp" />
     <ClCompile Include="Racing.cpp" />
     <ClCompile Include="Ryno.cpp" />
+    <ClCompile Include="SecondScene.cpp" />
     <ClCompile Include="ShootingEx.cpp" />
     <ClCompile Include="ShootingGame.cpp" />
     <ClCompile Include="SliceGame.cpp" />
+    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -348,6 +364,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="오망성.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="임시 저장.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="임시.cpp">
