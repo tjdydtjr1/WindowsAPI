@@ -22,7 +22,7 @@ void StartScene::update(void)
 	{
 		_alpha = 255;
 	}
-
+	
 	_bgAlpha += 0.5f;
 	if (_bgAlpha >= 255)
 	{

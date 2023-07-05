@@ -262,7 +262,7 @@
     <ClCompile Include="23.07.05 과제 내용.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="23.07.05 폰트.cpp">
+    <ClCompile Include="23.07.05 폰트, assert,로케일.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="BlackHole.cpp" />

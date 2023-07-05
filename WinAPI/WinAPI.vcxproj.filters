@@ -439,7 +439,7 @@
     <ClCompile Include="23.07.05 과제 내용.cpp">
       <Filter>과제\23.07.05 과제</Filter>
     </ClCompile>
-    <ClCompile Include="23.07.05 폰트.cpp">
+    <ClCompile Include="23.07.05 폰트, assert,로케일.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
   </ItemGroup>
