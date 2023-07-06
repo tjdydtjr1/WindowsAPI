@@ -81,7 +81,7 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #include "KeyManager.h"
 #include "ImageManager.h"
 #include "FontManager.h"
-
+#include "TempSoundManager.h"
 
 // # 싱글톤 #
 // 전역객체 : 호출이 많기에 스네이크를 사용 안함
@@ -89,6 +89,7 @@ ID2D1HwndRenderTarget*	_ID2DRenderTarget = nullptr;
 #define KEYMANAGER		KeyManager::getSingleton()
 #define IMAGEMANAGER	ImageManager::getSingleton()
 #define FONTMANAGER		FontManager::getSingleton()
+#define TEMPSOUNDMANAGER TempSoundManager::getSingleton()
 
 // 타이틀
 #define WINNAME				(LPTSTR)(TEXT("WindowsAPI"))

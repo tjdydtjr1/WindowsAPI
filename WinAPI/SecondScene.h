@@ -1,5 +1,7 @@
 #pragma once
 #include "GameNode.h"
+#include "TempSoundScene.h"
+
 class SecondScene : public GameNode
 {
 private:
@@ -7,6 +9,7 @@ private:
 	int _offsetY;
 	int _bgSpeed;
 
+	TempSoundScene* _sound;
 
 public:
 

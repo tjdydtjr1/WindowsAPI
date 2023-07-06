@@ -1,6 +1,12 @@
 #include "Stdafx.h"
 #include "FontManager.h"
 
+HRESULT FontManager::init(void)
+{
+
+	return S_OK;
+}
+
 void FontManager::drawText(HDC hdc, int destX, int destY, char* fontName, int fontSize, int fontWeight, char* printString, int length, COLORREF color)
 {
 	/*SetBkMode(hdc, TRANSPARENT);

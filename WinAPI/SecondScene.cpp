@@ -4,7 +4,9 @@
 HRESULT SecondScene::init(void)
 {
 	IMAGEMANAGER->addImage("배경 루프", "Resources/Images/BackGround/map.bmp", WINSIZE_X, WINSIZE_Y);
-
+	_sound = new TempSoundScene;
+	
+	_sound->init();
 
 	return S_OK;
 }

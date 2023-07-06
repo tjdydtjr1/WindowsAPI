@@ -20,7 +20,7 @@ HRESULT MainGame::init(void)
 	assert(_currentScene != nullptr);
 	//assert(_currentScene != nullptr, "MainGame 초기화 부분에서 노트 파트 오류 발생");
 	
-
+	
 	/*
 	
 	포폴에 1 ~ 2개 사용 -> 영상 자막에 어디에 왜 썻는지 명시

@@ -199,6 +199,8 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h" />
+    <ClInclude Include="TempSoundScene.h" />
+    <ClInclude Include="TempSoundManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="23.06.08_기본 구조.cpp">
@@ -442,6 +444,8 @@
     <ClCompile Include="23.07.05 폰트, assert,로케일.cpp">
       <Filter>내용 정리</Filter>
     </ClCompile>
+    <ClCompile Include="TempSoundScene.cpp" />
+    <ClCompile Include="TempSoundManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="23.06.13 과제 내용.cpp">
